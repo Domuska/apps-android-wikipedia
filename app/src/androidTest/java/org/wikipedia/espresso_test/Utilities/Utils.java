@@ -21,11 +21,11 @@ import static org.hamcrest.Matchers.is;
 
 public class Utils {
 
-    public static void searchAndOpenArticleWith(final String name, Activity currentActivity){
+    public static void searchAndOpenArticleWith(final String name, String articleToString, Activity currentActivity){
         String searchBarHint = currentActivity.getString(R.string.search_hint);
         onView(allOf(withText(searchBarHint), withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE))).perform(click());
 
-        //have to do a drity trick like this since otherwise IdlingResource will stop after each letter
+        //have to do a dirty trick like this since otherwise IdlingResource will stop after each letter
         //to wait for response to network call
         final EditText searchField = (EditText) currentActivity.findViewById(R.id.search_src_text);
         InstrumentationRegistry.getInstrumentation().runOnMainSync(new Runnable() {
@@ -36,7 +36,7 @@ public class Utils {
         });
 
         //open the article in results
-        onData(allOf(instanceOf(SearchResult.class), hasToString(is("Final_Fantasy_XII"))))
+        onData(allOf(instanceOf(SearchResult.class), hasToString(is(articleToString))))
                 .inAdapterView(withId(R.id.search_results_list))
                 .perform(click());
     }
