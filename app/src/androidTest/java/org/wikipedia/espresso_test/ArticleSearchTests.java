@@ -23,12 +23,12 @@ import android.widget.EditText;
 import static android.support.test.espresso.Espresso.onData;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
-import static android.support.test.espresso.action.ViewActions.typeText;
-import static android.support.test.espresso.matcher.ViewMatchers.withChild;
-import static android.support.test.espresso.matcher.ViewMatchers.withClassName;
 import static android.support.test.espresso.matcher.ViewMatchers.withEffectiveVisibility;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
+import static android.support.test.espresso.web.assertion.WebViewAssertions.webContent;
+import static android.support.test.espresso.web.assertion.WebViewAssertions.webMatches;
+import static android.support.test.espresso.web.matcher.DomMatchers.hasElementWithId;
 import static android.support.test.espresso.web.sugar.Web.onWebView;
 import static android.support.test.espresso.web.webdriver.DriverAtoms.findElement;
 import static android.support.test.espresso.web.webdriver.DriverAtoms.webClick;
@@ -43,7 +43,7 @@ import static org.hamcrest.Matchers.instanceOf;
 import static org.hamcrest.Matchers.is;
 
 @RunWith(AndroidJUnit4.class)
-public class TestThings {
+public class ArticleSearchTests {
 
     @Rule
     public ActivityTestRule<MainActivity> myActivityRule =
@@ -67,10 +67,6 @@ public class TestThings {
 
     @Test
     public void testStuff(){
-//        onWebView()
-//                .withElement(findElement(Locator.PARTIAL_LINK_TEXT, "history of Liverpool"))
-//                .perform(webClick());
-//        onView(withId(R.id.link_preview_go_button)).perform(click());
 
         final String stringToBeTyped = "Final Fantasy XII";
         String searchBarHint = myActivityRule.getActivity().getString(R.string.search_hint);
@@ -103,10 +99,19 @@ public class TestThings {
 
 //        onView(withId(R.id.floating_toc_button)).perform(click());
 
+        //kirjota johonkin siitä että tämä ei anna kovin kummosta errorilogia jos ID:llä ei löydy mitään
         onWebView()
-                .withElement(findElement(Locator.XPATH, "//*[@id=\"content_block_19\"]"))
-                .perform(webClick());
+                .check(webContent(hasElementWithId("content_block_19")));
 
+
+
+//        onWebView()
+//                .withElement(findElement(Locator.XPATH, "//*[@id=\"content_block_19\"]"))
+//                .perform(webClick());
+
+//        onWebView()
+//                .withElement(findElement(Locator.ID, "content_block_19"))
+//                .check(webMatches())
 
 
 
