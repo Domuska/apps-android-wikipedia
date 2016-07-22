@@ -12,7 +12,9 @@ import org.wikipedia.TestingHelpers.SearchIdlingResource;
 import org.wikipedia.database.Database;
 import org.wikipedia.espresso_test.Utilities.Utils;
 
+import android.app.Activity;
 import android.support.test.espresso.Espresso;
+import android.support.test.espresso.web.webdriver.Locator;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.support.v7.preference.PreferenceManager;
@@ -29,21 +31,26 @@ import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static android.support.test.espresso.web.assertion.WebViewAssertions.webMatches;
 import static android.support.test.espresso.web.sugar.Web.onWebView;
+import static android.support.test.espresso.web.webdriver.DriverAtoms.findElement;
+import static android.support.test.espresso.web.webdriver.DriverAtoms.getText;
 import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.endsWith;
 import static org.hamcrest.Matchers.hasToString;
+import static org.hamcrest.Matchers.instanceOf;
 import static org.hamcrest.Matchers.is;
 
 
 @RunWith(AndroidJUnit4.class)
 public class ArticleSearchTests {
 
+    private Activity startActivity;
+
     private String articleName1 = "Final Fantasy XII";
     private String articleToString1 = "Final_Fantasy_XII";
     private String articleName2 = "Google";
-    private String ArticleToString2 = "Google";
+    private String articleToString2 = "Google";
 
     private String articleName3 = "Scotland";
     private String articleName3_finnish = "Skotlanti";
@@ -62,7 +69,9 @@ public class ArticleSearchTests {
     @Before
     public void setUp(){
         Espresso.registerIdlingResources(SearchIdlingResource.getIdlingResource());
-        recentSearchesText = myActivityRule.getActivity().getString(R.string.search_recent_header);
+        startActivity = myActivityRule.getActivity();
+        recentSearchesText = startActivity.getString(R.string.search_recent_header);
+
     }
 
     @After
@@ -81,7 +90,7 @@ public class ArticleSearchTests {
     public void testSearchArticle_checkTitleShown(){
 
         //open the article
-        Utils.searchAndOpenArticleWith(articleName1, articleToString1, myActivityRule.getActivity());
+        Utils.searchAndOpenArticleWith(articleName1, articleToString1, startActivity);
 
         //check the title is displayed in the title view
         onView(allOf(withId(R.id.view_article_header_text), withText(containsString(articleName1))))
@@ -107,9 +116,9 @@ public class ArticleSearchTests {
 
         //todo tee tämä testi loppuun kun olet katsonut lisää onDatan juttuja
 
-//        Utils.searchAndOpenArticleWith(articleName1, articleToString1, myActivityRule.getActivity());
-//        Utils.searchAndOpenArticleWith(articleName2, articleToString2, myActivityRule.getActivity());
-//        Utils.searchAndOpenArticleWith(articleName3, articleToString3,  myActivityRule.getActivity());
+//        Utils.searchAndOpenArticleWith(articleName1, articleToString1, startActivity);
+//        Utils.searchAndOpenArticleWith(articleName2, articleToString2, startActivity);
+//        Utils.searchAndOpenArticleWith(articleName3, articleToString3,  startActivity);
 
         onView(withId(R.id.main_search_bar_text)).perform(click());
         onView(withId(R.id.search_close_btn)).perform(click());
@@ -145,5 +154,32 @@ public class ArticleSearchTests {
                 .check(matches(isDisplayed()));
     }
 
-    
+    @Test
+    public void testTableOfContents_checkSubTitles(){
+
+        String subHeading1 = "Gameplay";
+        String subHeading2 = "Plot";
+        String subHeading3 = "Development";
+
+        Utils.searchAndOpenArticleWith(articleName1, articleToString1, startActivity);
+        onView(withId(R.id.floating_toc_button)).perform(click());
+
+        //get three topmost subtitles from drawer
+//        onData(withChild(withId(R.id.page_toc_item_text)))
+//                .inAdapterView(withId(R.id.page_toc_list))
+//                .check(matches(isDisplayed()));
+        onView(allOf(withId(R.id.page_toc_item_text), withText(subHeading1)))
+                .check(matches(isDisplayed()));
+
+
+        //make sure those three subtitles are visible in the webview
+        //maybe get the first three elements with class = "section_heading" ?
+        onWebView()
+                .withElement(findElement(Locator.ID, subHeading1));
+//                .withElement(findElement(Locator.CLASS_NAME, "section_heading"))
+//                .check(webMatches(getText(), containsString(subHeading1)));
+
+
+    }
+    // //*[@id="Gameplay"]
 }
