@@ -1,6 +1,7 @@
 package org.wikipedia.search;
 
 import org.wikipedia.ParcelableLruCache;
+import org.wikipedia.TestingHelpers.SearchIdlingResource;
 import org.wikipedia.history.HistoryEntry;
 import org.wikipedia.MainActivity;
 import org.wikipedia.page.MainActivityLongPressHandler;
@@ -184,8 +185,14 @@ public class SearchResultsFragment extends Fragment {
 
         if (force) {
             searchHandler.sendMessage(searchMessage);
+
+            //for Espresso tests, added by Domuska
+            SearchIdlingResource.incrementResource();
         } else {
             searchHandler.sendMessageDelayed(searchMessage, DELAY_MILLIS);
+
+            //for Espresso tests, added by Domuska
+            SearchIdlingResource.incrementResource();
         }
     }
 
@@ -193,8 +200,12 @@ public class SearchResultsFragment extends Fragment {
         @Override
         public boolean handleMessage(Message msg) {
             if (!isAdded()) {
+                //for Espresso tests, added by Domuska
+                SearchIdlingResource.decementResource();
                 return true;
             }
+            //for Espresso tests, added by Domuska
+            SearchIdlingResource.decementResource();
             final String mySearchTerm = (String) msg.obj;
             doTitlePrefixSearch(mySearchTerm);
             return true;
