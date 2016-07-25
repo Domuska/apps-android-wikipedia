@@ -117,6 +117,7 @@ public class articleTests extends BaseTestClass{
     @Test
     public void testChangeLanguage(){
         //open article
+        
         Utils.enterSearchScreenFromStartingFragment();
         Utils.enterSearchTermAndOpenArticle(articleName3, articleToString3, startActivity);
 
