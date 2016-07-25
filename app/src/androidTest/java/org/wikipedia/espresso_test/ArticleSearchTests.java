@@ -1,6 +1,7 @@
 package org.wikipedia.espresso_test;
 
 
+import org.hamcrest.Matcher;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
@@ -11,13 +12,25 @@ import org.wikipedia.R;
 import org.wikipedia.TestingHelpers.SearchIdlingResource;
 import org.wikipedia.database.Database;
 import org.wikipedia.espresso_test.Utilities.Utils;
+import org.wikipedia.page.Section;
+import org.wikipedia.search.RecentSearch;
 
 import android.app.Activity;
+import android.database.Cursor;
 import android.support.test.espresso.Espresso;
+import android.support.test.espresso.matcher.BoundedMatcher;
+import android.support.test.espresso.matcher.ViewMatchers;
+import android.support.test.espresso.web.model.Atom;
+import android.support.test.espresso.web.model.ElementReference;
 import android.support.test.espresso.web.webdriver.Locator;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.support.v7.preference.PreferenceManager;
+
+import net.hockeyapp.android.metrics.model.Base;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static android.support.test.espresso.Espresso.onData;
 import static android.support.test.espresso.Espresso.onView;
@@ -25,72 +38,62 @@ import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
-import static android.support.test.espresso.matcher.ViewMatchers.withChild;
-import static android.support.test.espresso.matcher.ViewMatchers.withClassName;
+import static android.support.test.espresso.matcher.ViewMatchers.withEffectiveVisibility;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static android.support.test.espresso.web.assertion.WebViewAssertions.webMatches;
 import static android.support.test.espresso.web.sugar.Web.onWebView;
 import static android.support.test.espresso.web.webdriver.DriverAtoms.findElement;
-import static android.support.test.espresso.web.webdriver.DriverAtoms.getText;
+import static android.support.test.espresso.web.webdriver.DriverAtoms.findMultipleElements;
 import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.containsString;
-import static org.hamcrest.Matchers.endsWith;
 import static org.hamcrest.Matchers.hasToString;
-import static org.hamcrest.Matchers.instanceOf;
 import static org.hamcrest.Matchers.is;
 
 
 @RunWith(AndroidJUnit4.class)
-public class ArticleSearchTests {
-
-    private Activity startActivity;
-
-    private String articleName1 = "Final Fantasy XII";
-    private String articleToString1 = "Final_Fantasy_XII";
-    private String articleName2 = "Google";
-    private String articleToString2 = "Google";
-
-    private String articleName3 = "Scotland";
-    private String articleName3_finnish = "Skotlanti";
-    private String articleToString3 = "Scotland";
-    private String articleToString3_finnish = "Skotlanti";
-
-    private String finnishLanguage = "Suomi";
+public class ArticleSearchTests extends BaseTestClass{
 
     private String recentSearchesText;
+    private String mainFragmentSearchHint;
 
-    @Rule
-    public ActivityTestRule<MainActivity> myActivityRule =
-            new ActivityTestRule<MainActivity>(MainActivity.class) {
-    };
+//    @Rule
+//    public ActivityTestRule<MainActivity> myActivityRule =
+//            new ActivityTestRule<MainActivity>(MainActivity.class) {
+//    };
+//
+//    @Before
+//    public void setUp(){
+//        Espresso.registerIdlingResources(SearchIdlingResource.getIdlingResource());
+//        startActivity = myActivityRule.getActivity();
+//        recentSearchesText = startActivity.getString(R.string.search_recent_header);
+//        mainFragmentSearchHint = startActivity.getString(R.string.search_hint);
+//    }
+//
+//    @After
+//    public void tearDown(){
+//        Espresso.unregisterIdlingResources(SearchIdlingResource.getIdlingResource());
+//
+//        PreferenceManager.
+//                getDefaultSharedPreferences(
+//                        myActivityRule.getActivity().getApplicationContext())
+//                .edit().clear().commit();
+//
+//        Database.clearDatabase(myActivityRule.getActivity().getApplicationContext());
+//    }
 
     @Before
     public void setUp(){
-        Espresso.registerIdlingResources(SearchIdlingResource.getIdlingResource());
         startActivity = myActivityRule.getActivity();
-        recentSearchesText = startActivity.getString(R.string.search_recent_header);
-
-    }
-
-    @After
-    public void tearDown(){
-        Espresso.unregisterIdlingResources(SearchIdlingResource.getIdlingResource());
-
-        PreferenceManager.
-                getDefaultSharedPreferences(
-                        myActivityRule.getActivity().getApplicationContext())
-                .edit().clear().commit();
-
-        Database.clearDatabase(myActivityRule.getActivity().getApplicationContext());
     }
 
     @Test
     public void testSearchArticle_checkTitleShown(){
 
         //open the article
-        Utils.searchAndOpenArticleWith(articleName1, articleToString1, startActivity);
+        Utils.enterSearchScreenFromStartingFragment();
+        Utils.enterSearchTermAndOpenArticle(articleName1, articleToString1, startActivity);
 
         //check the title is displayed in the title view
         onView(allOf(withId(R.id.view_article_header_text), withText(containsString(articleName1))))
@@ -114,24 +117,42 @@ public class ArticleSearchTests {
     @Test
     public void testSearchArticle_checkRecentsShown(){
 
-        //todo tee tämä testi loppuun kun olet katsonut lisää onDatan juttuja
+        //search and open article in starting fragment
+        Utils.enterSearchScreenFromStartingFragment();
+        Utils.enterSearchTermAndOpenArticle(articleName1, articleToString1, startActivity);
 
-//        Utils.searchAndOpenArticleWith(articleName1, articleToString1, startActivity);
-//        Utils.searchAndOpenArticleWith(articleName2, articleToString2, startActivity);
-//        Utils.searchAndOpenArticleWith(articleName3, articleToString3,  startActivity);
+        //search and open articles inside an article
+        onView(withId(R.id.main_search_bar_text))
+                .perform(click());
+        Utils.enterSearchTermAndOpenArticle(articleName2, articleToString2, startActivity);
 
+        onView(withId(R.id.main_search_bar_text))
+                .perform(click());
+        Utils.enterSearchTermAndOpenArticle(articleName3, articleToString3,  startActivity);
+
+        //go to the search screen
         onView(withId(R.id.main_search_bar_text)).perform(click());
         onView(withId(R.id.search_close_btn)).perform(click());
         onView(withText(recentSearchesText)).check(matches(isDisplayed()));
 
-        onData(allOf(withClassName(endsWith("LinearLayout")), withChild(withText(articleName1))))
+        //assert that the recent searches show the articles searched
+        onData(withSearchText(articleName1))
+                .inAdapterView(withId(R.id.recent_searches_list))
                 .check(matches(isDisplayed()));
 
+        onData(withSearchText(articleName2))
+                .inAdapterView(withId(R.id.recent_searches_list))
+                .check(matches(isDisplayed()));
+
+        onData(withSearchText(articleName2))
+                .inAdapterView(withId(R.id.recent_searches_list))
+                .check(matches(isDisplayed()));
     }
 
     @Test
     public void testSearchArticle_changeLanguageInSearch(){
-        Utils.searchAndOpenArticleWith(articleName3, articleToString3, myActivityRule.getActivity());
+        Utils.enterSearchScreenFromStartingFragment();
+        Utils.enterSearchTermAndOpenArticle(articleName3, articleToString3, myActivityRule.getActivity());
 
         //check title is shown in default language
         onView(allOf(withId(R.id.view_article_header_text), withText(containsString(articleName3))))
@@ -154,32 +175,26 @@ public class ArticleSearchTests {
                 .check(matches(isDisplayed()));
     }
 
-    @Test
-    public void testTableOfContents_checkSubTitles(){
-
-        String subHeading1 = "Gameplay";
-        String subHeading2 = "Plot";
-        String subHeading3 = "Development";
-
-        Utils.searchAndOpenArticleWith(articleName1, articleToString1, startActivity);
-        onView(withId(R.id.floating_toc_button)).perform(click());
-
-        //get three topmost subtitles from drawer
-//        onData(withChild(withId(R.id.page_toc_item_text)))
-//                .inAdapterView(withId(R.id.page_toc_list))
-//                .check(matches(isDisplayed()));
-        onView(allOf(withId(R.id.page_toc_item_text), withText(subHeading1)))
-                .check(matches(isDisplayed()));
 
 
-        //make sure those three subtitles are visible in the webview
-        //maybe get the first three elements with class = "section_heading" ?
-        onWebView()
-                .withElement(findElement(Locator.ID, subHeading1));
-//                .withElement(findElement(Locator.CLASS_NAME, "section_heading"))
-//                .check(webMatches(getText(), containsString(subHeading1)));
 
 
+
+
+    //a wizard's spell. Made with help of RecentSearchesFragment.java, adapter at bottom
+    //(bindView & getEntry methods)
+    public static Matcher<Object> withSearchText(final String text){
+        return new BoundedMatcher<Object, Cursor>(Cursor.class) {
+            @Override
+            public void describeTo(org.hamcrest.Description description) {
+                description.appendText("has text of " + text);
+            }
+            @Override
+            protected boolean matchesSafely(Cursor item) {
+                return RecentSearch.DATABASE_TABLE.fromCursor(item).getText().contains(text);
+            }
+        };
     }
-    // //*[@id="Gameplay"]
+
+
 }
