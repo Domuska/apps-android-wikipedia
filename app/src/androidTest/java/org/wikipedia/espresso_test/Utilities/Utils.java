@@ -26,7 +26,7 @@ public class Utils {
     private static String mainFragmentSearchHint = "Search Wikipedia";
 
     // helper method to enter text into the search box when we're already in the serach screen
-    public static void enterSearchTermAndOpenArticle(
+    public static void searchAndOpenArticleWithName(
             final String name, String articleToString, Activity currentActivity){
 
         //have to do a dirty trick like this since otherwise IdlingResource will stop after each letter

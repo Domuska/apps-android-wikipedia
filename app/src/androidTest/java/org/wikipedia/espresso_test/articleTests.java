@@ -1,18 +1,15 @@
 package org.wikipedia.espresso_test;
 
-import android.support.test.espresso.Espresso;
 import android.support.test.espresso.matcher.BoundedMatcher;
 import android.support.test.espresso.web.webdriver.Locator;
-import android.support.test.rule.ActivityTestRule;
+import android.support.test.filters.LargeTest;
+import android.support.test.runner.AndroidJUnit4;
 
 import org.hamcrest.Matcher;
-import org.junit.After;
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
-import org.wikipedia.MainActivity;
+import org.junit.runner.RunWith;
 import org.wikipedia.R;
-import org.wikipedia.TestingHelpers.SearchIdlingResource;
 import org.wikipedia.espresso_test.Utilities.TestDataSource;
 import org.wikipedia.espresso_test.Utilities.Utils;
 import org.wikipedia.page.PageTitle;
@@ -26,18 +23,23 @@ import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
+import static android.support.test.espresso.web.assertion.WebViewAssertions.webMatches;
 import static android.support.test.espresso.web.sugar.Web.onWebView;
 import static android.support.test.espresso.web.webdriver.DriverAtoms.findElement;
+import static android.support.test.espresso.web.webdriver.DriverAtoms.getText;
 import static android.support.test.espresso.web.webdriver.DriverAtoms.webClick;
 import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.containsString;
 
-public class articleTests extends BaseTestClass{
+@RunWith(AndroidJUnit4.class)
+@LargeTest
+public class ArticleTests extends BaseTestClass{
 
     private String fullLinkText = TestDataSource.fullLinkText;
     private String partialLinkText = TestDataSource.partialLinkText;
     private String newArticleText = TestDataSource.newArticleTitle;
     private String changeLanguageText;
+    private String refencesId = TestDataSource.referencesElementId;
 
     @Before
     public void setUp(){
@@ -53,7 +55,7 @@ public class articleTests extends BaseTestClass{
         String subHeading3 = "Development";
 
         Utils.enterSearchScreenFromStartingFragment();
-        Utils.enterSearchTermAndOpenArticle(articleName1, articleToString1, startActivity);
+        Utils.searchAndOpenArticleWithName(articleName1, articleToString1, startActivity);
         Utils.openToC();
 
         //check that certain 3 topmost subheadings in table of contents show up
@@ -87,7 +89,7 @@ public class articleTests extends BaseTestClass{
 
         //open article
         Utils.enterSearchScreenFromStartingFragment();
-        Utils.enterSearchTermAndOpenArticle(articleName1, articleToString1, startActivity);
+        Utils.searchAndOpenArticleWithName(articleName1, articleToString1, startActivity);
 
         //click on link
         onWebView()
@@ -103,7 +105,7 @@ public class articleTests extends BaseTestClass{
     public void testClickLink_partialText_assertPreviewShown(){
         //open article
         Utils.enterSearchScreenFromStartingFragment();
-        Utils.enterSearchTermAndOpenArticle(articleName1, articleToString1, startActivity);
+        Utils.searchAndOpenArticleWithName(articleName1, articleToString1, startActivity);
 
         //click on partial link
         onWebView()
@@ -117,9 +119,8 @@ public class articleTests extends BaseTestClass{
     @Test
     public void testChangeLanguage(){
         //open article
-        
         Utils.enterSearchScreenFromStartingFragment();
-        Utils.enterSearchTermAndOpenArticle(articleName3, articleToString3, startActivity);
+        Utils.searchAndOpenArticleWithName(articleName3, articleToString3, startActivity);
 
         //open overflow menu in toolbar
         openActionBarOverflowOrOptionsMenu(myActivityRule.getActivity().getApplicationContext());
@@ -135,8 +136,34 @@ public class articleTests extends BaseTestClass{
         onView(allOf(withId(R.id.view_article_header_text),
                 withText(containsString(articleToString3_finnish))))
                 .check(matches(isDisplayed()));
-//                .check(matches(withText(containsString(articleName3_finnish))));
     }
+
+    //jostain syystä tämä testi ei toimi, katso alemmas
+    @Test
+    public void testOpeningAndClosingReferences(){
+
+        //navigate to the article
+        Utils.enterSearchScreenFromStartingFragment();
+        Utils.searchAndOpenArticleWithName(articleName1, articleToString1, startActivity);
+
+        //faulty method call, Espresso will whine if this is done since the element is not visible
+//        onWebView()
+//                .withElement(findElement(Locator.ID, "cite_note-staffchanges-1"))
+//                .perform(webClick());
+
+        //expand the references
+        //jostain syystä tässä ei klikata tuota elementtiä -> references ei expandaannu
+        onWebView()
+                .withElement(findElement(Locator.ID, refencesId))
+                .perform(webClick());
+
+        onWebView()
+                .withElement(findElement(Locator.ID, "mw-reference-text"))
+                .check(webMatches(getText(), containsString("Gantayat, Anoop")));
+
+    }
+
+
 
     private void assertArticlePreviewVisible() {
         onView(allOf(

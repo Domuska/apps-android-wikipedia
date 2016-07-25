@@ -11,4 +11,6 @@ public class TestDataSource {
     public static String articleName3_finnish = "Skotlanti";
 
     public static String finnishLanguage = "Suomi";
+
+    public static String referencesElementId = "content_block_19";
 }

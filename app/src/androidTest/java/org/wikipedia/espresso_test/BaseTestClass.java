@@ -3,12 +3,14 @@ package org.wikipedia.espresso_test;
 import android.app.Activity;
 import android.support.test.espresso.Espresso;
 import android.support.test.rule.ActivityTestRule;
+import android.support.v7.preference.PreferenceManager;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.wikipedia.MainActivity;
 import org.wikipedia.TestingHelpers.SearchIdlingResource;
+import org.wikipedia.database.Database;
 import org.wikipedia.espresso_test.Utilities.TestDataSource;
 
 public class BaseTestClass {
@@ -43,11 +45,11 @@ public class BaseTestClass {
     public final void tearDownBaseTestClass(){
         Espresso.unregisterIdlingResources(SearchIdlingResource.getIdlingResource());
 
-//        PreferenceManager.
-//                getDefaultSharedPreferences(
-//                        myActivityRule.getActivity().getApplicationContext())
-//                .edit().clear().commit();
-//
-//        Database.clearDatabase(myActivityRule.getActivity().getApplicationContext());
+        PreferenceManager.
+                getDefaultSharedPreferences(
+                        myActivityRule.getActivity().getApplicationContext())
+                .edit().clear().commit();
+
+        Database.clearDatabase(myActivityRule.getActivity().getApplicationContext());
     }
 }
