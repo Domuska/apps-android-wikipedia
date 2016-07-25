@@ -107,7 +107,7 @@ public class PageFragment extends Fragment implements BackPressedHandler {
      * savedInstanceState of the fragment.
      */
     @NonNull
-    private final List<Tab> tabList = new ArrayList<>();
+    private static final List<Tab> tabList = new ArrayList<>();
 
     @NonNull
     private TabFunnel tabFunnel = new TabFunnel();
@@ -488,6 +488,11 @@ public class PageFragment extends Fragment implements BackPressedHandler {
 
     public void invalidateTabs() {
         tabsProvider.invalidate();
+    }
+
+    //utility method for testing purposes to clear tabs
+    public static void clearTabs(){
+        tabList.clear();
     }
 
     public void openInNewBackgroundTabFromMenu(PageTitle title, HistoryEntry entry) {

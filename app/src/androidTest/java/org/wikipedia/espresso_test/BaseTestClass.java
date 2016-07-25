@@ -12,6 +12,13 @@ import org.wikipedia.MainActivity;
 import org.wikipedia.TestingHelpers.SearchIdlingResource;
 import org.wikipedia.database.Database;
 import org.wikipedia.espresso_test.Utilities.TestDataSource;
+import org.wikipedia.page.PageFragment;
+import org.wikipedia.page.tabs.Tab;
+import org.wikipedia.page.tabs.TabsProvider;
+import org.wikipedia.settings.Prefs;
+import org.wikipedia.settings.PrefsIoUtil;
+
+import java.util.ArrayList;
 
 public class BaseTestClass {
 
@@ -45,11 +52,16 @@ public class BaseTestClass {
     public final void tearDownBaseTestClass(){
         Espresso.unregisterIdlingResources(SearchIdlingResource.getIdlingResource());
 
+
         PreferenceManager.
                 getDefaultSharedPreferences(
                         myActivityRule.getActivity().getApplicationContext())
                 .edit().clear().commit();
 
+//        Prefs.setTabs(new ArrayList<Tab>());
+        PageFragment.clearTabs();
+
+        //clear the database
         Database.clearDatabase(myActivityRule.getActivity().getApplicationContext());
     }
 }

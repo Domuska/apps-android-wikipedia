@@ -23,10 +23,12 @@ import static org.hamcrest.Matchers.containsString;
 @LargeTest
 public class TabTests extends BaseTestClass{
 
+    private String newTabContentDesc;
 
     @Before
     public void setUp(){
         startActivity = myActivityRule.getActivity();
+        newTabContentDesc = startActivity.getString(R.string.menu_new_tab);
     }
 
     @Test
@@ -38,7 +40,7 @@ public class TabTests extends BaseTestClass{
 
         //open a new tab
         onView(withId(R.id.menu_page_show_tabs)).perform(click());
-        onView(withContentDescription("New tab")).perform(click());
+        onView(withContentDescription(newTabContentDesc)).perform(click());
 
         //navigate to another article
         onView(withId(R.id.main_search_bar_text))
