@@ -16,7 +16,7 @@ import org.wikipedia.page.PageFragment;
 import org.wikipedia.page.tabs.Tab;
 import org.wikipedia.page.tabs.TabsProvider;
 import org.wikipedia.settings.Prefs;
-import org.wikipedia.settings.PrefsIoUtil;
+
 
 import java.util.ArrayList;
 
@@ -53,15 +53,14 @@ public class BaseTestClass {
         Espresso.unregisterIdlingResources(SearchIdlingResource.getIdlingResource());
 
 
-        PreferenceManager.
-                getDefaultSharedPreferences(
-                        myActivityRule.getActivity().getApplicationContext())
-                .edit().clear().commit();
-
-//        Prefs.setTabs(new ArrayList<Tab>());
-        PageFragment.clearTabs();
-
-        //clear the database
-        Database.clearDatabase(myActivityRule.getActivity().getApplicationContext());
+//        PreferenceManager.
+//                getDefaultSharedPreferences(
+//                        myActivityRule.getActivity().getApplicationContext())
+//                .edit().clear().commit();
+//
+//        PageFragment.clearTabs();
+//
+//        //clear the database
+//        Database.clearDatabase(myActivityRule.getActivity().getApplicationContext());
     }
 }

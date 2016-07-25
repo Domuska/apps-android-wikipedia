@@ -13,4 +13,5 @@ public class TestDataSource {
     public static String finnishLanguage = "Suomi";
 
     public static String referencesElementId = "content_block_19";
+    public static String fullLinkTextCapitalized = "Artificial intelligence";
 }

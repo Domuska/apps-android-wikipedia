@@ -26,7 +26,6 @@ import static android.support.test.espresso.web.assertion.WebViewAssertions.webM
 import static android.support.test.espresso.web.sugar.Web.onWebView;
 import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.contains;
-import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.hasToString;
 import static org.hamcrest.Matchers.is;
 
@@ -76,8 +75,7 @@ public class ArticleSearchTests extends BaseTestClass{
         Utils.searchAndOpenArticleWithName(articleName1, articleToString1, startActivity);
 
         //check the title is displayed in the title view
-        onView(allOf(withId(R.id.view_article_header_text), withText(containsString(articleName1))))
-                .check(matches(isDisplayed()));
+        Utils.assertArticleTitleContains(articleName1);
 
 //        onWebView().forceJavascriptEnabled();
 //
@@ -93,6 +91,8 @@ public class ArticleSearchTests extends BaseTestClass{
 //        onWebView()
 //                .check(webContent(hasElementWithId("content_block_19")));
     }
+
+
 
     @Test
     public void testSearchArticle_checkRecentsShown(){
@@ -135,8 +135,7 @@ public class ArticleSearchTests extends BaseTestClass{
         Utils.searchAndOpenArticleWithName(articleName3, articleToString3, myActivityRule.getActivity());
 
         //check title is shown in default language
-        onView(allOf(withId(R.id.view_article_header_text), withText(containsString(articleName3))))
-                .check(matches(isDisplayed()));
+        Utils.assertArticleTitleContains(articleName3);
 
         //change language in search
         onView(withId(R.id.main_search_bar_text)).perform(click());
@@ -151,8 +150,7 @@ public class ArticleSearchTests extends BaseTestClass{
                 .perform(click());
 
         //check language is changed
-        onView(allOf(withId(R.id.view_article_header_text), withText(containsString(articleName3_finnish))))
-                .check(matches(isDisplayed()));
+        Utils.assertArticleTitleContains(articleName3_finnish);
     }
 
 
