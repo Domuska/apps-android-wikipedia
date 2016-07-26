@@ -21,11 +21,13 @@ public class ReadingListTests extends BaseTestClass{
 
     private String readingListName = TestDataSource.readingListName;
     private String gotItText;
+    private String readingListText;
 
     @Before
     public void setUp(){
         startActivity = myActivityRule.getActivity();
         gotItText = startActivity.getString(R.string.reading_lists_onboarding_got_it);
+        readingListText = startActivity.getString(R.string.nav_item_reading_lists);
     }
 
     @Test
@@ -44,7 +46,7 @@ public class ReadingListTests extends BaseTestClass{
 
         //open reading lists and assert article is visible in the list
         Utils.openNavDrawer();
-        onView(withText("Reading lists")).perform(click());
+        onView(withText(readingListText)).perform(click());
         onView(withText(readingListName)).perform(click());
         onView(allOf(withText(articleName1), isDisplayed())).check(matches(isDisplayed()));
     }

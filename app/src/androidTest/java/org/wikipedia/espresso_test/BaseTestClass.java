@@ -52,7 +52,6 @@ public class BaseTestClass {
     public final void tearDownBaseTestClass(){
         Espresso.unregisterIdlingResources(SearchIdlingResource.getIdlingResource());
 
-
         PreferenceManager.
                 getDefaultSharedPreferences(
                         myActivityRule.getActivity().getApplicationContext())
