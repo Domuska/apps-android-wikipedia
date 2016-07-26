@@ -71,7 +71,7 @@ public class ArticleSearchTests extends BaseTestClass{
     public void testSearchArticle_checkTitleShown(){
 
         //open the article
-        Utils.enterSearchScreenFromStartingFragment();
+        Utils.openSearchFromStartScreen();
         Utils.searchAndOpenArticleWithName(articleName1, articleToString1, startActivity);
 
         //check the title is displayed in the title view
@@ -98,7 +98,7 @@ public class ArticleSearchTests extends BaseTestClass{
     public void testSearchArticle_checkRecentsShown(){
 
         //search and open article in starting fragment
-        Utils.enterSearchScreenFromStartingFragment();
+        Utils.openSearchFromStartScreen();
         Utils.searchAndOpenArticleWithName(articleName1, articleToString1, startActivity);
 
         //search and open articles inside an article
@@ -129,7 +129,7 @@ public class ArticleSearchTests extends BaseTestClass{
 
     @Test
     public void testSearchArticle_changeLanguageInSearch(){
-        Utils.enterSearchScreenFromStartingFragment();
+        Utils.openSearchFromStartScreen();
         Utils.searchAndOpenArticleWithName(articleName3, articleToString3, myActivityRule.getActivity());
 
         //check title is shown in default language

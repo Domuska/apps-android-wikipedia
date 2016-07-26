@@ -1,7 +1,5 @@
 package org.wikipedia.espresso_test;
 
-import android.support.test.espresso.contrib.RecyclerViewActions;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.wikipedia.R;
@@ -13,16 +11,11 @@ import static android.support.test.espresso.action.ViewActions.clearText;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
-import static android.support.test.espresso.matcher.ViewMatchers.hasDescendant;
-import static android.support.test.espresso.matcher.ViewMatchers.isClickable;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
-import static android.support.test.espresso.matcher.ViewMatchers.withChild;
-import static android.support.test.espresso.matcher.ViewMatchers.withClassName;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 
 import static org.hamcrest.Matchers.allOf;
-import static org.hamcrest.Matchers.endsWith;
 
 public class ReadingListTests extends BaseTestClass{
 
@@ -38,7 +31,7 @@ public class ReadingListTests extends BaseTestClass{
     @Test
     public void testAddArticleToReadingList(){
         //open an article
-        Utils.enterSearchScreenFromStartingFragment();
+        Utils.openSearchFromStartScreen();
         Utils.searchAndOpenArticleWithName(articleName1, articleToString1, startActivity);
 
         //add it to reading list

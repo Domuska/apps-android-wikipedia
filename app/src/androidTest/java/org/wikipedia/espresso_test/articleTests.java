@@ -54,7 +54,7 @@ public class ArticleTests extends BaseTestClass{
         String subHeading2 = "Plot";
         String subHeading3 = "Development";
 
-        Utils.enterSearchScreenFromStartingFragment();
+        Utils.openSearchFromStartScreen();
         Utils.searchAndOpenArticleWithName(articleName1, articleToString1, startActivity);
         Utils.openToC();
 
@@ -88,7 +88,7 @@ public class ArticleTests extends BaseTestClass{
     public void testClickLink_fullText_assertPreviewShown(){
 
         //open article
-        Utils.enterSearchScreenFromStartingFragment();
+        Utils.openSearchFromStartScreen();
         Utils.searchAndOpenArticleWithName(articleName1, articleToString1, startActivity);
 
         //click on link
@@ -104,7 +104,7 @@ public class ArticleTests extends BaseTestClass{
     @Test
     public void testClickLink_partialText_assertPreviewShown(){
         //open article
-        Utils.enterSearchScreenFromStartingFragment();
+        Utils.openSearchFromStartScreen();
         Utils.searchAndOpenArticleWithName(articleName1, articleToString1, startActivity);
 
         //click on partial link
@@ -119,7 +119,7 @@ public class ArticleTests extends BaseTestClass{
     @Test
     public void testChangeLanguage(){
         //open article
-        Utils.enterSearchScreenFromStartingFragment();
+        Utils.openSearchFromStartScreen();
         Utils.searchAndOpenArticleWithName(articleName3, articleToString3, startActivity);
 
         //open overflow menu in toolbar
@@ -143,7 +143,7 @@ public class ArticleTests extends BaseTestClass{
     public void testOpeningAndClosingReferences(){
 
         //navigate to the article
-        Utils.enterSearchScreenFromStartingFragment();
+        Utils.openSearchFromStartScreen();
         Utils.searchAndOpenArticleWithName(articleName1, articleToString1, startActivity);
 
         //faulty method call, Espresso will whine if this is done since the element is not visible

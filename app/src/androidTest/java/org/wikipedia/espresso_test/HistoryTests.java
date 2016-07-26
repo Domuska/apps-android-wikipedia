@@ -15,10 +15,10 @@ public class HistoryTests extends BaseTestClass{
     public void testHistory(){
 
         //open couple of articles
-        Utils.enterSearchScreenFromStartingFragment();
+        Utils.openSearchFromStartScreen();
         Utils.searchAndOpenArticleWithName(articleName1, articleToString1, startActivity);
 
-
+        Utils.openSearchFromArticle();
 
         //go to history to see that they are visible
     }

@@ -48,7 +48,7 @@ public class Utils {
                 .perform(click());
     }
 
-    public static void enterSearchScreenFromStartingFragment(){
+    public static void openSearchFromStartScreen(){
 //        onView(allOf(withText(mainFragmentSearchHint),
 //                withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE))).perform(click());
         onView(withId(R.id.search_container)).perform(click());

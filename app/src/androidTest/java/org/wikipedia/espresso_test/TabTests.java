@@ -54,7 +54,7 @@ public class TabTests extends BaseTestClass{
     public void testOpenMultipleTabs(){
 
         //open one article
-        Utils.enterSearchScreenFromStartingFragment();
+        Utils.openSearchFromStartScreen();
         Utils.searchAndOpenArticleWithName(articleName1, articleToString1, startActivity);
 
         //open a new tab
@@ -80,7 +80,7 @@ public class TabTests extends BaseTestClass{
     public void testOpenArticleInNewTab(){
 
         //open article
-        Utils.enterSearchScreenFromStartingFragment();
+        Utils.openSearchFromStartScreen();
         Utils.searchAndOpenArticleWithName(articleName1, articleToString1, startActivity);
 
         //open article preview
