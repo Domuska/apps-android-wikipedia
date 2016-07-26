@@ -46,6 +46,9 @@ public class HistoryTests extends BaseTestClass{
 
         //go to history to see that they are visible
         Utils.openNavDrawer();
+        //the app seems to use design library nav drawer that hides IDs and such
+        //from outside, issue in here: https://code.google.com/p/android/issues/detail?id=187701,
+        //can't use onData or RecyclerViewAction because of this
         onView(allOf(withText(historyText), withClassName(endsWith("CheckedTextView"))))
                 .perform(click());
 

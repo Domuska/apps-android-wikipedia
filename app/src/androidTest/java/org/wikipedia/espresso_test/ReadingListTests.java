@@ -1,5 +1,8 @@
 package org.wikipedia.espresso_test;
 
+import android.support.design.widget.NavigationView;
+import android.support.test.espresso.contrib.RecyclerViewActions;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.wikipedia.R;
@@ -11,11 +14,15 @@ import static android.support.test.espresso.action.ViewActions.clearText;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
+import static android.support.test.espresso.matcher.ViewMatchers.hasDescendant;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static android.support.test.espresso.matcher.ViewMatchers.withClassName;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
+import static android.support.test.espresso.matcher.ViewMatchers.withParent;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 
 import static org.hamcrest.Matchers.allOf;
+import static org.hamcrest.Matchers.endsWith;
 
 public class ReadingListTests extends BaseTestClass{
 
@@ -46,6 +53,9 @@ public class ReadingListTests extends BaseTestClass{
 
         //open reading lists and assert article is visible in the list
         Utils.openNavDrawer();
+        //the app seems to use design library nav drawer that hides IDs and such
+        //from outside, issue in here: https://code.google.com/p/android/issues/detail?id=187701
+        //can't use onData or RecyclerViewAction because of this
         onView(withText(readingListText)).perform(click());
         onView(withText(readingListName)).perform(click());
         onView(allOf(withText(articleName1), isDisplayed())).check(matches(isDisplayed()));
