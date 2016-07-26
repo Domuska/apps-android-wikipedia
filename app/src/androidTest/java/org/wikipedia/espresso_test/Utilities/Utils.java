@@ -49,8 +49,13 @@ public class Utils {
     }
 
     public static void enterSearchScreenFromStartingFragment(){
-        onView(allOf(withText(mainFragmentSearchHint),
-                withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE))).perform(click());
+//        onView(allOf(withText(mainFragmentSearchHint),
+//                withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE))).perform(click());
+        onView(withId(R.id.search_container)).perform(click());
+    }
+
+    public static void openSearchFromArticle() {
+        onView(withId(R.id.main_search_bar_text)).perform(click());
     }
 
     public static void closeToC(){

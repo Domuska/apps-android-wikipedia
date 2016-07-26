@@ -102,16 +102,14 @@ public class ArticleSearchTests extends BaseTestClass{
         Utils.searchAndOpenArticleWithName(articleName1, articleToString1, startActivity);
 
         //search and open articles inside an article
-        onView(withId(R.id.main_search_bar_text))
-                .perform(click());
+        Utils.openSearchFromArticle();
         Utils.searchAndOpenArticleWithName(articleName2, articleToString2, startActivity);
 
-        onView(withId(R.id.main_search_bar_text))
-                .perform(click());
+        Utils.openSearchFromArticle();
         Utils.searchAndOpenArticleWithName(articleName3, articleToString3,  startActivity);
 
         //go to the search screen
-        onView(withId(R.id.main_search_bar_text)).perform(click());
+        Utils.openSearchFromArticle();
         onView(withId(R.id.search_close_btn)).perform(click());
         onView(withText(recentSearchesText)).check(matches(isDisplayed()));
 
@@ -138,7 +136,7 @@ public class ArticleSearchTests extends BaseTestClass{
         Utils.assertArticleTitleContains(articleName3);
 
         //change language in search
-        onView(withId(R.id.main_search_bar_text)).perform(click());
+        Utils.openSearchFromArticle();
         onView(withId(R.id.search_lang_button)).perform(click());
         onView(withId(R.id.preference_languages_filter)).perform(typeText(finnishLanguage));
         onView(withId(R.id.localized_language_name)).perform(click());
@@ -152,9 +150,6 @@ public class ArticleSearchTests extends BaseTestClass{
         //check language is changed
         Utils.assertArticleTitleContains(articleName3_finnish);
     }
-
-
-
 
 
 
