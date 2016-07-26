@@ -2,6 +2,7 @@ package org.wikipedia.page.tabs;
 
 import org.wikipedia.R;
 import org.wikipedia.MainActivity;
+import org.wikipedia.TestingHelpers.TabAnimationIdlingResource;
 import org.wikipedia.page.PageBackStackItem;
 import org.wikipedia.page.PageTitle;
 import org.wikipedia.util.DimenUtil;
@@ -215,7 +216,7 @@ public class TabsProvider {
         anim.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
-
+                TabAnimationIdlingResource.incrementResource();
             }
 
             @Override
@@ -223,6 +224,7 @@ public class TabsProvider {
                 if (onTabModeEntered != null) {
                     onTabModeEntered.run();
                 }
+                TabAnimationIdlingResource.decementResource();
             }
 
             @Override
@@ -241,12 +243,13 @@ public class TabsProvider {
         anim.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
-
+                TabAnimationIdlingResource.incrementResource();
             }
 
             @Override
             public void onAnimationEnd(Animation animation) {
                 tabContainerView.setVisibility(View.GONE);
+                TabAnimationIdlingResource.decementResource();
             }
 
             @Override

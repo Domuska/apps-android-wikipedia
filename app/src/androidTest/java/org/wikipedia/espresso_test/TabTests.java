@@ -1,13 +1,16 @@
 package org.wikipedia.espresso_test;
 
+import android.support.test.espresso.Espresso;
 import android.support.test.espresso.web.webdriver.Locator;
 import android.support.test.filters.LargeTest;
 import android.support.test.runner.AndroidJUnit4;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wikipedia.R;
+import org.wikipedia.TestingHelpers.TabAnimationIdlingResource;
 import org.wikipedia.espresso_test.Utilities.TestDataSource;
 import org.wikipedia.espresso_test.Utilities.Utils;
 
@@ -39,6 +42,12 @@ public class TabTests extends BaseTestClass{
         startActivity = myActivityRule.getActivity();
         newTabContentDesc = startActivity.getString(R.string.menu_new_tab);
         openInNewTabText = startActivity.getString(R.string.menu_long_press_open_in_new_tab);
+        Espresso.registerIdlingResources(TabAnimationIdlingResource.getIdlingResource());
+    }
+
+    @After
+    public void tearDown(){
+        Espresso.unregisterIdlingResources(TabAnimationIdlingResource.getIdlingResource());
     }
 
     @Test
