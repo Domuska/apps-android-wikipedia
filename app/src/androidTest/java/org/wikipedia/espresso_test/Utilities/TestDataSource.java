@@ -2,7 +2,7 @@ package org.wikipedia.espresso_test.Utilities;
 
 public class TestDataSource {
 
-    public static String fullLinkText = "artificial intelligence";
+    public static String fullLinkText1 = "artificial intelligence";
     public static String partialLinkText = "artificial";
     public static String newArticleTitle = "";
     public static String articleName1 = "Final Fantasy XII";

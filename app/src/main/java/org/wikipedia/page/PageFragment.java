@@ -34,6 +34,7 @@ import org.wikipedia.BackPressedHandler;
 import org.wikipedia.NightModeHandler;
 import org.wikipedia.R;
 import org.wikipedia.Site;
+import org.wikipedia.TestingHelpers.TabAnimationIdlingResource;
 import org.wikipedia.WikipediaApp;
 import org.wikipedia.MainActivity;
 import org.wikipedia.analytics.FindInPageFunnel;
@@ -934,7 +935,8 @@ public class PageFragment extends Fragment implements BackPressedHandler {
             getTopMostTab().getBackStack().add(new PageBackStackItem(title, entry));
         }
         // and... that should be it.
-        tabsProvider.showAndHideTabs();
+        //removed for testing purposes, Tomi Lämsä, 26.7.2016
+//        tabsProvider.showAndHideTabs();
     }
 
     private boolean noPagesOpen() {

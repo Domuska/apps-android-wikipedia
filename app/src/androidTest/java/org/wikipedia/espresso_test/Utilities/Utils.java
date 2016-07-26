@@ -3,11 +3,14 @@ package org.wikipedia.espresso_test.Utilities;
 import android.app.Activity;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.espresso.contrib.DrawerActions;
+import android.support.test.espresso.matcher.BoundedMatcher;
 import android.support.test.espresso.matcher.ViewMatchers;
 import android.view.Gravity;
 import android.widget.EditText;
 
+import org.hamcrest.Matcher;
 import org.wikipedia.R;
+import org.wikipedia.page.Section;
 import org.wikipedia.search.SearchResult;
 
 import static android.support.test.espresso.Espresso.onData;
@@ -75,4 +78,17 @@ public class Utils {
         onView(withId(R.id.drawer_layout)).perform(DrawerActions.open(Gravity.START));
     }
 
+    //custom matcher for table of contents rows
+    public static Matcher<Object> withToCLine(final String text){
+        return new BoundedMatcher<Object, Section>(Section.class) {
+            @Override
+            public void describeTo(org.hamcrest.Description description) {
+                description.appendText("has text of " + text);
+            }
+            @Override
+            protected boolean matchesSafely(Section item) {
+                return item.getHeading().equals(text);
+            }
+        };
+    }
 }

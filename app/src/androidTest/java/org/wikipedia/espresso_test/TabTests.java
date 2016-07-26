@@ -33,7 +33,7 @@ import static org.hamcrest.Matchers.containsString;
 public class TabTests extends BaseTestClass{
 
     private String newTabContentDesc;
-    private String newArticleName = TestDataSource.fullLinkText;
+    private String newArticleName = TestDataSource.fullLinkText1;
     private String newArticleNameCapitalized = TestDataSource.fullLinkTextCapitalized;
     private String openInNewTabText;
 
@@ -90,8 +90,7 @@ public class TabTests extends BaseTestClass{
 
         //open article in new tab, have to use inRoot to handle a popup
         onView(withId(R.id.link_preview_overflow_button)).perform(click());
-
-        //in here TabAnimationIdlingResource is used to wait for the animations
+        //TabAnimationIdlingResource is used here
         onView(withText(openInNewTabText))
                 .inRoot(isPlatformPopup())
                 .perform(click());

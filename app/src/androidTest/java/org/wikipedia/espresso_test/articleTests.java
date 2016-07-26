@@ -13,7 +13,6 @@ import org.wikipedia.R;
 import org.wikipedia.espresso_test.Utilities.TestDataSource;
 import org.wikipedia.espresso_test.Utilities.Utils;
 import org.wikipedia.page.PageTitle;
-import org.wikipedia.page.Section;
 
 import static android.support.test.espresso.Espresso.onData;
 import static android.support.test.espresso.Espresso.onView;
@@ -31,12 +30,13 @@ import static android.support.test.espresso.web.webdriver.DriverAtoms.webClick;
 import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.core.IsNot.not;
+import static org.wikipedia.espresso_test.Utilities.Utils.withToCLine;
 
 @RunWith(AndroidJUnit4.class)
 @LargeTest
 public class ArticleTests extends BaseTestClass{
 
-    private String fullLinkText = TestDataSource.fullLinkText;
+    private String fullLinkText = TestDataSource.fullLinkText1;
     private String partialLinkText = TestDataSource.partialLinkText;
     private String newArticleText = TestDataSource.newArticleTitle;
     private String changeLanguageText;
@@ -60,7 +60,7 @@ public class ArticleTests extends BaseTestClass{
         Utils.searchAndOpenArticleWithName(articleName1, articleToString1, startActivity);
         Utils.openToC();
 
-        //check that certain 3 topmost subheadings in table of contents show up
+        //check that certain 3 topmost subheadings in table of contents show up, see Utils for matcher
         onData(withToCLine(subHeading1))
                 .inAdapterView(withId(R.id.page_toc_list))
                 .check(matches(isDisplayed()));
@@ -193,18 +193,7 @@ public class ArticleTests extends BaseTestClass{
     }
 
 
-    private static Matcher<Object> withToCLine(final String text){
-        return new BoundedMatcher<Object, Section>(Section.class) {
-            @Override
-            public void describeTo(org.hamcrest.Description description) {
-                description.appendText("has text of " + text);
-            }
-            @Override
-            protected boolean matchesSafely(Section item) {
-                return item.getHeading().equals(text);
-            }
-        };
-    }
+
 
     //String languageCode = item.getSite().languageCode()
     private static Matcher<Object> withLanguageName(final String text){
