@@ -66,4 +66,8 @@ public class Utils {
                 .check(matches(isDisplayed()));
     }
 
+    public static void openNavDrawer(){
+        onView(withId(R.id.drawer_layout)).perform(DrawerActions.open(Gravity.START));
+    }
+
 }

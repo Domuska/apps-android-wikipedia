@@ -53,14 +53,14 @@ public class BaseTestClass {
         Espresso.unregisterIdlingResources(SearchIdlingResource.getIdlingResource());
 
 
-//        PreferenceManager.
-//                getDefaultSharedPreferences(
-//                        myActivityRule.getActivity().getApplicationContext())
-//                .edit().clear().commit();
-//
-//        PageFragment.clearTabs();
-//
-//        //clear the database
-//        Database.clearDatabase(myActivityRule.getActivity().getApplicationContext());
+        PreferenceManager.
+                getDefaultSharedPreferences(
+                        myActivityRule.getActivity().getApplicationContext())
+                .edit().clear().commit();
+
+        PageFragment.clearTabs();
+
+        //clear the database
+        Database.clearDatabase(myActivityRule.getActivity().getApplicationContext());
     }
 }

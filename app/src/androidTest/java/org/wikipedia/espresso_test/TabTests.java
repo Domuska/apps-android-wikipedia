@@ -90,7 +90,8 @@ public class TabTests extends BaseTestClass{
 
         //open article in new tab, have to use inRoot to handle a popup
         onView(withId(R.id.link_preview_overflow_button)).perform(click());
-        //todo espresso does not wait for the next command's animation to finish, // FIXME: 25/07/2016
+
+        //in here TabAnimationIdlingResource is used to wait for the animations
         onView(withText(openInNewTabText))
                 .inRoot(isPlatformPopup())
                 .perform(click());
@@ -101,8 +102,9 @@ public class TabTests extends BaseTestClass{
 
         //assert the title is correct
         Utils.assertArticleTitleContains(newArticleNameCapitalized);
-
     }
+
+
 
 
 }
