@@ -1,4 +1,4 @@
-package org.wikipedia;
+package org.wikipedia.appium;
 
 import org.junit.After;
 import org.junit.Before;
@@ -14,15 +14,15 @@ import io.appium.java_client.remote.MobileCapabilityType;
 
 import static junit.framework.Assert.assertTrue;
 
-public class AppiumTests {
+
+// credit to http://qaautomated.blogspot.fi/2016/01/setting-up-appium-with-android-studio.html
+// for skeleton of this file and instructions on how to setup Appium with Android Studio
+public class BaseTestClass {
 
     AndroidDriver driver;
 
     @Before
-    public void testCaseSetup()throws  Exception
-    {
-        //service.start();
-        //reader.readFile();
+    final public void testCaseSetup() throws Exception {
         DesiredCapabilities cap = new DesiredCapabilities();
         cap.setCapability(MobileCapabilityType.PLATFORM_NAME,"Android");
         cap.setCapability(MobileCapabilityType.DEVICE_NAME, "Nexus 5x 1");
@@ -33,15 +33,8 @@ public class AppiumTests {
 
     }
 
-    @Test
-    public void testcase1() throws Exception {
-        driver.findElementById("Example").click();
-        assertTrue(driver.findElementById("Example").isDisplayed());
-    }
-
     @After
-    public void testCaseTearDown()
-    {
+    final public void testCaseTearDown() {
         driver.quit();
     }
 
