@@ -59,7 +59,27 @@ public class ArticleSearchTests extends BaseTestClass{
 
     @Test
     public void testSearchArticle_changeLanguageInSearch(){
+        Utils.openSearchFromStartScreen(driver);
+        Utils.searchAndOpenArticleWithName(driver, articleName3);
 
+        //check title is shown in default language
+        Utils.assertArticleTitleVisibleAndContains(driver, articleName3);
+
+        //change language in search
+        Utils.openSearchFromArticle(driver);
+        driver.findElementById("org.wikipedia.alpha:id/search_lang_button").click();
+        driver.findElementById("org.wikipedia.alpha:id/preference_languages_filter")
+                .sendKeys(finnishLanguage);
+        driver.findElementById("org.wikipedia.alpha:id/localized_language_name").click();
+
+        //open article again
+        starePixies.until(ExpectedConditions.visibilityOfElementLocated(
+                By.name(articleName3_finnish)))
+        .click();
+//        driver.findElementByName(articleName3_finnish).click();
+
+        //check language is changed
+        Utils.assertArticleTitleVisibleAndContains(driver, articleName3_finnish);
     }
 
 

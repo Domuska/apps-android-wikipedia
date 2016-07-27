@@ -27,6 +27,9 @@ public class BaseTestClass {
     protected String articleName1 = TestDataSource.articleName1;
     protected String articleName2 = TestDataSource.articleName2;
     protected String articleName3 = TestDataSource.articleName3;
+    protected String articleName3_finnish = TestDataSource.articleName3_finnish;
+
+    protected String finnishLanguage = TestDataSource.finnishLanguage;
 
     @Before
     final public void testCaseSetup() throws Exception {
