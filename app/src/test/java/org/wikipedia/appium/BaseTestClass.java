@@ -4,6 +4,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.wikipedia.appium.Utilities.TestDataSource;
 
 import java.net.URL;
 
@@ -20,6 +22,11 @@ import static junit.framework.Assert.assertTrue;
 public class BaseTestClass {
 
     AndroidDriver driver;
+    WebDriverWait starePixies;
+
+    public static int TIMEOUT_TEN_SECONDS = 10;
+
+    protected String articleName1 = TestDataSource.articleName1;
 
     @Before
     final public void testCaseSetup() throws Exception {
@@ -31,6 +38,7 @@ public class BaseTestClass {
         cap.setCapability(MobileCapabilityType.APP, "C:\\Users\\Tomi\\Projects\\wikipedia_3\\apps-android-wikipedia\\app\\build\\outputs\\apk\\app-alpha-debug.apk");
         driver = new AndroidDriver<MobileElement>(new URL("http://127.0.0.1:4723/wd/hub"), cap);
 
+        starePixies = new WebDriverWait(driver, TIMEOUT_TEN_SECONDS);
     }
 
     @After
