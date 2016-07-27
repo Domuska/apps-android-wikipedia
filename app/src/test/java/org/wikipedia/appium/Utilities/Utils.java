@@ -6,6 +6,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.wikipedia.appium.BaseTestClass;
 
+import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
 
 import static junit.framework.Assert.assertTrue;
@@ -15,16 +16,36 @@ public class Utils {
     private static WebDriverWait webDriverWait;
 
     public static void openSearchFromStartScreen(AndroidDriver driver){
-        webDriverWait = new WebDriverWait(driver, BaseTestClass.TIMEOUT_TEN_SECONDS);
+        webDriverWait = new WebDriverWait(driver, BaseTestClass.TIMEOUT_FIFTEEN_SECONDS);
         webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(
                 By.id("org.wikipedia.alpha:id/search_container")
         )).click();
     }
 
+    public static void openSearchFromArticle(AndroidDriver driver){
+        webDriverWait = new WebDriverWait(driver, BaseTestClass.TIMEOUT_FIFTEEN_SECONDS);
+        webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(
+                By.id("org.wikipedia.alpha:id/main_search_bar_text")))
+        .click();
+
+    }
+
+    //todo kysy mikan mielipidettä, käytetäänkö APIa vai omaa kikkaa?
     public static void searchAndOpenArticleWithName (AndroidDriver driver, String name){
-        driver.findElementById("org.wikipedia.alpha:id/search_src_text")
+
+        driver.pressKeyCode(67);
+        webDriverWait = new WebDriverWait(driver, BaseTestClass.TIMEOUT_FIFTEEN_SECONDS);
+        webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(
+                By.id("org.wikipedia.alpha:id/search_src_text")))
                 .sendKeys(name);
-        searchInVisibleListWithName(driver, name).click();
+//        textField.clear();
+//        textField.sendKeys(name);
+
+        WebElement articleInList = webDriverWait.until(ExpectedConditions.visibilityOf(
+                searchInVisibleListWithName(driver, name)
+        ));
+        articleInList.click();
+
     }
 
     public static WebElement searchInVisibleListWithName(AndroidDriver driver, String elementName){
@@ -36,7 +57,7 @@ public class Utils {
     }
 
     public static void assertArticleTitleVisibleAndContains(AndroidDriver driver, String articleName1) {
-        WebDriverWait webDriverWait = new WebDriverWait(driver, BaseTestClass.TIMEOUT_TEN_SECONDS);
+        WebDriverWait webDriverWait = new WebDriverWait(driver, BaseTestClass.TIMEOUT_FIFTEEN_SECONDS);
         WebElement headerTextField =  webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(
                 By.id("org.wikipedia.alpha:id/view_article_header_text")));
 
