@@ -2,6 +2,7 @@ package org.wikipedia.appium;
 
 import org.junit.After;
 import org.junit.Before;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.wikipedia.appium.Utilities.TestDataSource;
@@ -19,8 +20,8 @@ import static junit.framework.Assert.assertTrue;
 // for skeleton of this file and instructions on how to setup Appium with Android Studio
 public class BaseTestClass {
 
-    AndroidDriver driver;
-    WebDriverWait starePixies;
+    AndroidDriver<MobileElement> driver;
+    WebDriverWait stareAtPixies;
 
     public static int TIMEOUT_FIFTEEN_SECONDS = 15;
 
@@ -42,7 +43,7 @@ public class BaseTestClass {
         cap.setCapability(MobileCapabilityType.APP, "C:\\Users\\Tomi\\Projects\\wikipedia_3\\apps-android-wikipedia\\app\\build\\outputs\\apk\\app-alpha-debug.apk");
         driver = new AndroidDriver<MobileElement>(new URL("http://127.0.0.1:4723/wd/hub"), cap);
 
-        starePixies = new WebDriverWait(driver, TIMEOUT_FIFTEEN_SECONDS);
+        stareAtPixies = new WebDriverWait(driver, TIMEOUT_FIFTEEN_SECONDS);
     }
 
     @After

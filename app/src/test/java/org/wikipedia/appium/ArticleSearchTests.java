@@ -2,12 +2,8 @@ package org.wikipedia.appium;
 
 import org.junit.Test;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.wikipedia.appium.Utilities.Utils;
-
-import io.appium.java_client.android.AndroidDriver;
 
 import static junit.framework.Assert.assertTrue;
 
@@ -73,10 +69,9 @@ public class ArticleSearchTests extends BaseTestClass{
         driver.findElementById("org.wikipedia.alpha:id/localized_language_name").click();
 
         //open article again
-        starePixies.until(ExpectedConditions.visibilityOfElementLocated(
+        stareAtPixies.until(ExpectedConditions.visibilityOfElementLocated(
                 By.name(articleName3_finnish)))
         .click();
-//        driver.findElementByName(articleName3_finnish).click();
 
         //check language is changed
         Utils.assertArticleTitleVisibleAndContains(driver, articleName3_finnish);
