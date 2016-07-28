@@ -13,7 +13,7 @@ import static junit.framework.Assert.fail;
 public class TabTests extends BaseTestClass{
 
     private String newTabContentDesc = "New tab";
-    private String newTabDefaultText = "Main Page";
+    private String newTabDefaultText = TestDataSource.newTabDefaultText;
     private String newArticleName = TestDataSource.fullLinkText1;
     private String newArticleNameCapitalized = TestDataSource.fullLinkTextCapitalized;
     private String openInNewTabText;

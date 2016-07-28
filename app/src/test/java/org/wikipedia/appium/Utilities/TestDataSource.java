@@ -17,4 +17,5 @@ public class TestDataSource {
     public static String readingListName = "Fancy stuff";
     public static String article1_referenceSubHeading = "References";
     public static String article1_firstSubHeading = "Gameplay";
+    public static String newTabDefaultText = "Main Page";
 }
