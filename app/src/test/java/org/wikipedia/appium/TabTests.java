@@ -8,6 +8,7 @@ import org.wikipedia.appium.Utilities.TestDataSource;
 import org.wikipedia.appium.Utilities.Utils;
 
 import static junit.framework.Assert.assertTrue;
+import static junit.framework.Assert.fail;
 
 public class TabTests extends BaseTestClass{
 
@@ -58,4 +59,21 @@ public class TabTests extends BaseTestClass{
         assertTrue("Title should contain article name: " + articleName1,
                 titleView.getText().contains(articleName1));
     }
+
+    @Test
+    public void testOpenArticleInNewTab(){
+
+        fail("not implemented");
+
+        //open article
+
+        //open article preview
+
+        //open the article in new tab
+
+        //open the article from tabs
+
+        //assert the title is correct
+    }
+
 }

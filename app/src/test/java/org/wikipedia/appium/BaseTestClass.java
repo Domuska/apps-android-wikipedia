@@ -39,7 +39,8 @@ public class BaseTestClass {
         cap.setCapability(MobileCapabilityType.DEVICE_NAME, "Nexus 5x 1");
         cap.setCapability(MobileCapabilityType.NEW_COMMAND_TIMEOUT, "4000");
         cap.setCapability("appPackage", "org.wikipedia.alpha");
-//        cap.setCapability("fullReset", true);
+        cap.setCapability("fullReset", false);
+        cap.setCapability(MobileCapabilityType.NO_RESET, false);
         cap.setCapability(MobileCapabilityType.APP, "C:\\Users\\Tomi\\Projects\\wikipedia_3\\apps-android-wikipedia\\app\\build\\outputs\\apk\\app-alpha-debug.apk");
         driver = new AndroidDriver<MobileElement>(new URL("http://127.0.0.1:4723/wd/hub"), cap);
 
