@@ -24,6 +24,10 @@ public class ArticleTests extends BaseTestClass{
     private String overflowMenuContentDescription = "More options";
     private String changeLanguageText = "Change language";
 
+    String subHeading1 = TestDataSource.article1_subheading1;
+    String subHeading2 = TestDataSource.article1_subheading2;
+    String subHeading3 = TestDataSource.article1_subheading3;
+
     @Test
     // it seems chromeDriver update is not out yet, as of 28.7.2016.
     // see if fixable:
@@ -31,11 +35,7 @@ public class ArticleTests extends BaseTestClass{
     // https://github.com/appium/appium/issues/6634
     // https://bugs.chromium.org/p/chromedriver/issues/detail?id=1378#c4
     public void testTableOfContents_checkSubTitles(){
-
-        String subHeading1 = "Gameplay";
-        String subHeading2 = "Plot";
-        String subHeading3 = "Development";
-
+        
         Utils.openSearchFromStartScreen(driver);
         Utils.searchAndOpenArticleWithName(driver, articleName1);
         stareAtPixies.until(ExpectedConditions.visibilityOfElementLocated(
