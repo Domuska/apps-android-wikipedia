@@ -18,4 +18,8 @@ public class TestDataSource {
     public static String article1_referenceSubHeading = "References";
     public static String article1_firstSubHeading = "Gameplay";
     public static String newTabDefaultText = "Main Page";
+
+    public static String article1_subheading1 = "Gameplay";
+    public static String article1_subheading2 =  "Plot";
+    public static String article1_subheading3 = "Development";
 }

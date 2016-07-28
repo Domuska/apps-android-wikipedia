@@ -43,6 +43,10 @@ public class ArticleTests extends BaseTestClass{
     private String refencesId = TestDataSource.referencesElementId;
     private String article1_referenceSubHeading = TestDataSource.article1_referenceSubHeading;
 
+    String subHeading1 = TestDataSource.article1_subheading1;
+    String subHeading2 = TestDataSource.article1_subheading2;
+    String subHeading3 = TestDataSource.article1_subheading3;
+
     @Before
     public void setUp(){
         startActivity = myActivityRule.getActivity();
@@ -51,10 +55,6 @@ public class ArticleTests extends BaseTestClass{
 
     @Test
     public void testTableOfContents_checkSubTitles(){
-
-        String subHeading1 = "Gameplay";
-        String subHeading2 = "Plot";
-        String subHeading3 = "Development";
 
         Utils.openSearchFromStartScreen();
         Utils.searchAndOpenArticleWithName(articleName1, articleToString1, startActivity);
