@@ -1,11 +1,14 @@
 package org.wikipedia.robotium_test;
 
+import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import org.junit.Test;
 import org.wikipedia.R;
 import org.wikipedia.robotium_test.Utilities.Utils;
+
+import java.util.List;
 
 public class ArticleSearchTests extends BaseTestClass{
 
@@ -79,12 +82,26 @@ public class ArticleSearchTests extends BaseTestClass{
         solo.clickOnView(solo.getView(R.id.localized_language_name));
 
         //open article again
-        solo.clickOnText(articleName3_finnish);
+//        solo.clickOnText(articleName3_finnish);
+        
+        //try to make sure we click on the textview under the list
+        solo.clickOnView(solo.getText(articleName3_finnish));
+        List<View> views = solo.getViews(solo.getView(R.id.search_results_list));
+        for(View view : views){
+            if(view instanceof TextView){
+                if(((TextView) view).getText().toString().equals(articleName3_finnish) &&
+                        view.isShown()){
+                    solo.clickOnView(view);
+                }
+            }
+
+        }
 
         //check language changed
 //        Utils.assertArticleTitleContains(solo, articleName3_finnish);
 
-        if(solo.waitForText(articleName3_finnish, 3, 150000)) {
+        //todo
+        if(solo.waitForText(articleName3_finnish, 2, 150000)) {
             String titleText = ((TextView) solo.getView(R.id.view_article_header_text))
                     .getText().toString();
             assertTrue("Title does not contain text: " + articleName3_finnish + ", contains instead " + titleText,
