@@ -21,6 +21,7 @@ import static android.support.test.espresso.matcher.RootMatchers.isPlatformPopup
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withContentDescription;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
+import static android.support.test.espresso.matcher.ViewMatchers.withParent;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static android.support.test.espresso.web.sugar.Web.onWebView;
 import static android.support.test.espresso.web.webdriver.DriverAtoms.findElement;
@@ -36,6 +37,7 @@ public class TabTests extends BaseTestClass{
     private String newArticleName = TestDataSource.fullLinkText1;
     private String newArticleNameCapitalized = TestDataSource.fullLinkTextCapitalized;
     private String openInNewTabText;
+    private String newTabDefaultText = TestDataSource.newTabDefaultText;
 
     @Before
     public void setUp(){
@@ -60,6 +62,7 @@ public class TabTests extends BaseTestClass{
         //open a new tab
         onView(withId(R.id.menu_page_show_tabs)).perform(click());
         onView(withContentDescription(newTabContentDesc)).perform(click());
+        onView(allOf(withText(newTabDefaultText), withId(R.id.tab_item_title))).perform(click());
 
         //navigate to another article
         onView(withId(R.id.main_search_bar_text))

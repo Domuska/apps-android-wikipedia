@@ -28,10 +28,11 @@ import static junit.framework.Assert.fail;
 
 
 import static org.wikipedia.espresso_test.Utilities.OrientationChangeAction.orientationLandscape;
+import static org.wikipedia.espresso_test.Utilities.Utils.withToCLine;
 
 public class RotationTests extends BaseTestClass{
 
-    private String referencesText = TestDataSource.article1_referenceSubHeading;
+    private String firstSubHeading = TestDataSource.article1_firstSubHeading;
     private String openInNewTabText;
     private String link1 = TestDataSource.fullLinkText1;
 
@@ -57,12 +58,18 @@ public class RotationTests extends BaseTestClass{
         //assert list is visible
         onView(withId(R.id.page_toc_list))
                 .check(matches(isDisplayed()));
+        onData(withToCLine(firstSubHeading))
+                .inAdapterView(withId(R.id.page_toc_list))
+                .check(matches(isDisplayed()));
 
         //rotate screen
         onView(isRoot()).perform(orientationLandscape());
 
         //assert list is still visible
         onView(withId(R.id.page_toc_list))
+                .check(matches(isDisplayed()));
+        onData(withToCLine(firstSubHeading))
+                .inAdapterView(withId(R.id.page_toc_list))
                 .check(matches(isDisplayed()));
 
     }

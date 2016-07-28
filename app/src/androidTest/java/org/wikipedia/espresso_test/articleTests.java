@@ -80,13 +80,10 @@ public class ArticleTests extends BaseTestClass{
         onWebView().withElement(findElement(Locator.ID, subHeading1));
         onWebView().withElement(findElement(Locator.ID, subHeading2));
         onWebView().withElement(findElement(Locator.ID, subHeading3));
-
-//                .withElement(findElement(Locator.CLASS_NAME, "section_heading"))
-//                .check(webMatches(getText(), containsString(subHeading1)));
     }
 
     @Test
-    public void testScrollingTableOfContents(){
+    public void testScrollingToC_clickSubHeading(){
         //open article and table of contents
         Utils.openSearchFromStartScreen();
         Utils.searchAndOpenArticleWithName(articleName1, articleToString1, startActivity);

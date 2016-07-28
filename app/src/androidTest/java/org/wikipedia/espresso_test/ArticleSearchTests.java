@@ -35,36 +35,11 @@ import static org.hamcrest.Matchers.is;
 public class ArticleSearchTests extends BaseTestClass{
 
     private String recentSearchesText;
-    private String mainFragmentSearchHint;
-
-//    @Rule
-//    public ActivityTestRule<MainActivity> myActivityRule =
-//            new ActivityTestRule<MainActivity>(MainActivity.class) {
-//    };
-//
-//    @Before
-//    public void setUp(){
-//        Espresso.registerIdlingResources(SearchIdlingResource.getIdlingResource());
-//        startActivity = myActivityRule.getActivity();
-//        recentSearchesText = startActivity.getString(R.string.search_recent_header);
-//        mainFragmentSearchHint = startActivity.getString(R.string.search_hint);
-//    }
-//
-//    @After
-//    public void tearDown(){
-//        Espresso.unregisterIdlingResources(SearchIdlingResource.getIdlingResource());
-//
-//        PreferenceManager.
-//                getDefaultSharedPreferences(
-//                        myActivityRule.getActivity().getApplicationContext())
-//                .edit().clear().commit();
-//
-//        Database.clearDatabase(myActivityRule.getActivity().getApplicationContext());
-//    }
 
     @Before
     public void setUp(){
         startActivity = myActivityRule.getActivity();
+        recentSearchesText = startActivity.getString(R.string.search_recent_header);
     }
 
     @Test
@@ -76,20 +51,6 @@ public class ArticleSearchTests extends BaseTestClass{
 
         //check the title is displayed in the title view
         Utils.assertArticleTitleContains(articleName1);
-
-//        onWebView().forceJavascriptEnabled();
-//
-//        onWebView()
-//                .check(webContent(containingTextInBody(articleName1)));
-
-//        onWebView()
-//                .check(webMatches(getCurrentUrl(), is(articleName1)));
-
-
-//        onView(withId(R.id.floating_toc_button)).perform(click());
-
-//        onWebView()
-//                .check(webContent(hasElementWithId("content_block_19")));
     }
 
 
@@ -150,9 +111,6 @@ public class ArticleSearchTests extends BaseTestClass{
         //check language is changed
         Utils.assertArticleTitleContains(articleName3_finnish);
     }
-
-
-
 
     //a wizard's spell. Made with help of RecentSearchesFragment.java, adapter at bottom
     //(bindView & getEntry methods)
