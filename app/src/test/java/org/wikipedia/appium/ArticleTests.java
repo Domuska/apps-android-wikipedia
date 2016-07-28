@@ -25,10 +25,11 @@ public class ArticleTests extends BaseTestClass{
     private String changeLanguageText = "Change language";
 
     @Test
-    //todo seems to be _very_ flaky, more often than not the webview context is not found for some reason
+    // it seems chromeDriver update is not out yet, as of 28.7.2016.
     // see if fixable:
     // https://github.com/appium/appium/issues/5689
     // https://github.com/appium/appium/issues/6634
+    // https://bugs.chromium.org/p/chromedriver/issues/detail?id=1378#c4
     public void testTableOfContents_checkSubTitles(){
 
         String subHeading1 = "Gameplay";
