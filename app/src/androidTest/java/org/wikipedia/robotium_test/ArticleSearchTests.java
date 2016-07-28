@@ -49,14 +49,14 @@ public class ArticleSearchTests extends BaseTestClass{
             fail("Text " + recentSearchesText + " should be displayed");
 
         //assert that the searches are shown in recent searches
-        boolean article1Found = solo.searchText(articleName1+23);
+        boolean article1Found = solo.searchText(articleName1);
         boolean article2Found = solo.searchText(articleName2);
         boolean article3Found = solo.searchText(articleName3);
 
         assertTrue("One of the articles not displayed: " +
-                articleName1 + article1Found +
-                articleName2 + article2Found +
-                articleName3 + article3Found,
+                articleName1 + " " + article1Found + " " +
+                articleName2 + " " + article2Found + " " +
+                articleName3 + " " + article3Found,
                 article1Found && article2Found && article3Found);
     }
 }

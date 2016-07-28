@@ -1,5 +1,6 @@
 package org.wikipedia.robotium_test;
 
+import android.support.v7.preference.PreferenceManager;
 import android.test.ActivityInstrumentationTestCase2;
 
 import com.robotium.solo.Solo;
@@ -8,6 +9,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.wikipedia.MainActivity;
 import org.wikipedia.R;
+import org.wikipedia.database.Database;
+import org.wikipedia.page.PageFragment;
 import org.wikipedia.robotium_test.Utilities.TestDataSource;
 
 public class BaseTestClass extends ActivityInstrumentationTestCase2<MainActivity>{
@@ -32,6 +35,17 @@ public class BaseTestClass extends ActivityInstrumentationTestCase2<MainActivity
     }
 
     public void tearDown() throws Exception{
+
+        PreferenceManager.
+                getDefaultSharedPreferences(
+                        getActivity().getApplicationContext())
+                .edit().clear().commit();
+
+        PageFragment.clearTabs();
+
+        //clear the database
+        Database.clearDatabase(getActivity().getApplicationContext());
+
         solo.finishOpenedActivities();
         super.tearDown();
     }
