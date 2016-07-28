@@ -16,7 +16,7 @@ public class Utils {
         EditText searchView = (EditText) solo.getView(R.id.search_src_text);
         solo.typeText(searchView, name);
 
-        //wait for the text to be present two times, click the second one
+        //wait for the text to be present two times (search field and results), click the second one
         if(solo.waitForText(name, 2, BaseTestClass.TIMEOUT_FIFTEEN_SECONDS)){
             solo.clickOnText(name, 1);
         }
@@ -25,6 +25,10 @@ public class Utils {
     public static void openSearchFromStartScreen(Solo solo){
         solo.clickOnView(solo.getView(R.id.search_container));
 
+    }
+
+    public static void openSearchFromArticle(Solo solo){
+        solo.clickOnView(solo.getView(R.id.main_search_bar_text));
     }
 
     public static void assertArticleTitleContains(Solo solo, String name){
@@ -36,5 +40,7 @@ public class Utils {
                     titleText.contains(name));
         }
     }
+
+
 }
 

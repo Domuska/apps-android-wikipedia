@@ -16,6 +16,8 @@ public class BaseTestClass extends ActivityInstrumentationTestCase2<MainActivity
     public static long TIMEOUT_FIFTEEN_SECONDS = 15000;
 
     protected String articleName1 = TestDataSource.articleName1;
+    protected String articleName2 = TestDataSource.articleName2;
+    protected String articleName3 = TestDataSource.articleName3;
 
     public BaseTestClass(){
         super(MainActivity.class);
