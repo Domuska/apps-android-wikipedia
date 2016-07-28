@@ -1,5 +1,9 @@
 package org.wikipedia.robotium_test;
 
+import android.widget.EditText;
+import android.widget.TextView;
+
+import org.junit.Test;
 import org.wikipedia.R;
 import org.wikipedia.robotium_test.Utilities.Utils;
 
@@ -59,4 +63,36 @@ public class ArticleSearchTests extends BaseTestClass{
                 articleName3 + " " + article3Found,
                 article1Found && article2Found && article3Found);
     }
+
+    //something weird going on with this test, always hangs when opening the article in finnish
+    public void testSearchArticle_changeLanguageInSearch(){
+        Utils.openSearchFromStartScreen(solo);
+        Utils.searchAndOpenArticleWithName(solo, articleName3);
+
+        //check title is shown in default language
+        Utils.assertArticleTitleContains(solo, articleName3);
+
+        //change language in search
+        Utils.openSearchFromArticle(solo);
+        solo.clickOnView(solo.getView(R.id.search_lang_button));
+        solo.typeText((EditText)solo.getView(R.id.preference_languages_filter), finnishLanguage);
+        solo.clickOnView(solo.getView(R.id.localized_language_name));
+
+        //open article again
+        solo.clickOnText(articleName3_finnish);
+
+        //check language changed
+//        Utils.assertArticleTitleContains(solo, articleName3_finnish);
+
+        if(solo.waitForText(articleName3_finnish, 3, 150000)) {
+            String titleText = ((TextView) solo.getView(R.id.view_article_header_text))
+                    .getText().toString();
+            assertTrue("Title does not contain text: " + articleName3_finnish + ", contains instead " + titleText,
+                    titleText.contains(articleName3_finnish));
+        }
+        else
+            fail("no title found");
+
+    }
+
 }

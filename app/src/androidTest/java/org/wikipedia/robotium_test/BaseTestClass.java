@@ -22,6 +22,9 @@ public class BaseTestClass extends ActivityInstrumentationTestCase2<MainActivity
     protected String articleName2 = TestDataSource.articleName2;
     protected String articleName3 = TestDataSource.articleName3;
 
+    protected String finnishLanguage = TestDataSource.finnishLanguage;
+    protected String articleName3_finnish = TestDataSource.articleName3_finnish;
+
     public BaseTestClass(){
         super(MainActivity.class);
     }
