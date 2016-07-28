@@ -16,7 +16,8 @@ import org.wikipedia.robotium_test.Utilities.TestDataSource;
 public class BaseTestClass extends ActivityInstrumentationTestCase2<MainActivity>{
 
     protected Solo solo;
-    public static long TIMEOUT_FIFTEEN_SECONDS = 15000;
+    public static long TIMEOUT_FIFTEEN_SECONDS_LONG = 15000;
+    public static int TIMEOUT_FIFTEEN_SECONDS_INT = 15000;
 
     protected String articleName1 = TestDataSource.articleName1;
     protected String articleName2 = TestDataSource.articleName2;

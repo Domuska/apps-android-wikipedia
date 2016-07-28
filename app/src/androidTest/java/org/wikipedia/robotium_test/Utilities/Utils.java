@@ -1,5 +1,6 @@
 package org.wikipedia.robotium_test.Utilities;
 
+import android.graphics.Point;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -17,7 +18,7 @@ public class Utils {
         solo.typeText(searchView, name);
 
         //wait for the text to be present two times (search field and results), click the second one
-        if(solo.waitForText(name, 2, BaseTestClass.TIMEOUT_FIFTEEN_SECONDS)){
+        if(solo.waitForText(name, 2, BaseTestClass.TIMEOUT_FIFTEEN_SECONDS_LONG)){
             solo.clickOnText(name, 1);
         }
     }
@@ -41,6 +42,32 @@ public class Utils {
         }
     }
 
+    public static void openToC(Solo solo){
+        Point deviceSize = new Point();
+        solo.getCurrentActivity().getWindowManager().getDefaultDisplay().getSize(deviceSize);
+
+        int screenWidth = deviceSize.x;
+        int screenHeight = deviceSize.y;
+
+        int fromX = screenWidth;
+        int toX = screenWidth/2;
+        int fromY = screenHeight/2;
+        int toY = fromY;
+
+        solo.drag(fromX, toX, fromY, toY, 4);
+    }
+
+    public static void closeToC(Solo solo){
+        Point deviceSize = new Point();
+        solo.getCurrentActivity().getWindowManager().getDefaultDisplay().getSize(deviceSize);
+
+        int screenWidth = deviceSize.x;
+        int screenHeight = deviceSize.y;
+        int startX = screenWidth - solo.getView(R.id.page_toc_list).getWidth();
+        int toX = screenWidth;
+        int startY = screenHeight/2;
+        int toY = startY;
+    }
 
 }
 
