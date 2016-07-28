@@ -83,7 +83,7 @@ public class ArticleSearchTests extends BaseTestClass{
 
         //open article again
 //        solo.clickOnText(articleName3_finnish);
-        
+
         //try to make sure we click on the textview under the list
         solo.clickOnView(solo.getText(articleName3_finnish));
         List<View> views = solo.getViews(solo.getView(R.id.search_results_list));
