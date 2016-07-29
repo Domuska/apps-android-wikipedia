@@ -1,8 +1,12 @@
 package org.wikipedia.robotium_test;
 
+import android.support.test.InstrumentationRegistry;
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
+import com.robotium.solo.By;
 import com.robotium.solo.Condition;
 import com.robotium.solo.Solo;
 
@@ -20,6 +24,10 @@ public class ArticleTests extends BaseTestClass{
     String subHeading2 = TestDataSource.article1_subheading2;
     String subHeading3 = TestDataSource.article1_subheading3;
     String article1_references = TestDataSource.article1_referenceSubHeading;
+
+    String fullLinkText = TestDataSource.fullLinkText1;
+    String partialLinkText = TestDataSource.partialLinkText;
+    String newArticleTitle = TestDataSource.newArticleTitle;
 
 
     public void setUp() throws Exception {
@@ -77,5 +85,48 @@ public class ArticleTests extends BaseTestClass{
         //make sure references is visible
         assertTrue("Text " + article1_references + " not visible in webView",
                 solo.searchText(article1_references, true));
+    }
+
+
+    //this test does not work - the link is not clicked properly by Robotium. It only touches the link.
+    public void testClickLink_fullText_assertPreviewShown(){
+
+        //open article
+        Utils.openSearchFromStartScreen(solo);
+        Utils.searchAndOpenArticleWithName(solo, articleName1);
+
+        //click on link
+//        solo.clickLongOnText(fullLinkText);
+        solo.clickOnWebElement(By.textContent(fullLinkText));
+        solo.sleep(300);
+
+        //assert a popup with article preview is shown
+//        solo.waitForView(R.id.link_preview_title);
+
+        String linkTitleText = ((TextView)solo.getView(R.id.link_preview_title))
+                .getText().toString();
+
+        assertTrue("Link preview title(" + linkTitleText + ") does not match expected text: " + newArticleTitle,
+                linkTitleText.equals(newArticleTitle));
+    }
+
+    
+    public void testClickLink_partialText_assertPreviewShown(){
+        fail("not implemented");
+
+    }
+
+    //with help of http://executeautomation.com/blog/hybridapplication-robotium/
+    private void enableWebViewJS() {
+        final WebView webView = (WebView)solo.getView(R.id.page_web_view);
+
+        InstrumentationRegistry.getInstrumentation().runOnMainSync(new Runnable() {
+            @Override
+            public void run() {
+                webView.getSettings().setJavaScriptEnabled(true);
+                webView.getSettings().setDomStorageEnabled(true);
+            }
+        });
+
     }
 }
