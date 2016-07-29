@@ -13,6 +13,7 @@ import org.wikipedia.robotium_test.BaseTestClass;
 
 import java.util.List;
 
+import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertTrue;
 
 public class Utils {
@@ -24,6 +25,8 @@ public class Utils {
         //wait for the text to be present two times (search field and results), click the second one
         if(solo.waitForText(name, 2, BaseTestClass.TIMEOUT_FIFTEEN_SECONDS_LONG)){
             solo.clickOnText(name, 1);
+            //give the article a second to load up
+            solo.sleep(3000);
         }
     }
 
@@ -61,6 +64,9 @@ public class Utils {
         int toY = fromY;
 
         solo.drag(fromX, toX, fromY, toY, 4);
+
+        assertTrue("ToC elements not visible",
+                solo.getView(R.id.page_toc_item_text).isShown());
     }
 
     public static void closeToC(Solo solo){
@@ -75,6 +81,9 @@ public class Utils {
         int toY = fromY;
 
         solo.drag(fromX, toX, fromY, toY, 4);
+
+        assertFalse("ToC elements still visible",
+                solo.getView(R.id.page_toc_item_text).isShown());
     }
 
     //this way to do searching is dirty-ish, but it seems there is no way to search
@@ -100,7 +109,7 @@ public class Utils {
                 }
             }
             j++;
-        }while(!elementFound && j < 10);
+        }while(!elementFound || j > 5);
 
         return elementFound;
     }
