@@ -40,12 +40,15 @@ public class ArticleTests extends BaseTestClass{
     private String partialLinkText = TestDataSource.partialLinkText;
     private String newArticleText = TestDataSource.newArticleTitle;
     private String changeLanguageText;
-    private String refencesId = TestDataSource.referencesElementId;
+    private String refencesJSId = TestDataSource.referencesElementId;
+    private String referenceJSclassName = TestDataSource.referencesJSClassName;
     private String article1_referenceSubHeading = TestDataSource.article1_referenceSubHeading;
 
     String subHeading1 = TestDataSource.article1_subheading1;
     String subHeading2 = TestDataSource.article1_subheading2;
     String subHeading3 = TestDataSource.article1_subheading3;
+    private String referenceTextClassName = "mw-reference-text";
+    private String article1_firstReference = TestDataSource.article1_firstReference;
 
     @Before
     public void setUp(){
@@ -162,22 +165,24 @@ public class ArticleTests extends BaseTestClass{
         //navigate to the article
         Utils.openSearchFromStartScreen();
         Utils.searchAndOpenArticleWithName(articleName1, articleToString1, startActivity);
-
-        //faulty method call, Espresso will whine if this is done since the element is not visible
-//        onWebView()
-//                .withElement(findElement(Locator.ID, "cite_note-staffchanges-1"))
-//                .perform(webClick());
-
-        //expand the references
-        //jostain syystä tässä ei klikata tuota elementtiä -> references ei expandaannu
-        onWebView()
-                .withElement(findElement(Locator.ID, refencesId))
-                .perform(webClick());
+        Utils.openToC();
+        onData(withToCLine(article1_referenceSubHeading))
+                .inAdapterView(withId(R.id.page_toc_list))
+                .perform(click());
 
         onWebView()
-                .withElement(findElement(Locator.ID, "mw-reference-text"))
-                .check(webMatches(getText(), containsString("Gantayat, Anoop")));
-
+                //open references
+                .withElement(findElement(Locator.CLASS_NAME, referenceJSclassName))
+                .perform(webClick())
+                //assert reference is visible
+                .withElement(findElement(Locator.CLASS_NAME, referenceTextClassName))
+                .check(webMatches(getText(), containsString(article1_firstReference)))
+                //close references
+                .withElement(findElement(Locator.CLASS_NAME, "app_table_collapse_close"))
+                .perform(webClick())
+                //assert reference is no longer visible
+                .withElement(findElement(Locator.CLASS_NAME, referenceTextClassName))
+                .check(webMatches(getText(), not(containsString(article1_firstReference))));
     }
 
 
