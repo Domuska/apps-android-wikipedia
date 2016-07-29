@@ -28,7 +28,6 @@ public class Utils {
         if(solo.waitForText(name, 2, BaseTestClass.TIMEOUT_FIFTEEN_SECONDS_LONG)){
             //robotium clicks blindly on first text it finds, so we have to make sure right text is clicked
             clickElementInSearchResultsList(solo, name);
-//            solo.clickOnText(name, 1);
             //give the article a second to load up
             solo.sleep(PAGE_LOAD_WAIT);
         }
