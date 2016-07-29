@@ -39,7 +39,7 @@ public class ReadingListTests extends BaseTestClass{
         solo.clickOnView(solo.getView(android.R.id.button1));
 
         //open reading lists and assert article is visible in the list
-        Utils.openDrawer(solo);
+        Utils.openNavDrawer(solo);
         solo.clickOnText(readingListText);
         solo.clickOnText(readingListName);
         solo.clickOnText(articleName1);

@@ -29,6 +29,7 @@ public class Utils {
         if(solo.waitForText(name, 2, BaseTestClass.TIMEOUT_FIFTEEN_SECONDS_LONG)){
             //robotium clicks blindly on first text it finds, so we have to make sure right text is clicked
             clickElementInSearchResultsList(solo, name);
+//            solo.clickOnText(name);
             //give the article a second to load up
             solo.sleep(PAGE_LOAD_WAIT);
         }
@@ -130,7 +131,7 @@ public class Utils {
             //search if visible Views have the text we're searching for
             List<View> drawerElements = solo.getViews(solo.getView(R.id.search_results_list));
             for(View view : drawerElements){
-                if(view.getId() == R.id.page_list_item_title){
+                if(view.getId() == R.id.page_list_item_title && view.isShown()){
                     if(((TextView)view).getText().toString().equals(elementName)) {
                         elementFound = true;
                         solo.clickOnView(view);
@@ -157,7 +158,7 @@ public class Utils {
         }
     }
 
-    public static void openDrawer(Solo solo) {
+    public static void openNavDrawer(Solo solo) {
         solo.clickOnActionBarHomeButton();
     }
 }
