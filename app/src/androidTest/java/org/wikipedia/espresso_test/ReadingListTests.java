@@ -58,7 +58,12 @@ public class ReadingListTests extends BaseTestClass{
         //can't use onData or RecyclerViewAction because of this
         onView(withText(readingListText)).perform(click());
         onView(withText(readingListName)).perform(click());
-        onView(allOf(withText(articleName1), isDisplayed())).check(matches(isDisplayed()));
+        onView(allOf(withText(articleName1), isDisplayed()))
+                .check(matches(isDisplayed()))
+                .perform(click());
+
+        //open the article and assert title is correct
+        Utils.assertArticleTitleContains(articleName1);
     }
 
 
