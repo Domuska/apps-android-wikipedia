@@ -22,4 +22,6 @@ public class TestDataSource {
     public static String article1_subheading1 = "Gameplay";
     public static String article1_subheading2 =  "Plot";
     public static String article1_subheading3 = "Development";
+    public static String article1_firstReference = "Gantayat, Anoop";
+    public static String referencesJSClassName = "app_table_collapsed_caption";
 }

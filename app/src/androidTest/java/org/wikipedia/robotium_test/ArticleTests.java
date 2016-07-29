@@ -1,14 +1,10 @@
 package org.wikipedia.robotium_test;
 
 import android.support.test.InstrumentationRegistry;
-import android.view.View;
 import android.webkit.WebView;
-import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.robotium.solo.By;
-import com.robotium.solo.Condition;
-import com.robotium.solo.Solo;
 
 import org.wikipedia.R;
 import org.wikipedia.robotium_test.Utilities.TestDataSource;
@@ -19,17 +15,20 @@ import org.wikipedia.robotium_test.Utilities.Utils;
 
 public class ArticleTests extends BaseTestClass{
 
+    private String subHeading1 = TestDataSource.article1_subheading1;
+    private String subHeading2 = TestDataSource.article1_subheading2;
+    private String subHeading3 = TestDataSource.article1_subheading3;
+    private String article1_references = TestDataSource.article1_referenceSubHeading;
 
-    String subHeading1 = TestDataSource.article1_subheading1;
-    String subHeading2 = TestDataSource.article1_subheading2;
-    String subHeading3 = TestDataSource.article1_subheading3;
-    String article1_references = TestDataSource.article1_referenceSubHeading;
-
-    String fullLinkText = TestDataSource.fullLinkText1;
-    String partialLinkText = TestDataSource.partialLinkText;
-    String newArticleTitle = TestDataSource.newArticleTitle;
+    private String fullLinkText = TestDataSource.fullLinkText1;
+    private String partialLinkText = TestDataSource.partialLinkText;
+    private String newArticleTitle = TestDataSource.newArticleTitle;
 
     private String changeLanguage;
+
+    private String referencesJSId = TestDataSource.referencesElementId;
+    private String referencesJSClassName = TestDataSource.referencesJSClassName;
+    private String article1_firstReference = TestDataSource.article1_firstReference;
 
 
     public void setUp() throws Exception {
@@ -134,6 +133,32 @@ public class ArticleTests extends BaseTestClass{
         //assert article changed to finnish
         Utils.assertArticleTitleContains(solo, articleName3_finnish);
     }
+
+    public void testOpeningAndClosingReferences(){
+        //navigate to the article
+        Utils.openSearchFromStartScreen(solo);
+        Utils.searchAndOpenArticleWithName(solo, articleName1);
+        Utils.openToC(solo);
+        Utils.isElementFoundInToC(solo, article1_references);
+        solo.clickOnText(article1_references);
+
+        //expand the references
+        solo.clickOnWebElement(By.className(referencesJSClassName));
+
+        //assert first reference visible
+        assertTrue("Reference " + article1_firstReference + " be visible" ,
+                solo.searchText(article1_firstReference, true));
+
+        //close references
+        solo.clickOnWebElement(By.className(referencesJSClassName));
+
+        //assert first reference no longer visible
+        assertFalse("Reference " + article1_firstReference + " should no longer be visible" ,
+                solo.searchText(article1_firstReference, true));
+    }
+
+
+
 
     //with help of http://executeautomation.com/blog/hybridapplication-robotium/
     private void enableWebViewJS() {

@@ -113,7 +113,7 @@ public class Utils {
                 }
             }
             j++;
-        }while(!elementFound || j > 5);
+        }while(!elementFound && j < 5);
 
         return elementFound;
     }
