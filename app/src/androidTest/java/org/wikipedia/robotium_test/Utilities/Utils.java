@@ -19,6 +19,7 @@ import static junit.framework.Assert.assertTrue;
 public class Utils {
 
     public static final int PAGE_LOAD_WAIT = 3000;
+    public static final int SLEEP_TIME_1500_MS = 1500;
 
     public static void searchAndOpenArticleWithName(Solo solo, String name){
         EditText searchView = (EditText) solo.getView(R.id.search_src_text);
@@ -156,5 +157,8 @@ public class Utils {
         }
     }
 
+    public static void openDrawer(Solo solo) {
+        solo.clickOnActionBarHomeButton();
+    }
 }
 
