@@ -18,15 +18,19 @@ import static junit.framework.Assert.assertTrue;
 
 public class Utils {
 
+    public static final int PAGE_LOAD_WAIT = 3000;
+
     public static void searchAndOpenArticleWithName(Solo solo, String name){
         EditText searchView = (EditText) solo.getView(R.id.search_src_text);
         solo.typeText(searchView, name);
 
         //wait for the text to be present two times (search field and results), click the second one
         if(solo.waitForText(name, 2, BaseTestClass.TIMEOUT_FIFTEEN_SECONDS_LONG)){
-            solo.clickOnText(name, 1);
+            //robotium clicks blindly on first text it finds, so we have to make sure right text is clicked
+            clickElementInSearchResultsList(solo, name);
+//            solo.clickOnText(name, 1);
             //give the article a second to load up
-            solo.sleep(3000);
+            solo.sleep(PAGE_LOAD_WAIT);
         }
     }
 
@@ -112,6 +116,45 @@ public class Utils {
         }while(!elementFound || j > 5);
 
         return elementFound;
+    }
+
+    public static void clickElementInSearchResultsList(Solo solo, String elementName){
+        boolean elementFound = false;
+        int j = 0;
+
+        do{
+            //scroll the list down except on the first run
+            if(j != 0)
+                solo.scrollDownList(0);
+
+            //search if visible Views have the text we're searching for
+            List<View> drawerElements = solo.getViews(solo.getView(R.id.search_results_list));
+            for(View view : drawerElements){
+                if(view.getId() == R.id.page_list_item_title){
+                    if(((TextView)view).getText().toString().equals(elementName)) {
+                        elementFound = true;
+                        solo.clickOnView(view);
+                    }
+                }
+            }
+            j++;
+        }while(!elementFound || j > 5);
+    }
+
+    public static void openOverflowMenu(Solo solo){
+        /*not the best way to do this, but since commands like
+        solo.clickOnMenuItem();
+        or
+        solo.sendKey(Solo.MENU);
+        don't work, this seems to be the only option
+        */
+        List<View> views = solo.getViews();
+        for(View view : views){
+            if(view.getContentDescription() != null &&
+                    view.getContentDescription().toString().equals("More options")) {
+                solo.clickOnView(view);
+            }
+        }
     }
 
 }

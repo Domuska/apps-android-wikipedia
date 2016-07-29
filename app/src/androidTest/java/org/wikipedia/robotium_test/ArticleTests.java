@@ -29,10 +29,12 @@ public class ArticleTests extends BaseTestClass{
     String partialLinkText = TestDataSource.partialLinkText;
     String newArticleTitle = TestDataSource.newArticleTitle;
 
+    private String changeLanguage;
+
 
     public void setUp() throws Exception {
         super.setUp();
-        //
+        changeLanguage = getActivity().getString(R.string.menu_page_other_languages);
     }
 
     public void tearDown() throws Exception {
@@ -110,10 +112,27 @@ public class ArticleTests extends BaseTestClass{
                 linkTitleText.equals(newArticleTitle));
     }
 
-    
+
+    //not implemented yet, since clicking on an URL does not work
     public void testClickLink_partialText_assertPreviewShown(){
         fail("not implemented");
 
+    }
+
+    public void testCHangeLanguage(){
+        //open article
+        Utils.openSearchFromStartScreen(solo);
+        Utils.searchAndOpenArticleWithName(solo, articleName3);
+
+        //open overflow menu in toolbar
+        Utils.openOverflowMenu(solo);
+        //change language to finnish
+        solo.clickOnText(changeLanguage);
+        solo.clickOnText(articleName3_finnish);
+        solo.sleep(Utils.PAGE_LOAD_WAIT);
+
+        //assert article changed to finnish
+        Utils.assertArticleTitleContains(solo, articleName3_finnish);
     }
 
     //with help of http://executeautomation.com/blog/hybridapplication-robotium/
