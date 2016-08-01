@@ -9,7 +9,7 @@ articleName3_finnish = "Skotlanti"
 finnishLanguage = "Suomi"
 
 referencesElementId = "content_block_19"
-fullLinkTextCapitalized = "Artificial intelligence"
+link1ArticleName = "Artificial intelligence (video games)"
 readingListName = "Fancy stuff"
 article1_referenceSubHeading = "References"
 article1_firstSubHeading = "Gameplay"

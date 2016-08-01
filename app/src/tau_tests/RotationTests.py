@@ -38,7 +38,6 @@ class RotationTests (UITestCase):
         assert exists.text(firstSubHeading),\
         "subheading: " + firstSubHeading + " is not visible"
         
-        #testOpenTab_rotatePhone
         
         
     @testCaseInfo('<rotate phone when tabs is open>', deviceCount=1)
