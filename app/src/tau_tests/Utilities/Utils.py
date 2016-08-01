@@ -1,11 +1,9 @@
 
 def openSearchFromStartScreen():
-	tap.resourceId("org.wikipedia.alpha:id/search_container")
+	tap.resourceId("org.wikipedia.alpha:id/search_container", scroll = False)
 	
 def searchAndOpenArticleWithName(articleName):
-	log("searching article with name " + articleName)
 	input.text(articleName)
-	log("opening the article")
 	tap.text(articleName, resourceId="org.wikipedia.alpha:id/page_list_item_title")
 	
 def assertArticleTitleContains(articleName):
@@ -14,6 +12,5 @@ def assertArticleTitleContains(articleName):
 	
 	
 def openSearchFromArticle():
-	log("opening search from article")
 	tap.resourceId("org.wikipedia.alpha:id/main_search_bar_text")
 	
