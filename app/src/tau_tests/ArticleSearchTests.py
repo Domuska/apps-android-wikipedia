@@ -8,22 +8,17 @@ class ArticleSearchTests (UITestCase):
         articleName1 = TestDataSource.articleName1
         
         launch.activity('org.wikipedia.alpha', 'org.wikipedia.MainActivity', verify=False)
+        
+    def tearDown(self):
+        packages.clearData('org.wikipedia.alpha')
 
     @testCaseInfo('<Search Article>', deviceCount=1)
     def testSearchArticle_checkTitleShown(self):
-        """ Insert brief description of the test case
-
-            1. Insert test step description here
-        """
-        log('Step1: Insert test step description')
+        
         #open the article
-        tap.resourceId("org.wikipedia.alpha:id/search_container")
-        
-        
-        input.text(articleName1)
-        tap.text(articleName1)
+        Utils.openSearchFromStartScreen()
+        Utils.searchAndOpenArticleWithName(articleName1)
         
         #check the title is displayed in the title view
-        titleView = get.item.resourceId("org.wikipedia.alpha:id/view_article_header_text")
-        log(titleView.Text)
+        Utils.assertArticleTitleContains(articleName1)
         

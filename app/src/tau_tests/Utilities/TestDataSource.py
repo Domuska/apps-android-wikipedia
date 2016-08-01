@@ -1,4 +1,3 @@
-
 fullLinkText1 = "artificial intelligence"
 partialLinkText = "artificial"
 newArticleTitle = ""
