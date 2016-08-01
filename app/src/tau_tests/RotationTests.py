@@ -4,10 +4,11 @@ class RotationTests (UITestCase):
     
     def setUp(self):
         
-        global articleName1, firstSubHeading, link1
+        global articleName1, firstSubHeading, link1, link1ArticleName
         articleName1 = TestDataSource.articleName1
         firstSubHeading = TestDataSource.article1_firstSubHeading
         link1 = TestDataSource.fullLinkText1
+        link1ArticleName = TestDataSource.link1ArticleName
         
         launch.activity('org.wikipedia.alpha', 'org.wikipedia.MainActivity', verify=False)
                 
@@ -43,9 +44,33 @@ class RotationTests (UITestCase):
     @testCaseInfo('<rotate phone when tabs is open>', deviceCount=1)
     def testOpenTab_rotatePhone(self):
         
-        assert false, "not implemented yet, fool"
+        #this test works, somehow. Might not work in future.
+        #just happened that the link 1 can be clicked with tap.description
+        log("open article")
         Utils.openSearchFromStartScreen()
         Utils.searchAndOpenArticleWithName(articleName1)
         
-        tap.text(link1)
+        log("open link in a new tab")
+        tap.description(link1)
+        tap.resourceId('org.wikipedia.alpha:id/link_preview_overflow_button')
+        tap.text('Open in new tab')
+        
+        log("go to tabs and assert list is visible")
+        tap.description('Show tabs')
+        assert exists.resourceId("org.wikipedia.alpha:id/tabs_list"),\
+        "tabs list is not visible"
+        
+        verify.text(articleName1, regex = True)
+        verify.text(link1ArticleName)
+        
+        log("rotate phone")
+        orientation.left()
+        
+        log("assert list still visible")
+        assert exists.resourceId("org.wikipedia.alpha:id/tabs_list"),\
+        "tabs list is not visible"
+        
+        verify.text(articleName1, regex = True)
+        verify.text(link1ArticleName)
+        
         
