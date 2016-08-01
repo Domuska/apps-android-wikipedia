@@ -4,7 +4,7 @@ def openSearchFromStartScreen():
 	
 def searchAndOpenArticleWithName(articleName):
 	input.text(articleName)
-	tap.text(articleName, resourceId="org.wikipedia.alpha:id/page_list_item_title")
+	tap.text(articleName, resourceId="org.wikipedia.alpha:id/page_list_item_title", sync = True)
 	
 def assertArticleTitleContains(articleName):
 	titleView = get.item.resourceId("org.wikipedia.alpha:id/view_article_header_text")
