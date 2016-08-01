@@ -4,9 +4,10 @@ class RotationTests (UITestCase):
     
     def setUp(self):
         
-        global articleName1, firstSubHeading
+        global articleName1, firstSubHeading, link1
         articleName1 = TestDataSource.articleName1
         firstSubHeading = TestDataSource.article1_firstSubHeading
+        link1 = TestDataSource.fullLinkText1
         
         launch.activity('org.wikipedia.alpha', 'org.wikipedia.MainActivity', verify=False)
                 
@@ -36,4 +37,15 @@ class RotationTests (UITestCase):
         assert exists.text(firstSubHeading),\
         "subheading: " + firstSubHeading + " is not visible"
         
+        #testOpenTab_rotatePhone
+        
+        
+    @testCaseInfo('<rotate phone when tabs is open>', deviceCount=1)
+    def testOpenTab_rotatePhone(self):
+        
+        assert false, "not implemented yet, fool"
+        Utils.openSearchFromStartScreen()
+        Utils.searchAndOpenArticleWithName(articleName1)
+        
+        tap.text(link1)
         
