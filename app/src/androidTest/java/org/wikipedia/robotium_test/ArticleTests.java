@@ -97,8 +97,8 @@ public class ArticleTests extends BaseTestClass{
         Utils.searchAndOpenArticleWithName(solo, articleName1);
 
         //click on link
-//        solo.clickLongOnText(fullLinkText);
-        solo.clickOnWebElement(By.textContent(fullLinkText));
+        solo.clickLongOnText(fullLinkText);
+//        solo.clickOnWebElement(By.textContent(fullLinkText));
         solo.sleep(300);
 
         //assert a popup with article preview is shown

@@ -67,7 +67,7 @@ public class ArticleSearchTests extends BaseTestClass{
                 article1Found && article2Found && article3Found);
     }
 
-    //something weird going on with this test, always hangs when opening the article in finnish
+    //todo not working - after an article is opened another time the app will just show a white screen
     public void testSearchArticle_changeLanguageInSearch(){
         Utils.openSearchFromStartScreen(solo);
         Utils.searchAndOpenArticleWithName(solo, articleName3);
@@ -81,26 +81,24 @@ public class ArticleSearchTests extends BaseTestClass{
         solo.typeText((EditText)solo.getView(R.id.preference_languages_filter), finnishLanguage);
         solo.clickOnView(solo.getView(R.id.localized_language_name));
 
-        //open article again
-//        solo.clickOnText(articleName3_finnish);
-
-        //try to make sure we click on the textview under the list
+        //open article again, try to make sure we click on the textview under the list
         solo.clickOnView(solo.getText(articleName3_finnish));
-        List<View> views = solo.getViews(solo.getView(R.id.search_results_list));
-        for(View view : views){
-            if(view instanceof TextView){
-                if(((TextView) view).getText().toString().equals(articleName3_finnish) &&
-                        view.isShown()){
-                    solo.clickOnView(view);
-                }
-            }
 
-        }
+//        List<View> views = solo.getViews(solo.getView(R.id.search_results_list));
+//        for(View view : views){
+//            if(view instanceof TextView) {
+//                if (((TextView) view).getText().toString().equals(articleName3_finnish) &&
+//                        view.isShown()) {
+//                    solo.clickOnView(view);
+//                }
+//            }
+//        }
 
         //check language changed
 //        Utils.assertArticleTitleContains(solo, articleName3_finnish);
 
-        //todo
+        //maybe here we should wait for an activity transition (though it's not really one) or something,
+        //if we wait for this text it could pick the text up from the previous search page or somesuch
         if(solo.waitForText(articleName3_finnish, 2, 150000)) {
             String titleText = ((TextView) solo.getView(R.id.view_article_header_text))
                     .getText().toString();
