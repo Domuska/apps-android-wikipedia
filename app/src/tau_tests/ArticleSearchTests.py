@@ -70,7 +70,7 @@ class ArticleSearchTests (UITestCase):
         input.text(finnishLanguage)
         tap.resourceId("org.wikipedia.alpha:id/localized_language_name")
         
-        log("open article again, use position 0 since it should show the best fitting result")
+        log("open article again")
         tap.text(articleName3_finnish, resourceId="org.wikipedia.alpha:id/page_list_item_title")
         
         log("check language is changed")

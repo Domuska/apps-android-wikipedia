@@ -14,3 +14,11 @@ def assertArticleTitleContains(articleName):
 def openSearchFromArticle():
 	tap.resourceId("org.wikipedia.alpha:id/main_search_bar_text")
 	
+def openToC():
+	swipe.location((0.99, 0.5)).to.location((0.5, 0.5))
+	
+def closeToC():
+	swipe.location((0.5, 0.5)).to.location((0.99, 0.5))
+	
+def openDrawer():
+	swipe.location((0, 0.5)).to.location((0.5, 0.5))
