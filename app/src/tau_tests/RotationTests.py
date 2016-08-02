@@ -48,6 +48,7 @@ class RotationTests (UITestCase):
         log("open article")
         Utils.openSearchFromStartScreen()
         Utils.searchAndOpenArticleWithName(articleName1)
+        wait(1500)
         
         log("open link in a new tab")
         tap.description(link1)
@@ -71,5 +72,12 @@ class RotationTests (UITestCase):
         
         verify.text(articleName1, regex = True)
         verify.text(link1ArticleName)
+        
+    @testCaseInfo('<power supreme>', deviceCount=1)
+    def superTest(self):
+        Utils.openSearchFromStartScreen()
+        Utils.searchAndOpenArticleWithName("Ricketts Glen State Park")
+        tap.description("Pennsylvania state park")
+        
         
         
