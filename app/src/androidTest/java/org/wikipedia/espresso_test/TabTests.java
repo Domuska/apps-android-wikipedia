@@ -65,17 +65,17 @@ public class TabTests extends BaseTestClass{
         onView(allOf(withText(newTabDefaultText), withId(R.id.tab_item_title))).perform(click());
 
         //navigate to another article
-        onView(withId(R.id.main_search_bar_text))
-                .perform(click());
+        Utils.openSearchFromArticle();
         Utils.searchAndOpenArticleWithName(articleName2, articleToString2, startActivity);
 
         //assert you can change between them
         onView(withId(R.id.menu_page_show_tabs)).perform(click());
         onView(withText(articleName1)).perform(click());
 
-        onView(allOf(withId(R.id.view_article_header_text),
-                withText(containsString(articleName1))))
-                .check(matches(isDisplayed()));
+        Utils.assertArticleTitleContains(articleName1);
+//        onView(allOf(withId(R.id.view_article_header_text),
+//                withText(containsString(articleName1))))
+//                .check(matches(isDisplayed()));
 
     }
 

@@ -29,8 +29,6 @@ import static org.hamcrest.Matchers.is;
 
 public class Utils {
 
-    private static String mainFragmentSearchHint = "Search Wikipedia";
-
     // helper method to enter text into the search box when we're already in the serach screen
     public static void searchAndOpenArticleWithName(
             final String name, String articleToString, Activity currentActivity){
@@ -52,8 +50,6 @@ public class Utils {
     }
 
     public static void openSearchFromStartScreen(){
-//        onView(allOf(withText(mainFragmentSearchHint),
-//                withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE))).perform(click());
         onView(withId(R.id.search_container)).perform(click());
     }
 
