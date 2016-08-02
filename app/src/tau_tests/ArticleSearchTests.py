@@ -47,12 +47,12 @@ class ArticleSearchTests (UITestCase):
         log("go to the search screen")
         Utils.openSearchFromArticle()
         tap.resourceId("org.wikipedia.alpha:id/search_close_btn")
-        assert exists.text(recentSearchesText)
+        verify.text(recentSearchesText)
         
         log("assert that the recent searches show the articles searched")
-        assert exists.text(articleName1)
-        assert exists.text(articleName2)
-        assert exists.text(articleName3)
+        verify.text(articleName1)
+        verify.text(articleName2)
+        verify.text(articleName3)
         
         
     @testCaseInfo('<Change language in search>', deviceCount=1)

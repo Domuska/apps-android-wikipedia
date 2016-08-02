@@ -32,13 +32,8 @@ class HistoryTests (UITestCase):
         tap.text(historyText)
         
         log("make assertions")
-        assert exists.text(articleName1),\
-        "article: " + articleName1 + " was not found"
-        
-        assert exists.text(articleName2),\
-        "article: " + articleName2 + " was not found"
-        
-        assert exists.text(articleName3),\
-        "article: " + articleName3 + " was not found"
+        verify.text(articleName1)
+        verify.text(articleName2)
+        verify.text(articleName3)
                 
         

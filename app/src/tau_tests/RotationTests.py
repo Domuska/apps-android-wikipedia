@@ -13,6 +13,7 @@ class RotationTests (UITestCase):
         launch.activity('org.wikipedia.alpha', 'org.wikipedia.MainActivity', verify=False)
                 
     def tearDown(self):
+        orientation.portrait()
         packages.clearData('org.wikipedia.alpha')
         
 
@@ -21,24 +22,19 @@ class RotationTests (UITestCase):
        
         Utils.openSearchFromStartScreen()
         Utils.searchAndOpenArticleWithName(articleName1)
-        sleep(1500)
+        wait(1500)
         Utils.openToC()
         
         log("assert list is visible")
-        assert exists.resourceId("org.wikipedia.alpha:id/page_toc_list"),\
-        "table of contents is not visible"
-        assert exists.text(firstSubHeading),\
-        "subheading: " + firstSubHeading + " is not visible"
+        verify.resourceId("org.wikipedia.alpha:id/page_toc_list")
+        verify.text(firstSubHeading)
         
         log("rotate screen")
         orientation.left()
         
         log("assert list is still visible")
-        assert exists.resourceId("org.wikipedia.alpha:id/page_toc_list"),\
-        "table of contents is not visible"
-        assert exists.text(firstSubHeading),\
-        "subheading: " + firstSubHeading + " is not visible"
-        
+        verify.resourceId("org.wikipedia.alpha:id/page_toc_list")
+        verify.text(firstSubHeading)
         
         
     @testCaseInfo('<rotate phone when tabs is open>', deviceCount=1)
@@ -58,9 +54,7 @@ class RotationTests (UITestCase):
         
         log("go to tabs and assert list is visible")
         tap.description('Show tabs')
-        assert exists.resourceId("org.wikipedia.alpha:id/tabs_list"),\
-        "tabs list is not visible"
-        
+        verify.resourceId("org.wikipedia.alpha:id/tabs_list")
         verify.text(articleName1, regex = True)
         verify.text(link1ArticleName)
         
@@ -68,9 +62,7 @@ class RotationTests (UITestCase):
         orientation.left()
         
         log("assert list still visible")
-        assert exists.resourceId("org.wikipedia.alpha:id/tabs_list"),\
-        "tabs list is not visible"
-        
+        verify.resourceId("org.wikipedia.alpha:id/tabs_list")
         verify.text(articleName1, regex = True)
         verify.text(link1ArticleName)
         

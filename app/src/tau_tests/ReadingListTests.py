@@ -32,10 +32,8 @@ class ReadingListTests (UITestCase):
         Utils.openDrawer()
         tap.text(readingListText)
         
-        
         tap.text(readingListName)
-        assert exists.text(articleName1),\
-        "article: " + articleName1 + " is not visible"
+        verify.text(articleName1)
 
         log("open the article and assert title is correct")
         tap.text(articleName1)
