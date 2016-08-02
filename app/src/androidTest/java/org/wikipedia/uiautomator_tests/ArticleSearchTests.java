@@ -2,10 +2,19 @@ package org.wikipedia.uiautomator_tests;
 
 import android.support.test.InstrumentationRegistry;
 import android.support.test.uiautomator.By;
+import android.support.test.uiautomator.UiDevice;
+import android.support.test.uiautomator.UiObject;
+import android.support.test.uiautomator.UiObject2;
+import android.support.test.uiautomator.Until;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.wikipedia.R;
+import org.wikipedia.uiautomator_tests.Utils.Utils;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.StringStartsWith.startsWith;
 
 public class ArticleSearchTests extends BaseTestClass{
 
@@ -18,9 +27,13 @@ public class ArticleSearchTests extends BaseTestClass{
 
     @Test
     public void testSearchArticle_checkTitleShown(){
-        device.findObject(By.res("org.wikipedia.alpha:id/search_container"))
-                .click();
+        //open the article
+        Utils.openSearchFromStartScreen(device);
+        Utils.searchAndOpenArticleWithName(device, articleName1);
 
-        device.findObject(By.res("org.wikipedia.alpha:id/search_src_text")).setText(articleName1);
+        //check the title is displayed in the title view
+        Utils.assertArticleTitleContains(device, articleName1);
     }
+
+
 }
