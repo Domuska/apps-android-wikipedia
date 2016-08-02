@@ -63,6 +63,34 @@ public class ArticleSearchTests extends BaseTestClass{
         device.findObject(By.text(articleName3));
     }
 
+    @Test
+    public void testSearchArticle_changeLanguageInSearch(){
+
+        Utils.openSearchFromStartScreen(device);
+        Utils.searchAndOpenArticleWithName(device, articleName3);
+
+        //check title is shown in default language
+        Utils.assertArticleTitleContains(device, articleName3);
+
+        //change language in search
+        Utils.openSearchFromArticle(device);
+
+        device.wait(Until.findObject(
+                By.res("org.wikipedia.alpha:id/search_lang_button")), GENERAL_TIMEOUT)
+                .click();
+        device.findObject(By.res("org.wikipedia.alpha:id/preference_languages_filter"))
+                .setText(finnishLanguage);
+        device.findObject(By.res("org.wikipedia.alpha:id/localized_language_name"))
+                .click();
+
+        //open article again
+        device.wait(Until.findObject(
+                By.text(articleName3_finnish)), GENERAL_TIMEOUT)
+                .click();
+
+        //check language is changed
+        Utils.assertArticleTitleContains(device, articleName3_finnish);
+    }
 
 
 }

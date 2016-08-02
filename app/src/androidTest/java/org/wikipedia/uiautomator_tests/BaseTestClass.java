@@ -27,6 +27,10 @@ public class BaseTestClass {
     protected String articleName2 = TestDataSource.articleName2;
     protected String articleName3 = TestDataSource.articleName3;
 
+    protected String finnishLanguage = TestDataSource.finnishLanguage;
+    protected String articleName3_finnish = TestDataSource.articleName3_finnish;
+
+
     @Before
     public final void setUpBaseTestClass(){
         device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
