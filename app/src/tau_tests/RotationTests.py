@@ -21,6 +21,7 @@ class RotationTests (UITestCase):
        
         Utils.openSearchFromStartScreen()
         Utils.searchAndOpenArticleWithName(articleName1)
+        sleep(1500)
         Utils.openToC()
         
         log("assert list is visible")
@@ -72,12 +73,6 @@ class RotationTests (UITestCase):
         
         verify.text(articleName1, regex = True)
         verify.text(link1ArticleName)
-        
-    @testCaseInfo('<power supreme>', deviceCount=1)
-    def superTest(self):
-        Utils.openSearchFromStartScreen()
-        Utils.searchAndOpenArticleWithName("Ricketts Glen State Park")
-        tap.description("Pennsylvania state park")
         
         
         

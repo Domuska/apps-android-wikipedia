@@ -6,7 +6,7 @@ class ArticleTests (UITestCase):
     def setUp(self):
         global articleName1, articleName3, subHeading1, subHeading2,\
         subHeading3, article1_referenceSubHeading, fullLinkText, \
-        articleName3_finnish, finnishLanguage, newArticleTitle
+        articleName3_finnish, finnishLanguage, newArticleTitle, partialLinkText
         
         articleName1 = TestDataSource.articleName1
         subHeading1 = TestDataSource.article1_subheading1
@@ -16,6 +16,8 @@ class ArticleTests (UITestCase):
         
         fullLinkText = TestDataSource.fullLinkText1
         newArticleTitle = TestDataSource.newArticleTitle
+        
+        partialLinkText = TestDataSource.partialLinkText
         
         articleName3 = TestDataSource.articleName3
         articleName3_finnish = TestDataSource.articleName3_finnish
@@ -77,14 +79,22 @@ class ArticleTests (UITestCase):
         log("assert a popup showing preview of new article shows")
         articleTitleText = get.item.resourceId("org.wikipedia.alpha:id/link_preview_title")
         verify.text(newArticleTitle, area = articleTitleText)
-        #verify.text(item = get.item.resourceId("org.wikipedia.alpha:id/link_preview_title"), newArticleTitle)
-        #verify.resourceId("org.wikipedia.alpha:id/link_preview_title")
+        
         
     @testCaseInfo('<click partial link>', deviceCount=1)
     def testClickLink_partialText_assertPreviewShown(self):
         
-        assert False, "test not implemented, fool"
-       
+        #test will fail, seems Tau can't tap a link with a partial name
+        log("open article")
+        Utils.openSearchFromStartScreen()
+        Utils.searchAndOpenArticleWithName(articleName1)
+        
+        log("click on partial link")
+        tap.description(partialLinkText)
+        
+        log("assert a popup showing preview of new article shows")
+        articleTitleText = get.item.resourceId("org.wikipedia.alpha:id/link_preview_title")
+        verify.text(newArticleTitle, area = articleTitleText)
         
         
     @testCaseInfo('<change language in article>', deviceCount=1)
