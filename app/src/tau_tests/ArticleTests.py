@@ -109,15 +109,8 @@ class ArticleTests (UITestCase):
         tap.text('Change language')
         
         log("change language to finnish")
-        # have to do this differently than in other tests
-        # since tau will click a weird language element
-        # automatically without scrolling down to a proper element
         
-        log(articleName3_finnish)
-        tap.resourceId('org.wikipedia.alpha:id/langlinks_filter')
-        input.text(finnishLanguage)
-        
-        tap.text(articleName3_finnish)
+        tap.text(articleName3_finnish, direction = "vertical")
         
         log("assert article changed to finnish language one")
         Utils.assertArticleTitleContains(articleName3_finnish)
