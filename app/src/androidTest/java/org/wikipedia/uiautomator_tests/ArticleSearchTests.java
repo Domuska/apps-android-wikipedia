@@ -35,5 +35,34 @@ public class ArticleSearchTests extends BaseTestClass{
         Utils.assertArticleTitleContains(device, articleName1);
     }
 
+    @Test
+    public void testSearchArticle_checkRecentsShown(){
+
+        //search and open article in starting fragment
+        Utils.openSearchFromStartScreen(device);
+        Utils.searchAndOpenArticleWithName(device, articleName1);
+
+        //search and open articles inside an article
+        Utils.openSearchFromArticle(device);
+        Utils.searchAndOpenArticleWithName(device, articleName2);
+
+        Utils.openSearchFromArticle(device);
+        Utils.searchAndOpenArticleWithName(device, articleName3);
+
+        //go to the search screen
+        Utils.openSearchFromArticle(device);
+
+        device.wait(Until.findObject(
+                By.res("org.wikipedia.alpha:id/search_close_btn")), GENERAL_TIMEOUT)
+                .click();
+        device.findObject(By.text(recentSearchesText)); //fail if not found
+
+        //assert that the recent searches show the articles searched
+        device.findObject(By.text(articleName1));
+        device.findObject(By.text(articleName2));
+        device.findObject(By.text(articleName3));
+    }
+
+
 
 }

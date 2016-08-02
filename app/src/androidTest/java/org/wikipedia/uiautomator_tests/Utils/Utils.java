@@ -22,12 +22,23 @@ public class Utils {
                 .click();
     }
 
+    public static void openSearchFromArticle(UiDevice device) {
+        device.findObject(By.res("org.wikipedia.alpha:id/main_search_bar_text")).click();
+    }
+
     public static void searchAndOpenArticleWithName(UiDevice device, String name) {
-        device.findObject(By.res("org.wikipedia.alpha:id/search_src_text")).setText(name);
+        device.wait(Until.findObject(
+                By.res("org.wikipedia.alpha:id/search_src_text")),
+                BaseTestClass.GENERAL_TIMEOUT)
+                .setText(name);
+
         UiObject2 resultsList = device.wait(Until.findObject(
                 By.res("org.wikipedia.alpha:id/search_results_list")
         ), BaseTestClass.GENERAL_TIMEOUT);
-        resultsList.findObject(By.text(name)).click();
+
+        resultsList.wait(Until.findObject(
+                By.text(name)), BaseTestClass.GENERAL_TIMEOUT)
+                .click();
 
         device.wait(Until.hasObject(
                 By.res("org.wikipedia.alpha:id/view_article_header_text")
