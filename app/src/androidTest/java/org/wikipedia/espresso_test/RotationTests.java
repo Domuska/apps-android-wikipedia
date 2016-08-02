@@ -26,7 +26,7 @@ import static android.support.test.espresso.web.webdriver.DriverAtoms.webClick;
 import static junit.framework.Assert.fail;
 
 
-
+import static org.hamcrest.Matchers.allOf;
 import static org.wikipedia.espresso_test.Utilities.OrientationChangeAction.orientationLandscape;
 import static org.wikipedia.espresso_test.Utilities.Utils.withToCLine;
 
@@ -35,6 +35,7 @@ public class RotationTests extends BaseTestClass{
     private String firstSubHeading = TestDataSource.article1_firstSubHeading;
     private String openInNewTabText;
     private String link1 = TestDataSource.fullLinkText1;
+    private String link1ArticleName = TestDataSource.fullLinkTextCapitalized;
 
     @Before
     public void setUp(){
@@ -82,31 +83,29 @@ public class RotationTests extends BaseTestClass{
         Utils.searchAndOpenArticleWithName(articleName1, articleToString1, startActivity);
 
         //open link in a new tab
-        openInNewTabLink(link1);
+        onWebView()
+                .withElement(findElement(Locator.LINK_TEXT, link1))
+                .perform(webClick());
+
+        onView(withId(R.id.link_preview_overflow_button)).perform(click());
+        onView(withText(openInNewTabText))
+                .inRoot(isPlatformPopup())
+                .perform(click());
 
         //open tabs
         onView(withId(R.id.menu_page_show_tabs)).perform(click());
 
-        //assert the list is visible
+        //assert the list and elements are visible
         onView(withId(R.id.tabs_list)).check(matches(isDisplayed()));
+        onView(allOf(withText(articleName1), isDisplayed())).check(matches(isDisplayed()));
+        onView(withText(link1ArticleName)).check(matches(isDisplayed()));
 
         //rotate phone
         onView(isRoot()).perform(orientationLandscape());
 
         //assert the same views are visible
         onView(withId(R.id.tabs_list)).check(matches(isDisplayed()));
-
-    }
-
-    private void openInNewTabLink(String name) {
-        onWebView()
-                .withElement(findElement(Locator.LINK_TEXT, name))
-                .perform(webClick());
-        //push overflow button
-        onView(withId(R.id.link_preview_overflow_button)).perform(click());
-        //TabAnimationIdlingResource is used here
-        onView(withText(openInNewTabText))
-                .inRoot(isPlatformPopup())
-                .perform(click());
+        onView(allOf(withText(articleName1), isDisplayed())).check(matches(isDisplayed()));
+        onView(withText(link1ArticleName)).check(matches(isDisplayed()));
     }
 }
