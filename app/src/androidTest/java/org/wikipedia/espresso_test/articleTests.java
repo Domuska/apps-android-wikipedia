@@ -147,18 +147,14 @@ public class ArticleTests extends BaseTestClass{
         onView(withText(changeLanguageText)).perform(click());
 
         //change language to finnish
-//        onView(withText(finnishLanguage)).perform(click());
         onData(withLanguageName(articleName3_finnish))
                 .inAdapterView(withId(R.id.langlinks_list))
                 .perform(click());
 
         //assert article changed to finnish language one
-        onView(allOf(withId(R.id.view_article_header_text),
-                withText(containsString(articleToString3_finnish))))
-                .check(matches(isDisplayed()));
+        Utils.assertArticleTitleContains(articleName3_finnish);
     }
 
-    //jostain syystä tämä testi ei toimi, katso alemmas
     @Test
     public void testOpeningAndClosingReferences(){
 
