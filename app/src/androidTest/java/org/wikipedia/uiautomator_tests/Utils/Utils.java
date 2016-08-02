@@ -1,6 +1,8 @@
 package org.wikipedia.uiautomator_tests.Utils;
 
+import android.graphics.Point;
 import android.support.test.uiautomator.By;
+import android.support.test.uiautomator.Direction;
 import android.support.test.uiautomator.UiDevice;
 import android.support.test.uiautomator.UiObject2;
 import android.support.test.uiautomator.Until;
@@ -28,8 +30,7 @@ public class Utils {
 
     public static void searchAndOpenArticleWithName(UiDevice device, String name) {
         device.wait(Until.findObject(
-                By.res("org.wikipedia.alpha:id/search_src_text")),
-                BaseTestClass.GENERAL_TIMEOUT)
+                By.res("org.wikipedia.alpha:id/search_src_text")), BaseTestClass.GENERAL_TIMEOUT)
                 .setText(name);
 
         UiObject2 resultsList = device.wait(Until.findObject(
@@ -45,4 +46,24 @@ public class Utils {
         ), BaseTestClass.GENERAL_TIMEOUT);
     }
 
+
+    public static void openToc(UiDevice device){
+        Point startPoint = new Point(device.getDisplayWidth()-5, device.getDisplayHeight()/2);
+        Point endPoint = new Point(device.getDisplayWidth()/2, startPoint.y);
+        device.drag(startPoint.x, startPoint.y, endPoint.x, endPoint.y, 5);
+        device.waitForIdle(BaseTestClass.GENERAL_TIMEOUT);
+    }
+
+    public static void closeToC(UiDevice device){
+        device.findObject(By.res("org.wikipedia.alpha:id/page_toc_list")).swipe(Direction.RIGHT, 0.95f);
+    }
+
+    public static void openDrawer(UiDevice device){
+        Point startPoint = new Point(0, device.getDisplayHeight()/2);
+        Point endPoint = new Point(device.getDisplayWidth()/2, device.getDisplayHeight()/2);
+
+        //wait that all popup windows and such are closed
+        device.drag(startPoint.x, startPoint.y, endPoint.x, endPoint.y, 5);
+        device.waitForIdle(5000);
+    }
 }
