@@ -6,7 +6,7 @@ class ArticleTests (UITestCase):
     def setUp(self):
         global articleName1, articleName3, subHeading1, subHeading2,\
         subHeading3, article1_referenceSubHeading, fullLinkText, \
-        articleName3_finnish, finnishLanguage
+        articleName3_finnish, finnishLanguage, newArticleTitle
         
         articleName1 = TestDataSource.articleName1
         subHeading1 = TestDataSource.article1_subheading1
@@ -15,6 +15,7 @@ class ArticleTests (UITestCase):
         article1_referenceSubHeading = TestDataSource.article1_referenceSubHeading
         
         fullLinkText = TestDataSource.fullLinkText1
+        newArticleTitle = TestDataSource.newArticleTitle
         
         articleName3 = TestDataSource.articleName3
         articleName3_finnish = TestDataSource.articleName3_finnish
@@ -36,21 +37,16 @@ class ArticleTests (UITestCase):
         
         log("check that certain 3 topmost subheadings in table of contents show up")
         
-        assert exists.text(subHeading1, scroll = False, area = "org.wikipedia.alpha:id/page_toc_list")
-        assert exists.text(subHeading2, scroll = False, area = "org.wikipedia.alpha:id/page_toc_list")
-        assert exists.text(subHeading3, scroll = False, area = "org.wikipedia.alpha:id/page_toc_list")
+        verify.text(subHeading1, scroll = False, area = "org.wikipedia.alpha:id/page_toc_list")
+        verifytext(subHeading2, scroll = False, area = "org.wikipedia.alpha:id/page_toc_list")
+        verify.text(subHeading3, scroll = False, area = "org.wikipedia.alpha:id/page_toc_list")
         
         log("make sure those same three subtitles are visible in the webview")
         Utils.closeToC()
         
-        assert find.description(subHeading1), \
-        "subheading: " + subHeading1 + " not found"
-
-        assert find.resourceId(subHeading2), \
-        "subheading: " + subHeading2 + " not found"
-
-        assert find.resourceId(subHeading3), \
-        "subheading: " + subHeading3 + " not found"   
+        verify.description(subHeading1)
+        verify.resourceId(subHeading2)
+        verify.resourceId(subHeading3)
         
         
     @testCaseInfo('<click subheading, see screen moved>', deviceCount=1)
@@ -65,26 +61,26 @@ class ArticleTests (UITestCase):
         
         tap.text(article1_referenceSubHeading, area = "org.wikipedia.alpha:id/page_toc_list")
         
-        assert exists.text(article1_referenceSubHeading), \
-        "subheading: " + article1_referenceSubHeading + " not visible on screen"
+        verify.text(article1_referenceSubHeading)
         
         
     @testCaseInfo('<click full link>', deviceCount=1)
     def testClickLink_fullText_assertPreviewShown(self):
-        
-        #test does not work - seems webview is problematic
-        assert False, "test not implemented, fool"
         
         log("open article")
         Utils.openSearchFromStartScreen()
         Utils.searchAndOpenArticleWithName(articleName1)
         
         log("click on link")
-        tap.text(fullLinkText)
+        tap.description(fullLinkText)
         
         log("assert a popup showing preview of new article shows")
+        articleTitleText = get.item.resourceId("org.wikipedia.alpha:id/link_preview_title")
+        verify.text(newArticleTitle, area = articleTitleText)
+        #verify.text(item = get.item.resourceId("org.wikipedia.alpha:id/link_preview_title"), newArticleTitle)
+        #verify.resourceId("org.wikipedia.alpha:id/link_preview_title")
         
-    @testCaseInfo('<click full link>', deviceCount=1)
+    @testCaseInfo('<click partial link>', deviceCount=1)
     def testClickLink_partialText_assertPreviewShown(self):
         
         assert False, "test not implemented, fool"
