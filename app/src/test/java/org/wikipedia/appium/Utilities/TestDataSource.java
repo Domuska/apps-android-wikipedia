@@ -13,7 +13,7 @@ public class TestDataSource {
     public static String finnishLanguage = "Suomi";
 
     public static String referencesElementId = "content_block_19";
-    public static String fullLinkTextCapitalized = "Artificial intelligence";
+    public static String fullLinkTextCapitalized = "Artificial intelligence (video games)";
     public static String readingListName = "Fancy stuff";
     public static String article1_referenceSubHeading = "References";
     public static String article1_firstSubHeading = "Gameplay";
