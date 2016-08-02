@@ -57,4 +57,9 @@ public class Database extends SQLiteOpenHelper {
             table.upgradeSchema(sqLiteDatabase, from, to);
         }
     }
+
+    //added by Domuska, temporary(?) method for removing the whole database
+    public static void clearDatabase(Context context){
+        context.deleteDatabase(DATABASE_NAME);
+    }
 }

@@ -54,7 +54,7 @@ public class FullSearchTaskTests extends ActivityUnitTestCase<TestDummyActivity>
     // TODO: move to TitleSearchTest once we have it
 
 //    public void testFullTextSearchWithSuggestion() throws Throwable {
-//        startActivity(new Intent(), null, null);
+//        startingActivity(new Intent(), null, null);
 //        final CountDownLatch completionLatch = new CountDownLatch(1);
 //        runTestOnUiThread(new Runnable() {
 //            @Override
