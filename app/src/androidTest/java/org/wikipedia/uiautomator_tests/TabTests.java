@@ -91,11 +91,12 @@ public class TabTests  extends BaseTestClass{
                 By.text(openInNewTabText)), GENERAL_TIMEOUT)
                 .click();
 
-//        device.wait(Until.findObject(
-//                By.res("org.wikipedia.alpha:id/link_preview_title")), GENERAL_TIMEOUT);
-
         device.findObject(By.res("org.wikipedia.alpha:id/menu_page_show_tabs")).click();
-        device.findObject(By.text(newArticleNameCapitalized)).click();
+
+        device.wait(Until.findObject(
+                By.text(newArticleNameCapitalized)), GENERAL_TIMEOUT)
+                .click();
+//        device.findObject(By.text(newArticleNameCapitalized)).click();
 
         //assert title contains right text
         Utils.assertArticleTitleContains(device, newArticleNameCapitalized);
