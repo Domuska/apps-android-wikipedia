@@ -17,6 +17,8 @@ public class TabTests  extends BaseTestClass{
     private String newTabContentDesc;
     private String openInNewTabText;
     private String newTabDefaultText = TestDataSource.newTabDefaultText;
+    private String newArticleName = TestDataSource.fullLinkText1;
+    private String newArticleNameCapitalized = TestDataSource.fullLinkTextCapitalized;
 
     @Before
     public void setUp(){
@@ -73,9 +75,29 @@ public class TabTests  extends BaseTestClass{
 
         //tällä tavalla linkin klikkaaminen toimii kyllä, en tiedä miksi mutta se toimii.
         //uiautomatorviewerin dumpissa kyllä näkyy elementit näin. Voisiko sivua scrollata...?
-        device.findObject(By.desc("artificial intelligence")).click();
+
+        //open one article
+        Utils.openSearchFromStartScreen(device);
+        Utils.searchAndOpenArticleWithName(device, articleName1);
+
+        //open article preview
+        device.findObject(By.desc(newArticleName)).click();
 
         device.wait(Until.findObject(
-                By.res("org.wikipedia.alpha:id/link_preview_title")), GENERAL_TIMEOUT);
+            By.res("org.wikipedia.alpha:id/link_preview_overflow_button")), GENERAL_TIMEOUT)
+            .click();
+
+        device.wait(Until.findObject(
+                By.text(openInNewTabText)), GENERAL_TIMEOUT)
+                .click();
+
+//        device.wait(Until.findObject(
+//                By.res("org.wikipedia.alpha:id/link_preview_title")), GENERAL_TIMEOUT);
+
+        device.findObject(By.res("org.wikipedia.alpha:id/menu_page_show_tabs")).click();
+        device.findObject(By.text(newArticleNameCapitalized)).click();
+
+        //assert title contains right text
+        Utils.assertArticleTitleContains(device, newArticleNameCapitalized);
     }
 }
