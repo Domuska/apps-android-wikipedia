@@ -35,7 +35,7 @@ public class ArticleTests extends BaseTestClass{
 
     private String fullLinkText = TestDataSource.fullLinkText1;
     private String partialLinkText = TestDataSource.partialLinkText;
-    private String newArticleText = TestDataSource.newArticleTitle;
+    private String newArticleText = TestDataSource.fullLinkTextCapitalized;
 
     private String article1_referenceSubHeading = TestDataSource.article1_referenceSubHeading;
 
@@ -107,14 +107,27 @@ public class ArticleTests extends BaseTestClass{
         device.findObject(By.desc(fullLinkText)).click();
 
         //assert popup is shown
-        device.findObject(new UiSelector()
-                .resourceId("org.wikipedia.alpha:id/link_preview_title")
-                .text(newArticleText));
+        UiObject2 popUpTitle = device.wait(Until.findObject(By
+                .res("org.wikipedia.alpha:id/link_preview_title")
+                .text(newArticleText)), GENERAL_TIMEOUT);
+        assertThat(popUpTitle, notNullValue());
     }
 
     @Test
     public void testClickLink_partialText_assertPreviewShown(){
-        fail("not implemented");
+        //open article
+        Utils.openSearchFromStartScreen(device);
+        Utils.searchAndOpenArticleWithName(device, articleName1);
+
+        //click on link
+        device.findObject(By.descContains(partialLinkText)).click();
+
+        //assert popup is shown
+        UiObject2 popUpTitle = device.wait(Until.findObject(By
+                .res("org.wikipedia.alpha:id/link_preview_title")
+                .text(newArticleText)), GENERAL_TIMEOUT);
+        assertThat(popUpTitle, notNullValue());
+
     }
 
     @Test
