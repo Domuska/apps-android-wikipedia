@@ -31,6 +31,7 @@ public class BaseTestClass {
     protected String articleName3_finnish = TestDataSource.articleName3_finnish;
 
 
+
     @Before
     public final void setUpBaseTestClass(){
         device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());

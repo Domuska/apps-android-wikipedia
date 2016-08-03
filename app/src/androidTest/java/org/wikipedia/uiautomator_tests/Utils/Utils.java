@@ -29,6 +29,8 @@ public class Utils {
     }
 
     public static void searchAndOpenArticleWithName(UiDevice device, String name) {
+        device.waitForIdle(500);
+
         device.wait(Until.findObject(
                 By.res("org.wikipedia.alpha:id/search_src_text")), BaseTestClass.GENERAL_TIMEOUT)
                 .setText(name);
