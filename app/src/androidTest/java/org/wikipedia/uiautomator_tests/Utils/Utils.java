@@ -30,11 +30,16 @@ public class Utils {
         device.findObject(By.res("org.wikipedia.alpha:id/main_search_bar_text")).click();
     }
 
-    public static void searchAndOpenArticleWithName(UiDevice device, String name) {
+    public static void searchAndOpenArticleWithName(UiDevice device, String name){
 
         device.wait(Until.findObject(
                 By.res("org.wikipedia.alpha:id/search_src_text")), BaseTestClass.GENERAL_TIMEOUT)
                 .setText(name);
+        //small wait so the list will be properly loaded, reduces flakiness
+        try{
+            device.wait(500);
+        }
+        catch(Exception e){}
 
         UiObject2 resultsList = device.wait(Until.findObject(
                 By.res("org.wikipedia.alpha:id/search_results_list")
