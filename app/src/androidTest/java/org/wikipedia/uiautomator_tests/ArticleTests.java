@@ -33,6 +33,10 @@ public class ArticleTests extends BaseTestClass{
 
     String changeLanguageText;
 
+    private String fullLinkText = TestDataSource.fullLinkText1;
+    private String partialLinkText = TestDataSource.partialLinkText;
+    private String newArticleText = TestDataSource.newArticleTitle;
+
     private String article1_referenceSubHeading = TestDataSource.article1_referenceSubHeading;
 
     @Before
@@ -94,7 +98,18 @@ public class ArticleTests extends BaseTestClass{
 
     @Test
     public void testClickLink_fullText_assertPreviewShown(){
-        fail("not implemented");
+
+        //open article
+        Utils.openSearchFromStartScreen(device);
+        Utils.searchAndOpenArticleWithName(device, articleName1);
+
+        //click on link
+        device.findObject(By.desc(fullLinkText)).click();
+
+        //assert popup is shown
+        device.findObject(new UiSelector()
+                .resourceId("org.wikipedia.alpha:id/link_preview_title")
+                .text(newArticleText));
     }
 
     @Test

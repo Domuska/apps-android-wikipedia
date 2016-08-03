@@ -20,7 +20,7 @@ import static org.hamcrest.core.IsNull.notNullValue;
 public class BaseTestClass {
 
     protected UiDevice device;
-    public static final int GENERAL_TIMEOUT = 5000;
+    public static final int GENERAL_TIMEOUT = 10000;
     private final String WIKIPEDIA_ALPHA_PACKAGE = "org.wikipedia.alpha";
 
     protected String articleName1 = TestDataSource.articleName1;
