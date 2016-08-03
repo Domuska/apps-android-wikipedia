@@ -1,17 +1,23 @@
 package org.wikipedia.uiautomator_tests;
 
+import android.graphics.Point;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.uiautomator.By;
 import android.support.test.uiautomator.UiDevice;
 import android.support.test.uiautomator.UiObject;
 import android.support.test.uiautomator.UiObject2;
+import android.support.test.uiautomator.UiScrollable;
+import android.support.test.uiautomator.UiSelector;
 import android.support.test.uiautomator.Until;
+import android.widget.LinearLayout;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.wikipedia.R;
+import org.wikipedia.uiautomator_tests.Utils.TestDataSource;
 import org.wikipedia.uiautomator_tests.Utils.Utils;
 
+import static junit.framework.Assert.fail;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.StringStartsWith.startsWith;
@@ -19,6 +25,7 @@ import static org.hamcrest.core.StringStartsWith.startsWith;
 public class ArticleSearchTests extends BaseTestClass{
 
     private String recentSearchesText;
+    private String article1_referenceSubHeading = TestDataSource.article1_referenceSubHeading;
 
     @Before
     public void setUp(){
@@ -92,5 +99,36 @@ public class ArticleSearchTests extends BaseTestClass{
         Utils.assertArticleTitleContains(device, articleName3_finnish);
     }
 
+    @Test
+    public void testOpeningAndClosingReferences() throws Exception{
+
+        fail("this test doesn't work, can't find the references element");
+
+        //navigate to the article
+        Utils.openSearchFromStartScreen(device);
+        Utils.searchAndOpenArticleWithName(device, articleName1);
+        Utils.openToc(device);
+
+        //open references
+        UiScrollable tocList =
+                new UiScrollable(new UiSelector().resourceId("org.wikipedia.alpha:id/page_toc_list"));
+        tocList.getChildByText(new UiSelector().className(LinearLayout.class),
+                article1_referenceSubHeading)
+                .click();
+
+        //expand references
+        device.waitForIdle(1000);
+
+        Point start = new Point(device.getDisplayWidth()/2, device.getDisplayHeight()/3);
+        Double endY = device.getDisplayWidth()/0.5;
+        Point end = new Point(start.x, endY.intValue());
+        device.drag(start.x, start.y, end.x, end.y, 4);
+
+        device.findObject(By.desc("References"))
+                .click();
+//        device.findObject(new UiSelector().description("References")).click();
+        device.wait(Until.findObject(By.text("sfdsfds")), GENERAL_TIMEOUT);
+
+    }
 
 }
