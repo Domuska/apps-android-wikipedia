@@ -35,26 +35,41 @@ class ArticleTests (UITestCase):
         
         Utils.openSearchFromStartScreen()
         Utils.searchAndOpenArticleWithName(articleName1)
+        wait(500)
         Utils.openToC()
         
         log("check that certain 3 topmost subheadings in table of contents show up")
         
         verify.text(subHeading1, scroll = False, area = "org.wikipedia.alpha:id/page_toc_list")
-        verifytext(subHeading2, scroll = False, area = "org.wikipedia.alpha:id/page_toc_list")
+        verify.text(subHeading2, scroll = False, area = "org.wikipedia.alpha:id/page_toc_list")
         verify.text(subHeading3, scroll = False, area = "org.wikipedia.alpha:id/page_toc_list")
         
         log("make sure those same three subtitles are visible in the webview")
         Utils.closeToC()
         
-        verify.description(subHeading1)
-        verify.resourceId(subHeading2)
-        verify.resourceId(subHeading3)
+        verify.description(subHeading1, scroll = True)
+        verify.resourceId(subHeading2, scroll = True)
+        verify.resourceId(subHeading3, scroll = True)
+        
+        
+    @testCaseInfo('<test all kinds of stuff>', deviceCount=1)
+    def testStuff(self):
+        #testing for searching if certain elements are visible with Tau
+        #not to be left in here in the end
+        Utils.openSearchFromStartScreen()
+        Utils.searchAndOpenArticleWithName("Ricketts Glen State Park")
+        
+        #tap.description("Sullivan")
+        #Alleghany Front - ei toimi
+        #named waterfalls - toimii
+        #Colley
+        #Native Americans
+        #tap.description("named waterfalls")
+        assert find.description("History")
         
         
     @testCaseInfo('<click subheading, see screen moved>', deviceCount=1)
     def testScrollingToC_clickSubHeading(self):
-        
-        #test does not work - seems webview is problematic
         
         log("open article and table of contents")
         Utils.openSearchFromStartScreen()
@@ -63,7 +78,8 @@ class ArticleTests (UITestCase):
         
         tap.text(article1_referenceSubHeading, area = "org.wikipedia.alpha:id/page_toc_list")
         
-        verify.text(article1_referenceSubHeading)
+        log("make sure we the title bar is no longer visible")
+        verify.no.resourceId("org.wikipedia.alpha:id/view_article_header_text")
         
         
     @testCaseInfo('<click full link>', deviceCount=1)
