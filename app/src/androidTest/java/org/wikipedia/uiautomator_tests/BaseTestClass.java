@@ -10,6 +10,7 @@ import android.support.v7.preference.PreferenceManager;
 
 import org.junit.After;
 import org.junit.Before;
+import org.wikipedia.WikipediaApp;
 import org.wikipedia.database.Database;
 import org.wikipedia.page.PageFragment;
 import org.wikipedia.uiautomator_tests.Utils.TestDataSource;
@@ -65,6 +66,6 @@ public class BaseTestClass {
         PageFragment.clearTabs();
 
         //clear the database
-        Database.clearDatabase(InstrumentationRegistry.getTargetContext().getApplicationContext());
+        WikipediaApp.getInstance().resetDatabase();
     }
 }

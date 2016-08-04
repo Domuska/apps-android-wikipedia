@@ -16,7 +16,7 @@ import org.wikipedia.useroption.database.UserOptionRow;
 import org.wikipedia.util.log.L;
 
 public class Database extends SQLiteOpenHelper {
-    private static final String DATABASE_NAME = "wikipedia.db";
+    public static final String DATABASE_NAME = "wikipedia.db";
     private static final int DATABASE_VERSION = 14;
 
     private final DatabaseTable<?>[] databaseTables = {
@@ -56,10 +56,5 @@ public class Database extends SQLiteOpenHelper {
         for (DatabaseTable<?> table : databaseTables) {
             table.upgradeSchema(sqLiteDatabase, from, to);
         }
-    }
-
-    //added by Domuska, temporary(?) method for removing the whole database
-    public static void clearDatabase(Context context){
-        context.deleteDatabase(DATABASE_NAME);
     }
 }

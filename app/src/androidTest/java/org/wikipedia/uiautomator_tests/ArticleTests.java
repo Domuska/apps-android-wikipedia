@@ -1,5 +1,6 @@
 package org.wikipedia.uiautomator_tests;
 
+import android.graphics.Point;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.uiautomator.By;
 import android.support.test.uiautomator.UiObject;
@@ -31,19 +32,13 @@ public class ArticleTests extends BaseTestClass{
     String subHeading2 = TestDataSource.article1_subheading2;
     String subHeading3 = TestDataSource.article1_subheading3;
 
-    String changeLanguageText;
+
 
     private String fullLinkText = TestDataSource.fullLinkText1;
     private String partialLinkText = TestDataSource.partialLinkText;
     private String newArticleText = TestDataSource.fullLinkTextCapitalized;
 
     private String article1_referenceSubHeading = TestDataSource.article1_referenceSubHeading;
-
-    @Before
-    public void setUp(){
-        changeLanguageText = InstrumentationRegistry.getTargetContext()
-                .getString(R.string.menu_page_other_languages);
-    }
 
     @Test
     public void testTableOfContents_checkSubTitles() throws Exception{
@@ -131,37 +126,35 @@ public class ArticleTests extends BaseTestClass{
     }
 
     @Test
-    public void testChangeLanguage() throws Exception{
+    public void testOpeningAndClosingReferences() throws Exception{
 
-        //open article
+        fail("this test doesn't work, can't find the references element in webview");
+
+        //navigate to the article
         Utils.openSearchFromStartScreen(device);
-        Utils.searchAndOpenArticleWithName(device, articleName3);
+        Utils.searchAndOpenArticleWithName(device, articleName1);
+        Utils.openToc(device);
 
-        //open overflow menu in toolbar
-        device.findObject(By.desc("More options")).click();
-        device.wait(Until.findObject(
-                By.text(changeLanguageText)), GENERAL_TIMEOUT)
+        //open references
+        UiScrollable tocList =
+                new UiScrollable(new UiSelector().resourceId("org.wikipedia.alpha:id/page_toc_list"));
+        tocList.getChildByText(new UiSelector().className(LinearLayout.class),
+                article1_referenceSubHeading)
                 .click();
 
-        //change language to finnish
-        device.wait(Until.hasObject(
-                By.res("org.wikipedia.alpha:id/langlinks_list")), GENERAL_TIMEOUT);
-        UiScrollable languageList = new UiScrollable(
-                new UiSelector().resourceId("org.wikipedia.alpha:id/langlinks_list"));
-        languageList.getChildByText(
-                new UiSelector().className("android.widget.LinearLayout"), articleName3_finnish)
+        //expand references
+        device.waitForIdle(1000);
+
+        Point start = new Point(device.getDisplayWidth()/2, device.getDisplayHeight()/3);
+        Double endY = device.getDisplayWidth()/0.5;
+        Point end = new Point(start.x, endY.intValue());
+        device.drag(start.x, start.y, end.x, end.y, 4);
+
+        device.findObject(By.desc("References"))
                 .click();
+//        device.findObject(new UiSelector().description("References")).click();
+        device.wait(Until.findObject(By.text("sfdsfds")), GENERAL_TIMEOUT);
 
-        //assert article changed language
-        device.wait(Until.hasObject(
-                By.res("org.wikipedia.alpha:id/view_article_header_text")), GENERAL_TIMEOUT);
-        Utils.assertArticleTitleContains(device, articleName3_finnish);
     }
-
-    @Test
-    public void testOpeningAndClosingReferences(){
-        fail("not implemented");
-    }
-
 
 }

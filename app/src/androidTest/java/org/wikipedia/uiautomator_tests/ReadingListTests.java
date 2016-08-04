@@ -52,6 +52,8 @@ public class ReadingListTests extends BaseTestClass{
                 By.res("org.wikipedia.alpha:id/view_article_header_text")), GENERAL_TIMEOUT);
         Utils.openDrawer(device);
         device.findObject(By.text(readingListText)).click();
+        device.wait(Until.findObject(By.text(readingListName)), GENERAL_TIMEOUT)
+                .click();
         device.findObject(By.text(readingListName)).click();
 
         UiObject2 article = device.findObject(By.text(articleName1));

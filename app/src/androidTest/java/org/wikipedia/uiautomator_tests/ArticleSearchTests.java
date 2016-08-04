@@ -25,7 +25,6 @@ import static org.hamcrest.core.StringStartsWith.startsWith;
 public class ArticleSearchTests extends BaseTestClass{
 
     private String recentSearchesText;
-    private String article1_referenceSubHeading = TestDataSource.article1_referenceSubHeading;
 
     @Before
     public void setUp(){
@@ -69,66 +68,4 @@ public class ArticleSearchTests extends BaseTestClass{
         device.findObject(By.text(articleName2));
         device.findObject(By.text(articleName3));
     }
-
-    @Test
-    public void testSearchArticle_changeLanguageInSearch(){
-
-        Utils.openSearchFromStartScreen(device);
-        Utils.searchAndOpenArticleWithName(device, articleName3);
-
-        //check title is shown in default language
-        Utils.assertArticleTitleContains(device, articleName3);
-
-        //change language in search
-        Utils.openSearchFromArticle(device);
-
-        device.wait(Until.findObject(
-                By.res("org.wikipedia.alpha:id/search_lang_button")), GENERAL_TIMEOUT)
-                .click();
-        device.findObject(By.res("org.wikipedia.alpha:id/preference_languages_filter"))
-                .setText(finnishLanguage);
-        device.findObject(By.res("org.wikipedia.alpha:id/localized_language_name"))
-                .click();
-
-        //open article again
-        device.wait(Until.findObject(
-                By.text(articleName3_finnish)), GENERAL_TIMEOUT)
-                .click();
-
-        //check language is changed
-        Utils.assertArticleTitleContains(device, articleName3_finnish);
-    }
-
-    @Test
-    public void testOpeningAndClosingReferences() throws Exception{
-
-        fail("this test doesn't work, can't find the references element");
-
-        //navigate to the article
-        Utils.openSearchFromStartScreen(device);
-        Utils.searchAndOpenArticleWithName(device, articleName1);
-        Utils.openToc(device);
-
-        //open references
-        UiScrollable tocList =
-                new UiScrollable(new UiSelector().resourceId("org.wikipedia.alpha:id/page_toc_list"));
-        tocList.getChildByText(new UiSelector().className(LinearLayout.class),
-                article1_referenceSubHeading)
-                .click();
-
-        //expand references
-        device.waitForIdle(1000);
-
-        Point start = new Point(device.getDisplayWidth()/2, device.getDisplayHeight()/3);
-        Double endY = device.getDisplayWidth()/0.5;
-        Point end = new Point(start.x, endY.intValue());
-        device.drag(start.x, start.y, end.x, end.y, 4);
-
-        device.findObject(By.desc("References"))
-                .click();
-//        device.findObject(new UiSelector().description("References")).click();
-        device.wait(Until.findObject(By.text("sfdsfds")), GENERAL_TIMEOUT);
-
-    }
-
 }
