@@ -41,7 +41,7 @@ public class BaseTestClass {
     protected String articleToString3_finnish = "Skotlanti";
 
     protected String finnishLanguage = TestDataSource.finnishLanguage;
-    
+
     @Rule
     public ActivityTestRule<MainActivity> myActivityRule =
             new ActivityTestRule<MainActivity>(MainActivity.class) {
