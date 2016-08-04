@@ -6,6 +6,7 @@ import android.support.test.uiautomator.UiObject;
 import android.support.test.uiautomator.UiObject2;
 import android.support.test.uiautomator.Until;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.wikipedia.R;
@@ -26,6 +27,11 @@ public class RotationTests extends BaseTestClass{
     public void setUp(){
         openInNewTabText =
                 InstrumentationRegistry.getTargetContext().getString(R.string.menu_long_press_open_in_new_tab);
+    }
+
+    @After
+    public void tearDown() throws Exception{
+        device.setOrientationNatural();
     }
 
     @Test
