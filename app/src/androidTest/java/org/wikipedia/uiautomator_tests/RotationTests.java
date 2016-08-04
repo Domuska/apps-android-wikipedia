@@ -2,6 +2,9 @@ package org.wikipedia.uiautomator_tests;
 
 import android.support.test.InstrumentationRegistry;
 import android.support.test.uiautomator.By;
+import android.support.test.uiautomator.UiObject;
+import android.support.test.uiautomator.UiObject2;
+import android.support.test.uiautomator.Until;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -46,6 +49,48 @@ public class RotationTests extends BaseTestClass{
                 notNullValue());
         assertThat(device.findObject(By.text(firstSubHeading)),
                 notNullValue());
+    }
 
+    @Test
+    public void testOpenTab_rotatePhone() throws Exception{
+
+        //open a few articles in tabs
+        Utils.openSearchFromStartScreen(device);
+        Utils.searchAndOpenArticleWithName(device, articleName1);
+
+        //open link in a new tab
+        device.findObject(By.desc(link1)).click();
+
+        device.wait(Until.findObject(
+                By.res("org.wikipedia.alpha:id/link_preview_overflow_button")), GENERAL_TIMEOUT)
+                .click();
+        device.wait(Until.findObject(
+                By.text(openInNewTabText)), GENERAL_TIMEOUT)
+                .click();
+
+        //open tabs
+        device.findObject(By.res("org.wikipedia.alpha:id/menu_page_show_tabs"))
+                .click();
+
+        //assert the list and elements are visible
+        UiObject2 tabsList = device.wait(Until.findObject(
+                By.res("org.wikipedia.alpha:id/tabs_list")), GENERAL_TIMEOUT);
+        UiObject2 article1 = device.findObject(By.text(articleName1));
+        UiObject2 article2 = device.findObject(By.text(link1ArticleName));
+        assertThat("list of tabs was not found", tabsList, notNullValue());
+        assertThat("article " + articleName1 + " was not found", article1, notNullValue());
+        assertThat("article " + link1ArticleName + " was not found", article2, notNullValue());
+
+        //rotate phone
+        device.setOrientationLeft();
+
+        //assert the same views are visible
+        tabsList = device.wait(Until.findObject(
+                By.res("org.wikipedia.alpha:id/tabs_list")), GENERAL_TIMEOUT);
+        article1 = device.findObject(By.text(articleName1));
+        article2 = device.findObject(By.text(link1ArticleName));
+        assertThat("list of tabs was not found", tabsList, notNullValue());
+        assertThat("article " + articleName1 + " was not found", article1, notNullValue());
+        assertThat("article " + link1ArticleName + " was not found", article2, notNullValue());
     }
 }
