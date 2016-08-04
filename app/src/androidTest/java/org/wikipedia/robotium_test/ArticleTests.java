@@ -24,7 +24,7 @@ public class ArticleTests extends BaseTestClass{
     private String partialLinkText = TestDataSource.partialLinkText;
     private String newArticleTitle = TestDataSource.newArticleTitle;
 
-    private String changeLanguage;
+
 
     private String referencesJSId = TestDataSource.referencesElementId;
     private String referencesJSClassName = TestDataSource.referencesJSClassName;
@@ -33,7 +33,7 @@ public class ArticleTests extends BaseTestClass{
 
     public void setUp() throws Exception {
         super.setUp();
-        changeLanguage = getActivity().getString(R.string.menu_page_other_languages);
+
     }
 
     public void tearDown() throws Exception {
@@ -118,21 +118,7 @@ public class ArticleTests extends BaseTestClass{
 
     }
 
-    public void testCHangeLanguage(){
-        //open article
-        Utils.openSearchFromStartScreen(solo);
-        Utils.searchAndOpenArticleWithName(solo, articleName3);
 
-        //open overflow menu in toolbar
-        Utils.openOverflowMenu(solo);
-        //change language to finnish
-        solo.clickOnText(changeLanguage);
-        solo.clickOnText(articleName3_finnish);
-        solo.sleep(Utils.PAGE_LOAD_WAIT);
-
-        //assert article changed to finnish
-        Utils.assertArticleTitleContains(solo, articleName3_finnish);
-    }
 
     public void testOpeningAndClosingReferences(){
         //navigate to the article

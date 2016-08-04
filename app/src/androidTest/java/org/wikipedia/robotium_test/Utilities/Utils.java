@@ -15,6 +15,7 @@ import java.util.List;
 
 import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertTrue;
+import static junit.framework.Assert.fail;
 
 public class Utils {
 
@@ -23,16 +24,20 @@ public class Utils {
 
     public static void searchAndOpenArticleWithName(Solo solo, String name){
         EditText searchView = (EditText) solo.getView(R.id.search_src_text);
-        solo.typeText(searchView, name);
+        solo.clearEditText(searchView);
+        solo.enterText(searchView, name);
 
         //wait for the text to be present two times (search field and results), click the second one
-        if(solo.waitForText(name, 2, BaseTestClass.TIMEOUT_FIFTEEN_SECONDS_LONG)){
+//        if(solo.waitForText(name, 2, BaseTestClass.TIMEOUT_FIFTEEN_SECONDS_LONG)){
+        if(solo.waitForView(R.id.search_results_list)){
             //robotium clicks blindly on first text it finds, so we have to make sure right text is clicked
-            clickElementInSearchResultsList(solo, name);
-//            solo.clickOnText(name);
-            //give the article a second to load up
-            solo.sleep(PAGE_LOAD_WAIT);
+//            clickElementInSearchResultsList(solo, name);
+            solo.clickOnView(solo.getText("^" + name + "$"));
+            //give the article a couple seconds to load up
+//            solo.sleep(PAGE_LOAD_WAIT);
         }
+        else
+            fail("search results list not visible");
     }
 
     public static void openSearchFromStartScreen(Solo solo){
@@ -46,7 +51,8 @@ public class Utils {
 
     public static void assertArticleTitleContains(Solo solo, String name){
         //wait for article
-        if(solo.waitForText(name)) {
+//        if(solo.waitForText(name)) {
+        if(solo.waitForView(R.id.view_article_header_text)){
             String titleText = ((TextView) solo.getView(R.id.view_article_header_text))
                     .getText().toString();
             assertTrue("Title does not contain text: " + name + ", contains instead " + titleText,

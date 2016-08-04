@@ -9,6 +9,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.wikipedia.MainActivity;
 import org.wikipedia.R;
+import org.wikipedia.WikipediaApp;
 import org.wikipedia.database.Database;
 import org.wikipedia.page.PageFragment;
 import org.wikipedia.robotium_test.Utilities.TestDataSource;
@@ -48,7 +49,7 @@ public class BaseTestClass extends ActivityInstrumentationTestCase2<MainActivity
         PageFragment.clearTabs();
 
         //clear the database
-        Database.clearDatabase(getActivity().getApplicationContext());
+        WikipediaApp.getInstance().resetDatabase();
 
         solo.finishOpenedActivities();
         super.tearDown();
