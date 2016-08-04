@@ -31,6 +31,7 @@ public class RotationTests extends BaseTestClass{
 
     @After
     public void tearDown() throws Exception{
+        device.unfreezeRotation();
         device.setOrientationNatural();
     }
 
@@ -75,7 +76,8 @@ public class RotationTests extends BaseTestClass{
                 .click();
 
         //open tabs
-        device.findObject(By.res("org.wikipedia.alpha:id/menu_page_show_tabs"))
+        device.wait(Until.findObject(
+                By.res("org.wikipedia.alpha:id/menu_page_show_tabs")), GENERAL_TIMEOUT)
                 .click();
 
         //assert the list and elements are visible
