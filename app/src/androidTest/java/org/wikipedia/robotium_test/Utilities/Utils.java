@@ -26,6 +26,7 @@ public class Utils {
         EditText searchView = (EditText) solo.getView(R.id.search_src_text);
         solo.clearEditText(searchView);
         solo.enterText(searchView, name);
+        solo.sleep(PAGE_LOAD_WAIT);
 
         //wait for the text to be present two times (search field and results), click the second one
 //        if(solo.waitForText(name, 2, BaseTestClass.TIMEOUT_FIFTEEN_SECONDS_LONG)){
@@ -34,7 +35,7 @@ public class Utils {
 //            clickElementInSearchResultsList(solo, name);
             solo.clickOnView(solo.getText("^" + name + "$"));
             //give the article a couple seconds to load up
-//            solo.sleep(PAGE_LOAD_WAIT);
+            solo.sleep(PAGE_LOAD_WAIT);
         }
         else
             fail("search results list not visible");

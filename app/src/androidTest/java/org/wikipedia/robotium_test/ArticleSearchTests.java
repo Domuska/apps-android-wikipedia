@@ -1,6 +1,8 @@
 package org.wikipedia.robotium_test;
 
+import android.support.test.espresso.web.sugar.Web;
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -38,16 +40,18 @@ public class ArticleSearchTests extends BaseTestClass{
         //search and open articles
         Utils.openSearchFromStartScreen(solo);
         Utils.searchAndOpenArticleWithName(solo, articleName1);
-//        solo.waitForText(articleName1);
-        solo.waitForView(R.id.view_article_header_text);
+        solo.waitForText(articleName1);
+
+        WebView webView = solo.getView(WebView.class, 0);
+        webView.des
 
         Utils.openSearchFromArticle(solo);
         Utils.searchAndOpenArticleWithName(solo, articleName2);
-        solo.waitForView(R.id.view_article_header_text);
+        solo.waitForText(articleName2);
 
         Utils.openSearchFromArticle(solo);
         Utils.searchAndOpenArticleWithName(solo, articleName3);
-        solo.waitForView(R.id.view_article_header_text);
+        solo.waitForText(articleName3);
 
         //go to the search screen
         Utils.openSearchFromArticle(solo);
