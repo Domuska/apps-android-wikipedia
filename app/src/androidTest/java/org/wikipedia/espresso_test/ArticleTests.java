@@ -39,8 +39,6 @@ public class ArticleTests extends BaseTestClass{
     private String fullLinkText = TestDataSource.fullLinkText1;
     private String partialLinkText = TestDataSource.partialLinkText;
     private String newArticleText = TestDataSource.newArticleTitle;
-    private String changeLanguageText;
-    private String refencesJSId = TestDataSource.referencesElementId;
     private String referenceJSclassName = TestDataSource.referencesJSClassName;
     private String article1_referenceSubHeading = TestDataSource.article1_referenceSubHeading;
 
@@ -53,7 +51,7 @@ public class ArticleTests extends BaseTestClass{
     @Before
     public void setUp(){
         startActivity = myActivityRule.getActivity();
-        changeLanguageText = startActivity.getString(R.string.menu_page_other_languages);
+
     }
 
     @Test
@@ -136,24 +134,7 @@ public class ArticleTests extends BaseTestClass{
         assertArticlePreviewVisible();
     }
 
-    @Test
-    public void testChangeLanguage(){
-        //open article
-        Utils.openSearchFromStartScreen();
-        Utils.searchAndOpenArticleWithName(articleName3, articleToString3, startActivity);
 
-        //open overflow menu in toolbar
-        openActionBarOverflowOrOptionsMenu(myActivityRule.getActivity().getApplicationContext());
-        onView(withText(changeLanguageText)).perform(click());
-
-        //change language to finnish
-        onData(withLanguageName(articleName3_finnish))
-                .inAdapterView(withId(R.id.langlinks_list))
-                .perform(click());
-
-        //assert article changed to finnish language one
-        Utils.assertArticleTitleContains(articleName3_finnish);
-    }
 
     @Test
     public void testOpeningAndClosingReferences(){
@@ -193,17 +174,5 @@ public class ArticleTests extends BaseTestClass{
 
 
 
-    //String languageCode = item.getSite().languageCode()
-    private static Matcher<Object> withLanguageName(final String text){
-        return new BoundedMatcher<Object, PageTitle>(PageTitle.class) {
-            @Override
-            public void describeTo(org.hamcrest.Description description) {
-                description.appendText("has text of " + text);
-            }
-            @Override
-            protected boolean matchesSafely(PageTitle item) {
-                return item.getText().equals(text);
-            }
-        };
-    }
+
 }

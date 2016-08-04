@@ -370,6 +370,13 @@ public class WikipediaApp extends Application {
         return (DatabaseClient<T>) databaseClients.get(cls);
     }
 
+    //temporary(?) method for testing to remove database,
+    //added by Domuska
+    public void resetDatabase(){
+        getApplicationContext().deleteDatabase(Database.DATABASE_NAME);
+        this.database = new Database(this);
+    }
+
     public RemoteConfig getRemoteConfig() {
         return remoteConfig;
     }

@@ -1,24 +1,31 @@
 package org.wikipedia.espresso_test;
 
 import android.app.Activity;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.test.espresso.Espresso;
 import android.support.test.rule.ActivityTestRule;
+import android.support.test.runner.lifecycle.ActivityLifecycleMonitor;
+import android.support.test.runner.lifecycle.ActivityLifecycleMonitorRegistry;
+import android.support.test.runner.lifecycle.Stage;
 import android.support.v7.preference.PreferenceManager;
+import android.util.Log;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.wikipedia.MainActivity;
 import org.wikipedia.TestingHelpers.SearchIdlingResource;
+import org.wikipedia.WikipediaApp;
 import org.wikipedia.database.Database;
 import org.wikipedia.espresso_test.Utilities.TestDataSource;
+import org.wikipedia.interlanguage.AppLanguageState;
 import org.wikipedia.page.PageFragment;
-import org.wikipedia.page.tabs.Tab;
-import org.wikipedia.page.tabs.TabsProvider;
 import org.wikipedia.settings.Prefs;
 
-
 import java.util.ArrayList;
+import java.util.EnumSet;
+import java.util.List;
 
 public class BaseTestClass {
 
@@ -34,7 +41,7 @@ public class BaseTestClass {
     protected String articleToString3_finnish = "Skotlanti";
 
     protected String finnishLanguage = TestDataSource.finnishLanguage;
-
+    
     @Rule
     public ActivityTestRule<MainActivity> myActivityRule =
             new ActivityTestRule<MainActivity>(MainActivity.class) {
@@ -43,9 +50,6 @@ public class BaseTestClass {
     @Before
     public final void setUpBaseTestClass(){
         Espresso.registerIdlingResources(SearchIdlingResource.getIdlingResource());
-//        startActivity = myActivityRule.getActivity();
-//        recentSearchesText = startActivity.getString(R.string.search_recent_header);
-//        mainFragmentSearchHint = startActivity.getString(R.string.search_hint);
     }
 
     @After
@@ -57,9 +61,11 @@ public class BaseTestClass {
                         myActivityRule.getActivity().getApplicationContext())
                 .edit().clear().commit();
 
+        //clear tabs like this so app starts in start page on every test run
         PageFragment.clearTabs();
 
         //clear the database
-        Database.clearDatabase(myActivityRule.getActivity().getApplicationContext());
+        WikipediaApp.getInstance().resetDatabase();
     }
+
 }

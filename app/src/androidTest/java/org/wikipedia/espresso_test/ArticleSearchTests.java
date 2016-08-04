@@ -88,29 +88,7 @@ public class ArticleSearchTests extends BaseTestClass{
                 .check(matches(isDisplayed()));
     }
 
-    @Test
-    public void testSearchArticle_changeLanguageInSearch(){
-        Utils.openSearchFromStartScreen();
-        Utils.searchAndOpenArticleWithName(articleName3, articleToString3, myActivityRule.getActivity());
 
-        //check title is shown in default language
-        Utils.assertArticleTitleContains(articleName3);
-
-        //change language in search
-        Utils.openSearchFromArticle();
-        onView(withId(R.id.search_lang_button)).perform(click());
-        onView(withId(R.id.preference_languages_filter)).perform(typeText(finnishLanguage));
-        onView(withId(R.id.localized_language_name)).perform(click());
-
-        //open article again, use position 0 since it should show the best fitting result
-        onData(hasToString(articleToString3_finnish))
-                .atPosition(0)
-                .inAdapterView(withId(R.id.search_results_list))
-                .perform(click());
-
-        //check language is changed
-        Utils.assertArticleTitleContains(articleName3_finnish);
-    }
 
     //a wizard's spell. Made with help of RecentSearchesFragment.java, adapter at bottom
     //(bindView & getEntry methods)
