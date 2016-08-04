@@ -39,7 +39,9 @@ public class Utils {
         try{
             device.wait(500);
         }
-        catch(Exception e){}
+        catch(Exception e){
+            e.printStackTrace();
+        }
 
         UiObject2 resultsList = device.wait(Until.findObject(
                 By.res("org.wikipedia.alpha:id/search_results_list")
