@@ -42,9 +42,6 @@ public class ArticleSearchTests extends BaseTestClass{
         Utils.searchAndOpenArticleWithName(solo, articleName1);
         solo.waitForText(articleName1);
 
-        WebView webView = solo.getView(WebView.class, 0);
-        webView.des
-
         Utils.openSearchFromArticle(solo);
         Utils.searchAndOpenArticleWithName(solo, articleName2);
         solo.waitForText(articleName2);
