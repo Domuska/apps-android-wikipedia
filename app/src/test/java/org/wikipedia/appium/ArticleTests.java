@@ -24,12 +24,10 @@ public class ArticleTests extends BaseTestClass{
 
 
     private String article1_referenceSubHeading = TestDataSource.article1_referenceSubHeading;
-    private String overflowMenuContentDescription = "More options";
-    private String changeLanguageText = "Change language";
 
-    String subHeading1 = TestDataSource.article1_subheading1;
-    String subHeading2 = TestDataSource.article1_subheading2;
-    String subHeading3 = TestDataSource.article1_subheading3;
+    private String subHeading1 = TestDataSource.article1_subheading1;
+    private String subHeading2 = TestDataSource.article1_subheading2;
+    private String subHeading3 = TestDataSource.article1_subheading3;
 
     private String fullLinkText = TestDataSource.fullLinkText1;
     private String partialLinkText = TestDataSource.partialLinkText;
@@ -121,33 +119,6 @@ public class ArticleTests extends BaseTestClass{
 
         //assert a popup showing preview of new article shows
         assertArticlePreviewVisible();
-    }
-
-    @Test
-    public void testChangeLanguage(){
-        //open article
-        Utils.openSearchFromStartScreen(driver);
-        Utils.searchAndOpenArticleWithName(driver, articleName3);
-
-        //open overflow menu in toolbar
-        driver.findElementByAccessibilityId(overflowMenuContentDescription).click();
-        stareAtPixies.until(ExpectedConditions.visibilityOfElementLocated(
-                By.name(changeLanguageText)
-        )).click();
-
-        //change language to finnish
-        stareAtPixies.until(ExpectedConditions.visibilityOfElementLocated(
-                By.id("org.wikipedia.alpha:id/langlinks_list")
-        ));
-        Utils.searchInVisibleListWithName(driver, articleName3_finnish).click();
-
-        //assert article changed to finnish language one
-        WebElement titleView = stareAtPixies.until(ExpectedConditions.visibilityOfElementLocated(
-                By.id("org.wikipedia.alpha:id/view_article_header_text")
-        ));
-
-        assertTrue("Title text should contain title in finnish: " + articleName3_finnish,
-                titleView.getText().contains(articleName3_finnish));
     }
 
     @Test
