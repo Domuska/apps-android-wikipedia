@@ -9,6 +9,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.wikipedia.appium.BaseTestClass;
 
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
@@ -80,11 +81,16 @@ public class Utils {
 
         Dimension screen = driver.manage().window().getSize();
         int startX = screen.width-5;
-        int startY=  screen.height/2;
+        int startY = screen.height/2;
         int endX = screen.width/2;
         int endY = startY;
 
-        driver.swipe(startX, startY, endX, endY, 300);
+        driver.swipe(startX, startY, endX, endY, 800);
+
+        webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(
+                By.id("org.wikipedia.alpha:id/page_toc_list")
+        ));
+
     }
 
     public static void closeToC(AndroidDriver driver){
@@ -104,16 +110,12 @@ public class Utils {
         driver.findElementByAccessibilityId("Wikipedia Alpha").click();
     }
 
+    //won't work on android version 6.0+. See comment in ArticleTests.testTableOfContents_checkSubTitles
     public static void switchToWebContext(AndroidDriver driver){
-
-//        Set contextNames = driver.getContextHandles();
-//        driver.context((String)contextNames.toArray()[1]);
-        driver.context("WEBVIEW_org.wikipedia.alpha");
-
-
-//        for(String context : contextNames) {
-//            System.out.println(context);
-//        }
+        Set contextNames = driver.getContextHandles();
+        driver.context((String)contextNames.toArray()[1]);
+//        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+//        driver.context("WEBVIEW_org.wikipedia.alpha");
     }
 
     public static void switchToNativeContext(AndroidDriver driver){

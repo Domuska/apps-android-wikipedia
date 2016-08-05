@@ -3,12 +3,10 @@ package org.wikipedia.appium;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.wikipedia.appium.Utilities.TestDataSource;
 import org.wikipedia.appium.Utilities.Utils;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import io.appium.java_client.MobileElement;
@@ -16,6 +14,8 @@ import io.appium.java_client.MobileElement;
 import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertTrue;
 import static junit.framework.Assert.fail;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.Is.is;
 
 public class ArticleTests extends BaseTestClass{
 
@@ -28,8 +28,13 @@ public class ArticleTests extends BaseTestClass{
     String subHeading2 = TestDataSource.article1_subheading2;
     String subHeading3 = TestDataSource.article1_subheading3;
 
+    private String fullLinkText = TestDataSource.fullLinkText1;
+    private String partialLinkText = TestDataSource.partialLinkText;
+    private String newArticleTitle = TestDataSource.fullLinkTextCapitalized;
+
     @Test
-    // it seems chromeDriver update is not out yet, as of 28.7.2016.
+    // webview automation does not work on android 6.0+. Chromedriver has
+    // problems getting the right context. Tried with chromedriver 2.23 & 2.21
     // see if fixable:
     // https://github.com/appium/appium/issues/5689
     // https://github.com/appium/appium/issues/6634
@@ -59,7 +64,6 @@ public class ArticleTests extends BaseTestClass{
         driver.findElementById(subHeading2);
         driver.findElementById(subHeading3);
 
-
         //set context back to NATIVE_APP
         Utils.switchToNativeContext(driver);
     }
@@ -86,7 +90,17 @@ public class ArticleTests extends BaseTestClass{
 
     @Test
     public void testClickLink_fullText_assertPreviewShown(){
-        fail("not yet implemented");
+        //open article
+        Utils.openSearchFromStartScreen(driver);
+        Utils.searchAndOpenArticleWithName(driver, articleName1);
+
+        //click on link
+        Utils.switchToWebContext(driver);
+        driver.findElementByLinkText(fullLinkText).click();
+        Utils.switchToNativeContext(driver);
+
+        //assert a popup showing preview of new article shows
+        assertArticlePreviewVisible();
     }
 
     @Test
@@ -124,5 +138,12 @@ public class ArticleTests extends BaseTestClass{
     @Test
     public void testOpeningAndClosingReferences(){
         fail("not yet implemented");
+    }
+
+    private void assertArticlePreviewVisible() {
+        String previewTitle = stareAtPixies.until(ExpectedConditions.visibilityOfElementLocated(
+                By.id("org.wikipedia.alpha:id/link_preview_title")))
+                .getText();
+        assertThat(previewTitle, is(newArticleTitle));
     }
 }
