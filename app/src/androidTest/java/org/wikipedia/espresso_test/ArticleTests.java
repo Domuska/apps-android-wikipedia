@@ -76,7 +76,6 @@ public class ArticleTests extends BaseTestClass{
                 .inAdapterView(withId(R.id.page_toc_list))
                 .check(matches(isDisplayed()));
 
-
         //make sure those same three subtitles are visible in the webview
         //this might not be the best way to do it but it will make sure they exist in the webView
         Utils.closeToC();
@@ -103,7 +102,6 @@ public class ArticleTests extends BaseTestClass{
 
     }
 
-
     @Test
     public void testClickLink_fullText_assertPreviewShown(){
 
@@ -118,7 +116,6 @@ public class ArticleTests extends BaseTestClass{
 
         //assert a popup showing preview of new article shows
         assertArticlePreviewVisible();
-
     }
 
     @Test
@@ -136,8 +133,6 @@ public class ArticleTests extends BaseTestClass{
         assertArticlePreviewVisible();
     }
 
-
-
     @Test
     public void testOpeningAndClosingReferences(){
 
@@ -154,7 +149,6 @@ public class ArticleTests extends BaseTestClass{
                 .withElement(findElement(Locator.CLASS_NAME, referenceJSclassName))
                 .perform(webClick())
                 //assert reference is visible
-//                .withElement(findElement(Locator.CLASS_NAME, referenceTextClassName))
                 .withElement(findElement(Locator.XPATH, referenceTextClassName))
                 .check(webMatches(getText(), containsString(article1_firstReference)))
                 //close references
@@ -165,17 +159,10 @@ public class ArticleTests extends BaseTestClass{
                 .check(webMatches(getText(), not(containsString(article1_firstReference))));
     }
 
-
-
     private void assertArticlePreviewVisible() {
         onView(allOf(
                 withText(containsString(newArticleText)),
                 withId(R.id.link_preview_title)))
                 .check(matches(isDisplayed()));
     }
-
-
-
-
-
 }
