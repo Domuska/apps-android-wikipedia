@@ -39,13 +39,15 @@ public class ArticleTests extends BaseTestClass{
     private String fullLinkText = TestDataSource.fullLinkText1;
     private String partialLinkText = TestDataSource.partialLinkText;
     private String newArticleText = TestDataSource.newArticleTitle;
-    private String referenceJSclassName = TestDataSource.referencesJSClassName;
     private String article1_referenceSubHeading = TestDataSource.article1_referenceSubHeading;
 
     String subHeading1 = TestDataSource.article1_subheading1;
     String subHeading2 = TestDataSource.article1_subheading2;
     String subHeading3 = TestDataSource.article1_subheading3;
-    private String referenceTextClassName = "mw-reference-text";
+
+    private String referenceJSclassName = TestDataSource.referencesJSClassName;
+    private String referenceTextClassName = TestDataSource.firstReferenceJSClassName;
+    private String collapseReferencesClassName = TestDataSource.collapseReferenceJSClassName;
     private String article1_firstReference = TestDataSource.article1_firstReference;
 
     @Before
@@ -152,13 +154,14 @@ public class ArticleTests extends BaseTestClass{
                 .withElement(findElement(Locator.CLASS_NAME, referenceJSclassName))
                 .perform(webClick())
                 //assert reference is visible
-                .withElement(findElement(Locator.CLASS_NAME, referenceTextClassName))
+//                .withElement(findElement(Locator.CLASS_NAME, referenceTextClassName))
+                .withElement(findElement(Locator.XPATH, referenceTextClassName))
                 .check(webMatches(getText(), containsString(article1_firstReference)))
                 //close references
-                .withElement(findElement(Locator.CLASS_NAME, "app_table_collapse_close"))
+                .withElement(findElement(Locator.CLASS_NAME, collapseReferencesClassName))
                 .perform(webClick())
                 //assert reference is no longer visible
-                .withElement(findElement(Locator.CLASS_NAME, referenceTextClassName))
+                .withElement(findElement(Locator.XPATH, referenceTextClassName))
                 .check(webMatches(getText(), not(containsString(article1_firstReference))));
     }
 
