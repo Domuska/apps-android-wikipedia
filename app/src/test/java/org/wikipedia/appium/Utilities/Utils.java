@@ -38,21 +38,24 @@ public class Utils {
     //todo kysy mikan mielipidettä, käytetäänkö APIa vai omaa kikkaa?
     public static void searchAndOpenArticleWithName (AndroidDriver driver, String name){
 
-        //send keycode backspace so the current search term is removed
+        //send keycode backspace so the current search term is removed, clear does not really work
         driver.pressKeyCode(67);
-        webDriverWait = new WebDriverWait(driver, BaseTestClass.TIMEOUT_FIFTEEN_SECONDS);
         driver.findElementById("org.wikipedia.alpha:id/search_src_text").sendKeys(name);
 //        textField.clear();
 //        textField.sendKeys(name);
 
+        webDriverWait = new WebDriverWait(driver, BaseTestClass.TIMEOUT_FIFTEEN_SECONDS);
         WebElement resultList = webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(
                 By.id("org.wikipedia.alpha:id/search_results_list")
         ));
 
-
         webDriverWait.until(ExpectedConditions.visibilityOf(
                 resultList.findElement(By.name(name))
         )).click();
+
+        webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(
+                By.id("org.wikipedia.alpha:id/view_article_header_text")
+        ));
     }
 
     public static WebElement searchInVisibleListWithName(AndroidDriver driver, String elementName){
@@ -60,7 +63,7 @@ public class Utils {
         // https://github.com/appium/java-client/issues/421
         return driver.findElementByAndroidUIAutomator("new UiScrollable(new UiSelector().scrollable(true)" +
                 ".instance(0)).scrollIntoView(new UiSelector()" +
-                ".textContains(\"" + elementName + "\").instance(0))");
+                ".textContains(\"" + elementName + "\").instance(0))" );
     }
 
     public static void assertArticleTitleVisibleAndContains(AndroidDriver driver, String articleName) {

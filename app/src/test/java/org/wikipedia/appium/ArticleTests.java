@@ -10,12 +10,15 @@ import org.wikipedia.appium.Utilities.Utils;
 import java.util.List;
 
 import io.appium.java_client.MobileElement;
+import io.appium.java_client.android.AndroidElement;
 
 import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertTrue;
 import static junit.framework.Assert.fail;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsNot.not;
 
 public class ArticleTests extends BaseTestClass{
 
@@ -31,6 +34,11 @@ public class ArticleTests extends BaseTestClass{
     private String fullLinkText = TestDataSource.fullLinkText1;
     private String partialLinkText = TestDataSource.partialLinkText;
     private String newArticleTitle = TestDataSource.fullLinkTextCapitalized;
+
+    private String referenceJSclassName = TestDataSource.referencesJSClassName;
+    private String referenceTextClassName = TestDataSource.firstReferenceJSClassName;
+    private String collapseReferencesClassName = TestDataSource.collapseReferenceJSClassName;
+    private String article1_firstReference = TestDataSource.article1_firstReference;
 
     @Test
     // webview automation does not work on android 6.0+. Chromedriver has
@@ -73,9 +81,6 @@ public class ArticleTests extends BaseTestClass{
         //open article and table of contents
         Utils.openSearchFromStartScreen(driver);
         Utils.searchAndOpenArticleWithName(driver, articleName1);
-        stareAtPixies.until(ExpectedConditions.visibilityOfElementLocated(
-                By.id("org.wikipedia.alpha:id/view_article_header_text")
-        ));
         Utils.openToC(driver);
 
         //scroll to subheading
@@ -105,7 +110,17 @@ public class ArticleTests extends BaseTestClass{
 
     @Test
     public void testClickLink_partialText_assertPreviewShown(){
-        fail("not yet implemented");
+        //open article
+        Utils.openSearchFromStartScreen(driver);
+        Utils.searchAndOpenArticleWithName(driver, articleName1);
+
+        //click on link
+        Utils.switchToWebContext(driver);
+        driver.findElementByPartialLinkText(partialLinkText).click();
+        Utils.switchToNativeContext(driver);
+
+        //assert a popup showing preview of new article shows
+        assertArticlePreviewVisible();
     }
 
     @Test
@@ -137,7 +152,23 @@ public class ArticleTests extends BaseTestClass{
 
     @Test
     public void testOpeningAndClosingReferences(){
-        fail("not yet implemented");
+        //navigate to the article
+        Utils.openSearchFromStartScreen(driver);
+        Utils.searchAndOpenArticleWithName(driver, articleName1);
+        Utils.openToC(driver);
+        Utils.searchInVisibleListWithName(driver, article1_referenceSubHeading).click();
+
+        Utils.switchToWebContext(driver);
+        //open references
+        driver.findElementByClassName(referenceJSclassName).click();
+        //assert reference is visible
+        MobileElement firstReference = driver.findElementByXPath(referenceTextClassName);
+        assertThat(firstReference.getText(), containsString(article1_firstReference));
+        //close references
+        driver.findElementByClassName(collapseReferencesClassName).click();
+        //assert reference is no longer visible
+        firstReference = driver.findElementByXPath(referenceTextClassName);
+        assertThat(firstReference.getText(), not(containsString(article1_firstReference)));
     }
 
     private void assertArticlePreviewVisible() {
