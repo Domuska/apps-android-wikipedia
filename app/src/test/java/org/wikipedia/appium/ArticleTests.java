@@ -38,15 +38,12 @@ public class ArticleTests extends BaseTestClass{
     private String collapseReferencesClassName = TestDataSource.collapseReferenceJSClassName;
     private String article1_firstReference = TestDataSource.article1_firstReference;
 
+
+    // the test works, most of the time. Seems there are still problems
+    // with the webview
     @Test
-    // webview automation does not work on android 6.0+. Chromedriver has
-    // problems getting the right context. Tried with chromedriver 2.23 & 2.21
-    // see if fixable:
-    // https://github.com/appium/appium/issues/5689
-    // https://github.com/appium/appium/issues/6634
-    // https://bugs.chromium.org/p/chromedriver/issues/detail?id=1378#c4
     public void testTableOfContents_checkSubTitles(){
-        
+
         Utils.openSearchFromStartScreen(driver);
         Utils.searchAndOpenArticleWithName(driver, articleName1);
         stareAtPixies.until(ExpectedConditions.visibilityOfElementLocated(
