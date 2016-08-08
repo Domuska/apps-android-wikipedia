@@ -72,7 +72,6 @@ public class RotationTests extends BaseTestClass{
         onData(withToCLine(firstSubHeading))
                 .inAdapterView(withId(R.id.page_toc_list))
                 .check(matches(isDisplayed()));
-
     }
 
     @Test
@@ -96,14 +95,16 @@ public class RotationTests extends BaseTestClass{
         onView(withId(R.id.menu_page_show_tabs)).perform(click());
 
         //assert the list and elements are visible
-        onView(withId(R.id.tabs_list)).check(matches(isDisplayed()));
-        onView(allOf(withText(articleName1), isDisplayed())).check(matches(isDisplayed()));
-        onView(withText(link1ArticleName)).check(matches(isDisplayed()));
+        assertListAndTabsVisible();
 
         //rotate phone
         onView(isRoot()).perform(orientationLandscape());
 
         //assert the same views are visible
+        assertListAndTabsVisible();
+    }
+
+    private void assertListAndTabsVisible() {
         onView(withId(R.id.tabs_list)).check(matches(isDisplayed()));
         onView(allOf(withText(articleName1), isDisplayed())).check(matches(isDisplayed()));
         onView(withText(link1ArticleName)).check(matches(isDisplayed()));
