@@ -14,9 +14,10 @@ public class TabTests extends BaseTestClass{
 
     private String newTabContentDesc = "New tab";
     private String newTabDefaultText = TestDataSource.newTabDefaultText;
+
     private String newArticleName = TestDataSource.fullLinkText1;
     private String newArticleNameCapitalized = TestDataSource.fullLinkTextCapitalized;
-    private String openInNewTabText;
+    private String openInNewTabText = "Open in new tab";
 
 
 
@@ -63,17 +64,28 @@ public class TabTests extends BaseTestClass{
     @Test
     public void testOpenArticleInNewTab(){
 
-        fail("not implemented");
-
         //open article
+        Utils.openSearchFromStartScreen(driver);
+        Utils.searchAndOpenArticleWithName(driver, articleName1);
 
         //open article preview
+        Utils.switchToWebContext(driver);
+        driver.findElementByLinkText(newArticleName).click();
 
         //open the article in new tab
+        Utils.switchToNativeContext(driver);
+        driver.findElementById("org.wikipedia.alpha:id/link_preview_overflow_button").click();
+        stareAtPixies.until(ExpectedConditions.visibilityOfElementLocated(
+                By.name(openInNewTabText)))
+                .click();
 
         //open the article from tabs
+        stareAtPixies.until(ExpectedConditions.visibilityOfElementLocated(
+                By.id("org.wikipedia.alpha:id/menu_page_show_tabs")))
+                .click();
+        driver.findElementByName(newArticleNameCapitalized).click();
 
         //assert the title is correct
+        Utils.assertArticleTitleVisibleAndContains(driver, newArticleNameCapitalized);
     }
-
 }
