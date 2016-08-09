@@ -54,6 +54,7 @@ public class BaseTestClass {
 
         device.wait(Until.hasObject(
                 By.pkg(WIKIPEDIA_ALPHA_PACKAGE).depth(0)), GENERAL_TIMEOUT);
+
     }
 
     @After

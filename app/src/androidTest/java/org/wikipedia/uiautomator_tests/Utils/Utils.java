@@ -22,7 +22,8 @@ public class Utils {
     }
 
     public static void openSearchFromStartScreen(UiDevice device) {
-        device.findObject(By.res("org.wikipedia.alpha:id/search_container"))
+        device.wait(Until.findObject(By.res("org.wikipedia.alpha:id/search_container")),
+                BaseTestClass.GENERAL_TIMEOUT)
                 .click();
     }
 

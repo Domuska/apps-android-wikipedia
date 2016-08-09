@@ -32,8 +32,6 @@ public class ArticleTests extends BaseTestClass{
     String subHeading2 = TestDataSource.article1_subheading2;
     String subHeading3 = TestDataSource.article1_subheading3;
 
-
-
     private String fullLinkText = TestDataSource.fullLinkText1;
     private String partialLinkText = TestDataSource.partialLinkText;
     private String newArticleText = TestDataSource.fullLinkTextCapitalized;
@@ -44,7 +42,7 @@ public class ArticleTests extends BaseTestClass{
     public void testTableOfContents_checkSubTitles() throws Exception{
 
         ////https://android.googlesource.com/platform/cts/+/5c8645606f7812d981e0d0111a8971f3e1cef949/tests/uiautomator/src/com/android/cts/uiautomatortest/CtsUiAutomatorTest.java
-        fail("can't search subtitles from the webview");
+        fail("this test doesn't work, can't search subtitles from the webview");
 
         Utils.openSearchFromStartScreen(device);
         Utils.searchAndOpenArticleWithName(device, articleName1);
@@ -59,14 +57,10 @@ public class ArticleTests extends BaseTestClass{
         //make sure those same three subtitles are visible in the webview
         Utils.closeToC(device);
 
-
         //searching the subheadings does not work - maybe because uiautomatorviewer finds views
         //that are behind the visible screen, and they come on top of the subheadings
         UiScrollable webView = new UiScrollable(new UiSelector().className(WebView.class));
         webView.getChildByDescription(new UiSelector().className(View.class), subHeading2);
-//        webView.getChildByDescription(new UiSelector().className(View.class), "fictional land");
-
-
     }
 
     @Test
@@ -122,7 +116,6 @@ public class ArticleTests extends BaseTestClass{
                 .res("org.wikipedia.alpha:id/link_preview_title")
                 .text(newArticleText)), GENERAL_TIMEOUT);
         assertThat(popUpTitle, notNullValue());
-
     }
 
     @Test
@@ -152,9 +145,7 @@ public class ArticleTests extends BaseTestClass{
 
         device.findObject(By.desc("References"))
                 .click();
-//        device.findObject(new UiSelector().description("References")).click();
         device.wait(Until.findObject(By.text("sfdsfds")), GENERAL_TIMEOUT);
-
     }
 
 }
