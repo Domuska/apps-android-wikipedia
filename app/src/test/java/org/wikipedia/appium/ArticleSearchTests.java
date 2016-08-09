@@ -8,8 +8,6 @@ import org.wikipedia.appium.Utilities.Utils;
 import static junit.framework.Assert.assertTrue;
 
 
-//todo note: driver.switch() tms komennolla pitää varmaan vaihtaa kontekstia kun siirrytään natiivista webviewiin
-//https://github.com/appium/appium/issues/3784
 public class ArticleSearchTests extends BaseTestClass{
 
     private String recentSearchesText = "Recent searches:";
@@ -41,7 +39,7 @@ public class ArticleSearchTests extends BaseTestClass{
         Utils.openSearchFromArticle(driver);
         driver.findElementById("org.wikipedia.alpha:id/search_close_btn").click();
         assertTrue("Recent searches is not displayed",
-                driver.findElementByName(recentSearchesText).isDisplayed());
+                Utils.findElementByName(driver, recentSearchesText).isDisplayed());
 
         //assert that the recent searches show the articles
         assertTrue("Article " + articleName1 + " is not visible in recent searches",

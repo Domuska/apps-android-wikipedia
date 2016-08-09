@@ -32,11 +32,11 @@ public class HistoryTests extends BaseTestClass{
         //assertions
         WebElement historyList = driver.findElementById("org.wikipedia.alpha:id/history_entry_list");
         assertTrue("Article with name: " + articleName1 + " is not visible in history",
-                historyList.findElement(By.name(articleName1)).isDisplayed());
+                historyList.findElement(By.xpath("//*[@text='"+ articleName1 +"']")).isDisplayed());
         assertTrue("Article with name: " + articleName2 + " is not visible in history",
-                historyList.findElement(By.name(articleName2)).isDisplayed());
+                historyList.findElement(By.xpath("//*[@text='"+ articleName2 +"']")).isDisplayed());
         assertTrue("Article with name: " + articleName3 + " is not visible in history",
-                historyList.findElement(By.name(articleName3)).isDisplayed());
+                historyList.findElement(By.xpath("//*[@text='" +articleName3+ "']")).isDisplayed());
 
     }
 }

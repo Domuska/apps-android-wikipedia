@@ -19,8 +19,6 @@ public class TabTests extends BaseTestClass{
     private String newArticleNameCapitalized = TestDataSource.fullLinkTextCapitalized;
     private String openInNewTabText = "Open in new tab";
 
-
-
     @Test
     public void testOpenMultipleTabs(){
 
@@ -38,7 +36,7 @@ public class TabTests extends BaseTestClass{
                 By.id("org.wikipedia.alpha:id/tabs_list")
         ));
 
-        tabsList.findElement(By.name(newTabDefaultText)).click();
+        tabsList.findElement(By.xpath("//*[@text='"+ newTabDefaultText + "']")).click();
 
         //navigate to another article
         Utils.openSearchFromArticle(driver);
@@ -50,7 +48,7 @@ public class TabTests extends BaseTestClass{
         )).click();
 
         stareAtPixies.until(ExpectedConditions.visibilityOfElementLocated(
-                By.name(articleName1)
+                By.xpath("//*[@text='"+ articleName1 + "']")
         )).click();
 
         WebElement titleView = stareAtPixies.until(ExpectedConditions.visibilityOfElementLocated(
@@ -76,14 +74,14 @@ public class TabTests extends BaseTestClass{
         Utils.switchToNativeContext(driver);
         driver.findElementById("org.wikipedia.alpha:id/link_preview_overflow_button").click();
         stareAtPixies.until(ExpectedConditions.visibilityOfElementLocated(
-                By.name(openInNewTabText)))
+                By.xpath("//*[@text='" + openInNewTabText+"']")))
                 .click();
 
         //open the article from tabs
         stareAtPixies.until(ExpectedConditions.visibilityOfElementLocated(
                 By.id("org.wikipedia.alpha:id/menu_page_show_tabs")))
                 .click();
-        driver.findElementByName(newArticleNameCapitalized).click();
+        Utils.findElementByName(driver, newArticleNameCapitalized).click();
 
         //assert the title is correct
         Utils.assertArticleTitleVisibleAndContains(driver, newArticleNameCapitalized);

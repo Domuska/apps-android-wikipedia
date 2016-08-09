@@ -22,7 +22,7 @@ public class ReadingListTests extends BaseTestClass{
         //add it to reading list
         driver.findElementById("org.wikipedia.alpha:id/view_article_menu_bar_bookmark")
                 .click();
-        driver.findElementByName(gotItText)
+        Utils.findElementByName(driver, gotItText)
                 .click();
         WebElement textView = driver.findElementById("org.wikipedia.alpha:id/reading_list_title");
         textView.clear();
@@ -34,13 +34,11 @@ public class ReadingListTests extends BaseTestClass{
         Utils.openDrawer(driver);
         Utils.searchInVisibleListWithName(driver, readingListText)
                 .click();
-        driver.findElementByName(readingListName)
+        Utils.findElementByName(driver, readingListName)
                 .click();
 
-
-
         WebElement article = driver.findElementById("org.wikipedia.alpha:id/contents_list")
-                .findElementByName(articleName1);
+                .findElementByXPath("//*[@text='"+ articleName1 +"']");
         assertTrue("Article: " + articleName1 + " not visible in reading list: " + readingListName,
                 article.isDisplayed());
 

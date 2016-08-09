@@ -12,6 +12,7 @@ import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidDriver;
 
 import static junit.framework.Assert.assertTrue;
@@ -35,6 +36,10 @@ public class Utils {
 
     }
 
+    public static MobileElement findElementByName(AndroidDriver<MobileElement> driver, String using){
+        return driver.findElementByXPath("//*[@text='"+using+"']");
+    }
+
     //todo kysy mikan mielipidettä, käytetäänkö APIa vai omaa kikkaa?
     public static void searchAndOpenArticleWithName (AndroidDriver driver, String name){
 
@@ -50,7 +55,7 @@ public class Utils {
         ));
 
         webDriverWait.until(ExpectedConditions.visibilityOf(
-                resultList.findElement(By.name(name))
+                resultList.findElement(By.xpath("//*[@text='" + name + "']"))
         )).click();
 
         webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(

@@ -57,7 +57,7 @@ public class RotationTests extends BaseTestClass{
         Utils.switchToNativeContext(driver);
         driver.findElementById("org.wikipedia.alpha:id/link_preview_overflow_button").click();
         stareAtPixies.until(ExpectedConditions.visibilityOfElementLocated(
-                By.name(openInNewTabText)))
+                By.xpath("//*[@text='" + openInNewTabText + "']")))
                 .click();
 
         //open tabs
@@ -82,9 +82,9 @@ public class RotationTests extends BaseTestClass{
         ));
         assertTrue("List of tabs is not visible", tabList.isDisplayed());
         assertTrue("tab: " + articleName1 + " should be visible",
-                driver.findElementByName(articleName1).isDisplayed());
+                Utils.findElementByName(driver, articleName1).isDisplayed());
         assertTrue("tab: " + link1ArticleName + " should be visible",
-                driver.findElementByName(link1ArticleName).isDisplayed());
+                Utils.findElementByName(driver, link1ArticleName).isDisplayed());
     }
 
     private void assertListAndFirstElementDisplayed() {

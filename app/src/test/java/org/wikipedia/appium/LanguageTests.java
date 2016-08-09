@@ -22,7 +22,7 @@ public class LanguageTests extends BaseTestClass{
         //open overflow menu in toolbar
         driver.findElementByAccessibilityId(overflowMenuContentDescription).click();
         stareAtPixies.until(ExpectedConditions.visibilityOfElementLocated(
-                By.name(changeLanguageText)
+                By.xpath("//*[@text='"+changeLanguageText+"']")
         )).click();
 
         //change language to finnish
@@ -57,7 +57,7 @@ public class LanguageTests extends BaseTestClass{
 
         //open article again
         stareAtPixies.until(ExpectedConditions.visibilityOfElementLocated(
-                By.name(articleName3_finnish)))
+                By.xpath("//*[@text='"+ articleName3_finnish + "']")))
                 .click();
 
         //check language is changed
