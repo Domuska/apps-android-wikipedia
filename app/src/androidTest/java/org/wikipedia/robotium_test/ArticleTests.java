@@ -1,6 +1,7 @@
 package org.wikipedia.robotium_test;
 
 import android.support.test.InstrumentationRegistry;
+import android.view.View;
 import android.webkit.WebView;
 import android.widget.TextView;
 
@@ -9,6 +10,8 @@ import com.robotium.solo.By;
 import org.wikipedia.R;
 import org.wikipedia.robotium_test.Utilities.TestDataSource;
 import org.wikipedia.robotium_test.Utilities.Utils;
+
+import java.util.List;
 
 //latuasprogressbari:
 //org.wikipedia.alpha:id/main_progressbar
@@ -19,6 +22,7 @@ public class ArticleTests extends BaseTestClass{
     private String subHeading2 = TestDataSource.article1_subheading2;
     private String subHeading3 = TestDataSource.article1_subheading3;
     private String article1_references = TestDataSource.article1_referenceSubHeading;
+    private String article1_title = "Final Fantasy XII\n" + "Video game";
 
     private String fullLinkText = TestDataSource.fullLinkText1;
     private String partialLinkText = TestDataSource.partialLinkText;
@@ -49,16 +53,14 @@ public class ArticleTests extends BaseTestClass{
 
         //check that certain 3 topmost subheadings in table of contents show up, see Utils for matcher
         assertTrue("Heading " + subHeading1 + " not visible in ToC",
-                Utils.isElementFoundInToC(solo, subHeading1));
+                solo.searchText(subHeading1));
         assertTrue("Heading " + subHeading2 + " not visible in ToC",
-                Utils.isElementFoundInToC(solo, subHeading2));
+                solo.searchText(subHeading2));
         assertTrue("Heading " + subHeading3 + " not visible in ToC",
-                Utils.isElementFoundInToC(solo, subHeading3));
-        Utils.isElementFoundInToC(solo, "References");
+                solo.searchText(subHeading3));
 
         //make sure those same three subtitles are visible in the webview
         Utils.closeToC(solo);
-
 
         //execution time of this is veeeeeerryyyyy slow. Excruciatingly so. Is webview the fault?
         // Or the amount of text?
@@ -78,14 +80,12 @@ public class ArticleTests extends BaseTestClass{
         Utils.openToC(solo);
 
         //click references subheading
-        if(Utils.isElementFoundInToC(solo, article1_references))
-            solo.clickOnText(article1_references);
-        else
-            fail("Text " + article1_references + " not found in ToC");
+        solo.clickOnText(article1_references);
 
-        //make sure references is visible
-        assertTrue("Text " + article1_references + " not visible in webView",
-                solo.searchText(article1_references, true));
+        //make sure we the title bar is no longer visible (so we at least moved somewhere)
+        assertFalse("title view should no longer be visible",
+                solo.searchText(article1_title, true));
+
     }
 
 
@@ -125,7 +125,7 @@ public class ArticleTests extends BaseTestClass{
         Utils.openSearchFromStartScreen(solo);
         Utils.searchAndOpenArticleWithName(solo, articleName1);
         Utils.openToC(solo);
-        Utils.isElementFoundInToC(solo, article1_references);
+//        Utils.isElementFoundInToC(solo, article1_references);
         solo.clickOnText(article1_references);
 
         //expand the references

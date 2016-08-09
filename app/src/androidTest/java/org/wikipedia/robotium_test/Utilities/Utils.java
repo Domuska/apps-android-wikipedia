@@ -19,7 +19,7 @@ import static junit.framework.Assert.fail;
 
 public class Utils {
 
-    public static final int PAGE_LOAD_WAIT = 3000;
+    public static final int PAGE_LOAD_WAIT = 5000;
     public static final int SLEEP_TIME_1500_MS = 1500;
 
     public static void searchAndOpenArticleWithName(Solo solo, String name){
