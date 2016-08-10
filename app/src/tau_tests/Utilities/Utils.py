@@ -1,6 +1,7 @@
 
 def openSearchFromStartScreen():
-	tap.resourceId("org.wikipedia.alpha:id/search_container", scroll = False)
+	wait(1000)
+	tap.resourceId("org.wikipedia.alpha:id/search_container", area="org.wikipedia.alpha:id/feed_app_bar_layout", wait=True, scroll=False)
 	
 def searchAndOpenArticleWithName(articleName):
 	input.text(articleName)

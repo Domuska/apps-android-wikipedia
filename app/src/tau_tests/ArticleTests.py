@@ -32,7 +32,7 @@ class ArticleTests (UITestCase):
     def testTableOfContents_checkSubTitles(self):
         
         #test does not work - seems webview is problematic
-        
+        fail("WebView cannot be handled - failing test")
         Utils.openSearchFromStartScreen()
         Utils.searchAndOpenArticleWithName(articleName1)
         wait(500)
@@ -51,22 +51,9 @@ class ArticleTests (UITestCase):
         verify.resourceId(subHeading2, scroll = True)
         verify.resourceId(subHeading3, scroll = True)
         
-        
-    @testCaseInfo('<test all kinds of stuff>', deviceCount=1)
-    def testStuff(self):
-        #testing for searching if certain elements are visible with Tau
-        #not to be left in here in the end
-        Utils.openSearchFromStartScreen()
-        Utils.searchAndOpenArticleWithName("Ricketts Glen State Park")
-        
-        #tap.description("Sullivan")
-        #Alleghany Front - ei toimi
-        #named waterfalls - toimii
-        #Colley
-        #Native Americans
-        #tap.description("named waterfalls")
-        assert find.description("History")
-        
+    @testCaseInfo('<open and close references>', deviceCount=1)
+    def testOpeningAndClosingReferences(self):
+        fail("failing test, Tau can't handle webview")
         
     @testCaseInfo('<click subheading, see screen moved>', deviceCount=1)
     def testScrollingToC_clickSubHeading(self):
@@ -100,7 +87,7 @@ class ArticleTests (UITestCase):
     @testCaseInfo('<click partial link>', deviceCount=1)
     def testClickLink_partialText_assertPreviewShown(self):
         
-        #test will fail, seems Tau can't tap a link with a partial name
+        fail("Fail test - Tau does not know how to handle partial links")
         log("open article")
         Utils.openSearchFromStartScreen()
         Utils.searchAndOpenArticleWithName(articleName1)
