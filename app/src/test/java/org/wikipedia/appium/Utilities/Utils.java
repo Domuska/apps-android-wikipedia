@@ -9,9 +9,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.wikipedia.appium.BaseTestClass;
 
 import java.util.Set;
-import java.util.concurrent.TimeUnit;
 
-import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidDriver;
 
@@ -22,14 +20,14 @@ public class Utils {
     private static WebDriverWait webDriverWait;
 
     public static void openSearchFromStartScreen(AndroidDriver driver){
-        webDriverWait = new WebDriverWait(driver, BaseTestClass.TIMEOUT_FIFTEEN_SECONDS);
+        webDriverWait = new WebDriverWait(driver, BaseTestClass.TIMEOUT_TEN_SECONDS);
         webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(
                 By.id("org.wikipedia.alpha:id/search_container")
         )).click();
     }
 
     public static void openSearchFromArticle(AndroidDriver driver){
-        webDriverWait = new WebDriverWait(driver, BaseTestClass.TIMEOUT_FIFTEEN_SECONDS);
+        webDriverWait = new WebDriverWait(driver, BaseTestClass.TIMEOUT_TEN_SECONDS);
         webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(
                 By.id("org.wikipedia.alpha:id/main_search_bar_text")))
         .click();
@@ -49,7 +47,7 @@ public class Utils {
 //        textField.clear();
 //        textField.sendKeys(name);
 
-        webDriverWait = new WebDriverWait(driver, BaseTestClass.TIMEOUT_FIFTEEN_SECONDS);
+        webDriverWait = new WebDriverWait(driver, BaseTestClass.TIMEOUT_TEN_SECONDS);
         WebElement resultList = webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(
                 By.id("org.wikipedia.alpha:id/search_results_list")
         ));
@@ -72,7 +70,7 @@ public class Utils {
     }
 
     public static void assertArticleTitleVisibleAndContains(AndroidDriver driver, String articleName) {
-        WebDriverWait webDriverWait = new WebDriverWait(driver, BaseTestClass.TIMEOUT_FIFTEEN_SECONDS);
+        WebDriverWait webDriverWait = new WebDriverWait(driver, BaseTestClass.TIMEOUT_TEN_SECONDS);
         WebElement headerTextField =  webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(
                 By.id("org.wikipedia.alpha:id/view_article_header_text")));
 

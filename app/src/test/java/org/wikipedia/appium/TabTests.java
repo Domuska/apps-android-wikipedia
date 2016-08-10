@@ -51,12 +51,13 @@ public class TabTests extends BaseTestClass{
                 By.xpath("//*[@text='"+ articleName1 + "']")
         )).click();
 
-        WebElement titleView = stareAtPixies.until(ExpectedConditions.visibilityOfElementLocated(
-                By.id("org.wikipedia.alpha:id/view_article_header_text")
-        ));
+        String titleText = stareAtPixies.until(ExpectedConditions.visibilityOfElementLocated(
+                By.id("org.wikipedia.alpha:id/view_article_header_text")))
+                .getText();
 
-        assertTrue("Title should contain article name: " + articleName1,
-                titleView.getText().contains(articleName1));
+
+        assertTrue("Title should contain article name: " + articleName1 + " contains instead " + titleText,
+                titleText.contains(articleName1));
     }
 
     @Test

@@ -2,7 +2,6 @@ package org.wikipedia.appium;
 
 import org.junit.After;
 import org.junit.Before;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.wikipedia.appium.Utilities.TestDataSource;
@@ -23,7 +22,7 @@ public class BaseTestClass {
     AndroidDriver<MobileElement> driver;
     WebDriverWait stareAtPixies;
 
-    public static int TIMEOUT_FIFTEEN_SECONDS = 15;
+    public static int TIMEOUT_TEN_SECONDS = 10;
 
     protected String articleName1 = TestDataSource.articleName1;
     protected String articleName2 = TestDataSource.articleName2;
@@ -46,7 +45,7 @@ public class BaseTestClass {
 
         driver = new AndroidDriver<MobileElement>(new URL("http://127.0.0.1:4723/wd/hub"), cap);
 
-        stareAtPixies = new WebDriverWait(driver, TIMEOUT_FIFTEEN_SECONDS);
+        stareAtPixies = new WebDriverWait(driver, TIMEOUT_TEN_SECONDS);
     }
 
     @After
