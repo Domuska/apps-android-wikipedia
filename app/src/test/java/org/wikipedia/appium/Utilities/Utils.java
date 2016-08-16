@@ -38,16 +38,19 @@ public class Utils {
         return driver.findElementByXPath("//*[@text='"+using+"']");
     }
 
-    //todo kysy mikan mielipidettä, käytetäänkö APIa vai omaa kikkaa?
+
     public static void searchAndOpenArticleWithName (AndroidDriver driver, String name){
 
+        webDriverWait = new WebDriverWait(driver, BaseTestClass.TIMEOUT_TEN_SECONDS);
         //send keycode backspace so the current search term is removed, clear does not really work
         driver.pressKeyCode(67);
-        driver.findElementById("org.wikipedia.alpha:id/search_src_text").sendKeys(name);
+        webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(
+                By.id("org.wikipedia.alpha:id/search_src_text")))
+                .sendKeys(name);
 //        textField.clear();
 //        textField.sendKeys(name);
 
-        webDriverWait = new WebDriverWait(driver, BaseTestClass.TIMEOUT_TEN_SECONDS);
+
         WebElement resultList = webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(
                 By.id("org.wikipedia.alpha:id/search_results_list")
         ));

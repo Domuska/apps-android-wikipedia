@@ -141,7 +141,14 @@ android {
         exclude 'META-INF/maven/com.google.guava/guava/pom.xml'
         exclude 'META-INF/maven/com.google.guava/guava/pom.properties'
     }
+
+    tasks.withType(Test) {
+        testLogging {
+            events "started", "passed", "skipped", "failed"
+        }
+    }
 }
+
 
 def compileSubprojectOrModule = { String projectName,
                                   String moduleName,
