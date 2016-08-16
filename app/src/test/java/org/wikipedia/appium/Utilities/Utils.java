@@ -119,12 +119,9 @@ public class Utils {
         driver.findElementByAccessibilityId("Wikipedia Alpha").click();
     }
 
-    //won't work on android version 6.0+. See comment in ArticleTests.testTableOfContents_checkSubTitles
     public static void switchToWebContext(AndroidDriver driver){
         Set contextNames = driver.getContextHandles();
         driver.context((String)contextNames.toArray()[1]);
-//        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-//        driver.context("WEBVIEW_org.wikipedia.alpha");
     }
 
     public static void switchToNativeContext(AndroidDriver driver){

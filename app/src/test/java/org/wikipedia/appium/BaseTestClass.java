@@ -43,6 +43,8 @@ public class BaseTestClass {
 //        cap.setCapability(MobileCapabilityType.APP, "C:\\Users\\Tomi\\Projects\\wikipedia_3\\apps-android-wikipedia\\app\\build\\outputs\\apk\\app-alpha-debug.apk");
         cap.setCapability(MobileCapabilityType.APP, "C:\\Users\\Tomi\\Projects\\wikipedia_3\\apps-android-wikipedia\\app-alpha-debug.apk");
 //        cap.setCapability("chromedriverExecutable", "C:\\Users\\Tomi\\Downloads\\chromedriver_win32\\chromedriver.exe");
+        //ensure we use newest (2.23) version of chromedriver
+        cap.setCapability("chromedriverExecutable", "C:\\Users\\Tomi\\Appium\\chromedriver_win32\\chromedriver.exe");
 
         driver = new AndroidDriver<MobileElement>(new URL("http://127.0.0.1:4723/wd/hub"), cap);
 
