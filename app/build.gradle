@@ -142,9 +142,14 @@ android {
         exclude 'META-INF/maven/com.google.guava/guava/pom.properties'
     }
 
-    tasks.withType(Test) {
-        testLogging {
-            events "started", "passed", "skipped", "failed"
+    testOptions {
+        unitTests.all {
+            // All the usual Gradle options.
+            testLogging {
+                events "started", "passed", "skipped", "failed", "standardOut", "standardError"
+                outputs.upToDateWhen {false}
+                showStandardStreams = true
+            }
         }
     }
 }
