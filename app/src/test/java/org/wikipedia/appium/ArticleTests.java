@@ -1,5 +1,6 @@
 package org.wikipedia.appium;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -38,10 +39,8 @@ public class ArticleTests extends BaseTestClass{
     private String collapseReferencesClassName = TestDataSource.collapseReferenceJSClassName;
     private String article1_firstReference = TestDataSource.article1_firstReference;
 
-
-    // the test works, most of the time. Seems there are still problems
-    // with the webview
     @Test
+    @Ignore
     public void testTableOfContents_checkSubTitles(){
 
         Utils.openSearchFromStartScreen(driver);
@@ -104,6 +103,7 @@ public class ArticleTests extends BaseTestClass{
     }
 
     @Test
+    @Ignore
     public void testClickLink_partialText_assertPreviewShown(){
         //open article
         Utils.openSearchFromStartScreen(driver);
@@ -119,6 +119,7 @@ public class ArticleTests extends BaseTestClass{
     }
 
     @Test
+    @Ignore
     public void testOpeningAndClosingReferences(){
         //navigate to the article
         Utils.openSearchFromStartScreen(driver);
