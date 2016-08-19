@@ -13,6 +13,7 @@ import android.webkit.WebView;
 import android.widget.LinearLayout;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.wikipedia.R;
 import org.wikipedia.uiautomator_tests.BaseTestClass;
@@ -39,6 +40,7 @@ public class ArticleTests extends BaseTestClass{
     private String article1_referenceSubHeading = TestDataSource.article1_referenceSubHeading;
 
     @Test
+    @Ignore
     public void testTableOfContents_checkSubTitles() throws Exception{
 
         ////https://android.googlesource.com/platform/cts/+/5c8645606f7812d981e0d0111a8971f3e1cef949/tests/uiautomator/src/com/android/cts/uiautomatortest/CtsUiAutomatorTest.java
@@ -103,6 +105,7 @@ public class ArticleTests extends BaseTestClass{
     }
 
     @Test
+    @Ignore
     public void testClickLink_partialText_assertPreviewShown(){
         //open article
         Utils.openSearchFromStartScreen(device);
@@ -119,6 +122,7 @@ public class ArticleTests extends BaseTestClass{
     }
 
     @Test
+    @Ignore
     public void testOpeningAndClosingReferences() throws Exception{
 
         fail("this test doesn't work, can't find the references element in webview");
