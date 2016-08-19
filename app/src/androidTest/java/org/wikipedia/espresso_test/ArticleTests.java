@@ -7,6 +7,7 @@ import android.support.test.runner.AndroidJUnit4;
 
 import org.hamcrest.Matcher;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wikipedia.R;
@@ -57,6 +58,7 @@ public class ArticleTests extends BaseTestClass{
     }
 
     @Test
+    @Ignore
     public void testTableOfContents_checkSubTitles(){
 
         Utils.openSearchFromStartScreen();
@@ -119,6 +121,7 @@ public class ArticleTests extends BaseTestClass{
     }
 
     @Test
+    @Ignore
     public void testClickLink_partialText_assertPreviewShown(){
         //open article
         Utils.openSearchFromStartScreen();
@@ -134,6 +137,7 @@ public class ArticleTests extends BaseTestClass{
     }
 
     @Test
+    @Ignore
     public void testOpeningAndClosingReferences(){
 
         //navigate to the article
