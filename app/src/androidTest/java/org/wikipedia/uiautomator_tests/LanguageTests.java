@@ -39,7 +39,10 @@ public class LanguageTests extends BaseTestClass{
         Utils.searchAndOpenArticleWithName(device, articleName3);
 
         //open overflow menu in toolbar
-        device.findObject(By.desc("More options")).click();
+//        device.findObject(By.desc("More options")).click();
+        device.wait(Until.findObject(
+                By.desc("More options")), GENERAL_TIMEOUT)
+                .click();
         device.wait(Until.findObject(
                 By.text(changeLanguageText)), GENERAL_TIMEOUT)
                 .click();

@@ -4,10 +4,19 @@ import android.graphics.Point;
 import android.support.test.uiautomator.By;
 import android.support.test.uiautomator.Direction;
 import android.support.test.uiautomator.UiDevice;
+import android.support.test.uiautomator.UiObject;
 import android.support.test.uiautomator.UiObject2;
+import android.support.test.uiautomator.UiObjectNotFoundException;
+import android.support.test.uiautomator.UiSelector;
 import android.support.test.uiautomator.Until;
+import android.widget.ListView;
+
+import net.hockeyapp.android.metrics.model.Base;
 
 import org.wikipedia.uiautomator_tests.BaseTestClass;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.StringStartsWith.startsWith;
@@ -15,9 +24,13 @@ import static org.hamcrest.core.StringStartsWith.startsWith;
 public class Utils {
 
     public static void assertArticleTitleContains(UiDevice device, String articleName1) {
-        UiObject2 header = device.wait(Until.findObject(
-                By.res("org.wikipedia.alpha:id/view_article_header_text")
-        ), BaseTestClass.GENERAL_TIMEOUT);
+        device.waitForIdle();
+        UiObject2 header;
+        do {
+            header = device.wait(Until.findObject(
+                    By.res("org.wikipedia.alpha:id/view_article_header_text")
+            ), BaseTestClass.GENERAL_TIMEOUT);
+        }while(header == null);
         assertThat(header.getText(), startsWith(articleName1));
     }
 
@@ -28,7 +41,11 @@ public class Utils {
     }
 
     public static void openSearchFromArticle(UiDevice device) {
-        device.findObject(By.res("org.wikipedia.alpha:id/main_search_bar_text")).click();
+        device.waitForIdle();
+        device.wait(Until.findObject(
+                By.res("org.wikipedia.alpha:id/main_search_bar_text")),
+                BaseTestClass.GENERAL_TIMEOUT)
+                .click();
     }
 
     public static void searchAndOpenArticleWithName(UiDevice device, String name){
@@ -38,26 +55,35 @@ public class Utils {
                 .setText(name);
         //small wait so the list will be properly loaded, reduces flakiness
         try{
-            device.wait(500);
+            device.wait(2000);
         }
         catch(Exception e){
             e.printStackTrace();
         }
+        device.waitForIdle();
 
-        UiObject2 resultsList = device.wait(Until.findObject(
-                By.res("org.wikipedia.alpha:id/search_results_list")
-        ), BaseTestClass.GENERAL_TIMEOUT);
+        UiObject resultsList;
+        //do this since if we just wait for the UiObject2 it is often not found
+        do{
+            device.waitForIdle();
+            resultsList = device.findObject(new UiSelector()
+                    .resourceId("org.wikipedia.alpha:id/search_results_list"));
+        }while(resultsList == null);
 
-        resultsList.wait(Until.findObject(
-                By.text(name)), BaseTestClass.GENERAL_TIMEOUT)
-                .click();
+        device.waitForIdle();
+
+        try {
+            resultsList.getChild(new UiSelector().text(name)).click();
+        } catch (UiObjectNotFoundException e) {
+            e.printStackTrace();
+        }
 
         device.wait(Until.hasObject(
                 By.res("org.wikipedia.alpha:id/view_article_header_text")
         ), BaseTestClass.GENERAL_TIMEOUT);
     }
 
-
+    //open table of contents in article
     public static void openToc(UiDevice device){
         Point startPoint = new Point(device.getDisplayWidth()-5, device.getDisplayHeight()/2);
         Point endPoint = new Point(device.getDisplayWidth()/2, startPoint.y);

@@ -35,7 +35,9 @@ public class ReadingListTests extends BaseTestClass{
         Utils.searchAndOpenArticleWithName(device, articleName1);
 
         //add it to reading list
-        device.findObject(By.res("org.wikipedia.alpha:id/view_article_menu_bar_bookmark"))
+        device.wait(Until.findObject(
+                By.res("org.wikipedia.alpha:id/view_article_menu_bar_bookmark")),
+                GENERAL_TIMEOUT)
                 .click();
 
         device.wait(Until.findObject(
@@ -56,7 +58,7 @@ public class ReadingListTests extends BaseTestClass{
                 .click();
         device.findObject(By.text(readingListName)).click();
 
-        UiObject2 article = device.findObject(By.text(articleName1));
+        UiObject2 article = device.wait(Until.findObject(By.text(articleName1)), GENERAL_TIMEOUT);
         assertThat(article, notNullValue());
 
         //open the article and assert title is correct
