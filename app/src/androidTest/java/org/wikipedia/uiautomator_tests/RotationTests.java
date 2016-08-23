@@ -35,7 +35,7 @@ public class RotationTests extends BaseTestClass{
         device.setOrientationNatural();
     }
 
-    @Test
+    @Test(timeout=90000)
     public void testOpenToC_rotatePhone() throws Exception{
 
         Utils.openSearchFromStartScreen(device);
@@ -58,7 +58,7 @@ public class RotationTests extends BaseTestClass{
                 notNullValue());
     }
 
-    @Test
+    @Test(timeout=90000)
     public void testOpenTab_rotatePhone() throws Exception{
 
         //open a few articles in tabs

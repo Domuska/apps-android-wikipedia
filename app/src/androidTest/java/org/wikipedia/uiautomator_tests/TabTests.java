@@ -28,7 +28,7 @@ public class TabTests  extends BaseTestClass{
                 InstrumentationRegistry.getTargetContext().getString(R.string.menu_long_press_open_in_new_tab);
     }
 
-    @Test
+    @Test(timeout=90000)
     public void testOpenMultipleTabs(){
 
         //open one article
@@ -60,10 +60,8 @@ public class TabTests  extends BaseTestClass{
 
     }
 
-    @Test
+    @Test(timeout=90000)
     public void testOpenArticleInNewTab(){
-        //tällä tavalla linkin klikkaaminen toimii kyllä, en tiedä miksi mutta se toimii.
-        //uiautomatorviewerin dumpissa kyllä näkyy elementit näin.
 
         //open one article
         Utils.openSearchFromStartScreen(device);

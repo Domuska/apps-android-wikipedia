@@ -31,7 +31,7 @@ public class LanguageTests extends BaseTestClass{
         WikipediaApp.getInstance().setAppLanguageCode(appLanguageCode);
     }
 
-    @Test
+    @Test(timeout=90000)
     public void testChangeLanguageInArticle() throws Exception{
 
         //open article
@@ -39,7 +39,6 @@ public class LanguageTests extends BaseTestClass{
         Utils.searchAndOpenArticleWithName(device, articleName3);
 
         //open overflow menu in toolbar
-//        device.findObject(By.desc("More options")).click();
         device.wait(Until.findObject(
                 By.desc("More options")), GENERAL_TIMEOUT)
                 .click();
@@ -62,7 +61,7 @@ public class LanguageTests extends BaseTestClass{
         Utils.assertArticleTitleContains(device, articleName3_finnish);
     }
 
-    @Test
+    @Test(timeout=90000)
     public void testChangeLanguageInSearch(){
 
         Utils.openSearchFromStartScreen(device);

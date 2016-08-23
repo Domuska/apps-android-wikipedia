@@ -27,7 +27,7 @@ public class ReadingListTests extends BaseTestClass{
         readingListText = InstrumentationRegistry.getTargetContext().getString(R.string.nav_item_reading_lists);
     }
 
-    @Test
+    @Test(timeout=90000)
     public void testAddArticleToReadingList(){
 
         //open the article
@@ -59,7 +59,6 @@ public class ReadingListTests extends BaseTestClass{
         device.findObject(By.text(readingListName)).click();
 
         UiObject2 article = device.wait(Until.findObject(By.text(articleName1)), GENERAL_TIMEOUT);
-        assertThat(article, notNullValue());
 
         //open the article and assert title is correct
         article.click();
