@@ -31,7 +31,7 @@ public class LanguageTests extends BaseTestClass{
         WikipediaApp.getInstance().setAppLanguageCode(appLanguageCode);
     }
 
-    @Test(timeout=90000)
+    @Test(timeout=50000)
     public void testChangeLanguageInArticle() throws Exception{
 
         //open article
@@ -61,7 +61,7 @@ public class LanguageTests extends BaseTestClass{
         Utils.assertArticleTitleContains(device, articleName3_finnish);
     }
 
-    @Test(timeout=90000)
+    @Test(timeout=50000)
     public void testChangeLanguageInSearch(){
 
         Utils.openSearchFromStartScreen(device);

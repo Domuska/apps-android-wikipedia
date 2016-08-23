@@ -65,7 +65,7 @@ public class ArticleTests extends BaseTestClass{
         webView.getChildByDescription(new UiSelector().className(View.class), subHeading2);
     }
 
-    @Test(timeout=90000)
+    @Test(timeout=50000)
     public void testScrollingToC_clickSubHeading() throws Exception{
 
         //open article and table of contents
@@ -87,7 +87,7 @@ public class ArticleTests extends BaseTestClass{
         assertThat(elements.size(), is(0));
     }
 
-    @Test(timeout=90000)
+    @Test(timeout=50000)
     public void testClickLink_fullText_assertPreviewShown(){
 
         //open article

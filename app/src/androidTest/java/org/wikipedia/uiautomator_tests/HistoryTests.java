@@ -22,7 +22,7 @@ public class HistoryTests extends BaseTestClass{
         historyText = InstrumentationRegistry.getTargetContext().getString(R.string.nav_item_history);
     }
 
-    @Test(timeout=90000)
+    @Test(timeout=50000)
     public void testHistory(){
 
         //open a couple of articles

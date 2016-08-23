@@ -27,7 +27,7 @@ public class ReadingListTests extends BaseTestClass{
         readingListText = InstrumentationRegistry.getTargetContext().getString(R.string.nav_item_reading_lists);
     }
 
-    @Test(timeout=90000)
+    @Test(timeout=50000)
     public void testAddArticleToReadingList(){
 
         //open the article

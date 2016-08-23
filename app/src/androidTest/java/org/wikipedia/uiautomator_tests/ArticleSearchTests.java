@@ -31,7 +31,7 @@ public class ArticleSearchTests extends BaseTestClass{
         recentSearchesText = InstrumentationRegistry.getTargetContext().getString(R.string.search_recent_header);
     }
 
-    @Test
+    @Test(timeout=50000)
     public void testSearchArticle_checkTitleShown(){
         //open the article
         Utils.openSearchFromStartScreen(device);
@@ -41,7 +41,7 @@ public class ArticleSearchTests extends BaseTestClass{
         Utils.assertArticleTitleContains(device, articleName1);
     }
 
-    @Test
+    @Test(timeout=50000)
     public void testSearchArticle_checkRecentsShown(){
 
         //search and open article in starting fragment

@@ -28,7 +28,7 @@ public class TabTests  extends BaseTestClass{
                 InstrumentationRegistry.getTargetContext().getString(R.string.menu_long_press_open_in_new_tab);
     }
 
-    @Test(timeout=90000)
+    @Test(timeout=50000)
     public void testOpenMultipleTabs(){
 
         //open one article
@@ -60,7 +60,7 @@ public class TabTests  extends BaseTestClass{
 
     }
 
-    @Test(timeout=90000)
+    @Test(timeout=50000)
     public void testOpenArticleInNewTab(){
 
         //open one article

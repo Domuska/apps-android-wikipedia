@@ -35,12 +35,15 @@ public class RotationTests extends BaseTestClass{
         device.setOrientationNatural();
     }
 
-    @Test(timeout=90000)
+    @Test(timeout=50000)
     public void testOpenToC_rotatePhone() throws Exception{
 
         Utils.openSearchFromStartScreen(device);
         Utils.searchAndOpenArticleWithName(device, articleName1);
         Utils.openToc(device);
+
+        //wait that the ToC has actually opened
+        device.wait(Until.hasObject(By.res("org.wikipedia.alpha:id/page_toc_list")), GENERAL_TIMEOUT);
 
         //assert list and first element are visible
         assertThat(device.findObject(By.res("org.wikipedia.alpha:id/page_toc_list")),
@@ -58,7 +61,7 @@ public class RotationTests extends BaseTestClass{
                 notNullValue());
     }
 
-    @Test(timeout=90000)
+    @Test(timeout=50000)
     public void testOpenTab_rotatePhone() throws Exception{
 
         //open a few articles in tabs
