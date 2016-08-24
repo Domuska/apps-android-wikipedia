@@ -47,14 +47,15 @@ public class TabTests extends BaseTestClass{
                 By.id("org.wikipedia.alpha:id/menu_page_show_tabs")
         )).click();
 
-        stareAtPixies.until(ExpectedConditions.visibilityOfElementLocated(
-                By.xpath("//*[@text='"+ articleName1 + "']")
-        )).click();
+        //search the element in this list this way to reduce flakiness
+        WebElement tabList = stareAtPixies.until(ExpectedConditions.visibilityOfElementLocated(
+                By.id("org.wikipedia.alpha:id/tabs_list")
+        ));
+        tabList.findElement(By.xpath("//*[@text='"+ articleName1 + "']")).click();
 
         String titleText = stareAtPixies.until(ExpectedConditions.visibilityOfElementLocated(
                 By.id("org.wikipedia.alpha:id/view_article_header_text")))
                 .getText();
-
 
         assertTrue("Title should contain article name: " + articleName1 + " contains instead " + titleText,
                 titleText.contains(articleName1));
