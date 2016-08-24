@@ -13,6 +13,7 @@ import org.wikipedia.uiautomator_tests.Utils.TestDataSource;
 import org.wikipedia.uiautomator_tests.Utils.Utils;
 
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsNull.notNullValue;
 
 public class ReadingListTests extends BaseTestClass{
@@ -59,6 +60,8 @@ public class ReadingListTests extends BaseTestClass{
         device.findObject(By.text(readingListName)).click();
 
         UiObject2 article = device.wait(Until.findObject(By.text(articleName1)), GENERAL_TIMEOUT);
+        assertThat("Article: " + articleName1 + " not visible in reading list: " + readingListName,
+                article, is(notNullValue()));
 
         //open the article and assert title is correct
         article.click();
