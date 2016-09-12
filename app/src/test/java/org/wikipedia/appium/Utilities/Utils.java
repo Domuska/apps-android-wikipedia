@@ -42,6 +42,9 @@ public class Utils {
     public static void searchAndOpenArticleWithName (AndroidDriver driver, String name){
 
         webDriverWait = new WebDriverWait(driver, BaseTestClass.TIMEOUT_TEN_SECONDS);
+        webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(
+                By.id("org.wikipedia.alpha:id/search_src_text")
+        ));
         //send keycode backspace so the current search term is removed, clear does not really work
         driver.pressKeyCode(67);
         webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(
