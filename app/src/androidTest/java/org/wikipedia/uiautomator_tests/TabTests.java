@@ -13,7 +13,6 @@ import org.wikipedia.uiautomator_tests.Utils.Utils;
 
 public class TabTests  extends BaseTestClass{
 
-
     private String newTabContentDesc;
     private String openInNewTabText;
     private String newTabDefaultText = TestDataSource.newTabDefaultText;
@@ -39,10 +38,12 @@ public class TabTests  extends BaseTestClass{
         device.findObject(By.res("org.wikipedia.alpha:id/menu_page_show_tabs"))
                 .click();
 
+        //click new tab button
         device.wait(Until.findObject(
                 By.desc(newTabContentDesc)), GENERAL_TIMEOUT)
                 .click();
 
+        //open the new article
         device.wait(Until.findObject(
                 By.text(newTabDefaultText)), GENERAL_TIMEOUT)
                 .click();
@@ -58,35 +59,5 @@ public class TabTests  extends BaseTestClass{
 
         Utils.assertArticleTitleContains(device, articleName1);
 
-    }
-
-    @Test(timeout=50000)
-    public void testOpenArticleInNewTab(){
-
-        //open one article
-        Utils.openSearchFromStartScreen(device);
-        Utils.searchAndOpenArticleWithName(device, articleName1);
-
-        //open article preview
-        device.findObject(By.desc(newArticleName)).click();
-
-        device.wait(Until.findObject(
-            By.res("org.wikipedia.alpha:id/link_preview_overflow_button")), GENERAL_TIMEOUT)
-            .click();
-
-        device.wait(Until.findObject(
-                By.text(openInNewTabText)), GENERAL_TIMEOUT)
-                .click();
-
-        device.wait(Until.findObject(
-                By.res("org.wikipedia.alpha:id/menu_page_show_tabs")), GENERAL_TIMEOUT)
-                .click();
-
-        device.wait(Until.findObject(
-                By.text(newArticleNameCapitalized)), GENERAL_TIMEOUT)
-                .click();
-
-        //assert title contains right text
-        Utils.assertArticleTitleContains(device, newArticleNameCapitalized);
     }
 }
