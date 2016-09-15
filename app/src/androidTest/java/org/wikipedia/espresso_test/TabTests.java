@@ -33,16 +33,13 @@ import static org.hamcrest.Matchers.containsString;
 @LargeTest
 public class TabTests extends BaseTestClass{
 
-    private String newTabContentDesc;
     private String newArticleName = TestDataSource.fullLinkText1;
     private String newArticleNameCapitalized = TestDataSource.fullLinkTextCapitalized;
     private String openInNewTabText;
-    private String newTabDefaultText = TestDataSource.newTabDefaultText;
 
     @Before
     public void setUp(){
         startActivity = myActivityRule.getActivity();
-        newTabContentDesc = startActivity.getString(R.string.menu_new_tab);
         openInNewTabText = startActivity.getString(R.string.menu_long_press_open_in_new_tab);
         Espresso.registerIdlingResources(TabAnimationIdlingResource.getIdlingResource());
     }
@@ -50,33 +47,6 @@ public class TabTests extends BaseTestClass{
     @After
     public void tearDown(){
         Espresso.unregisterIdlingResources(TabAnimationIdlingResource.getIdlingResource());
-    }
-
-    @Test
-    public void testOpenMultipleTabs(){
-
-        //open one article
-        Utils.openSearchFromStartScreen();
-        Utils.searchAndOpenArticleWithName(articleName1, articleToString1, startActivity);
-
-        //open a new tab
-        onView(withId(R.id.menu_page_show_tabs)).perform(click());
-        onView(withContentDescription(newTabContentDesc)).perform(click());
-        onView(allOf(withText(newTabDefaultText), withId(R.id.tab_item_title))).perform(click());
-
-        //navigate to another article
-        Utils.openSearchFromArticle();
-        Utils.searchAndOpenArticleWithName(articleName2, articleToString2, startActivity);
-
-        //assert you can change between them
-        onView(withId(R.id.menu_page_show_tabs)).perform(click());
-        onView(withText(articleName1)).perform(click());
-
-        Utils.assertArticleTitleContains(articleName1);
-//        onView(allOf(withId(R.id.view_article_header_text),
-//                withText(containsString(articleName1))))
-//                .check(matches(isDisplayed()));
-
     }
 
     @Test
@@ -105,8 +75,4 @@ public class TabTests extends BaseTestClass{
         //assert the title is correct
         Utils.assertArticleTitleContains(newArticleNameCapitalized);
     }
-
-
-
-
 }

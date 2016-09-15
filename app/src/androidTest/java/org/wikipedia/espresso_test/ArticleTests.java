@@ -58,7 +58,6 @@ public class ArticleTests extends BaseTestClass{
     }
 
     @Test
-    @Ignore
     public void testTableOfContents_checkSubTitles(){
 
         Utils.openSearchFromStartScreen();
@@ -87,24 +86,6 @@ public class ArticleTests extends BaseTestClass{
     }
 
     @Test
-    public void testScrollingToC_clickSubHeading(){
-        //open article and table of contents
-        Utils.openSearchFromStartScreen();
-        Utils.searchAndOpenArticleWithName(articleName1, articleToString1, startActivity);
-        Utils.openToC();
-
-        //article1_referenceSubHeading
-        onData(withToCLine(article1_referenceSubHeading))
-                .inAdapterView(withId(R.id.page_toc_list))
-                .perform(click());
-
-        //make sure we the title bar is no longer visible (so we at least moved somewhere)
-        onView(allOf(withId(R.id.view_article_header_text), withText(containsString(articleName1))))
-                .check(matches(not(isDisplayed())));
-
-    }
-
-    @Test
     public void testClickLink_fullText_assertPreviewShown(){
 
         //open article
@@ -121,7 +102,6 @@ public class ArticleTests extends BaseTestClass{
     }
 
     @Test
-    @Ignore
     public void testClickLink_partialText_assertPreviewShown(){
         //open article
         Utils.openSearchFromStartScreen();
@@ -137,7 +117,6 @@ public class ArticleTests extends BaseTestClass{
     }
 
     @Test
-    @Ignore
     public void testOpeningAndClosingReferences(){
 
         //navigate to the article
