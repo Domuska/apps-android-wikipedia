@@ -62,9 +62,4 @@ public class TabTests extends BaseTestClass{
 
     }
 
-    public void testOpenArticleInNewTab(){
-        fail("clicking on links dun work.");
-        solo.clickOnWebElement(By.xpath("//*[@id=\"content_block_0\"]/span[2]/p/a[1]"));
-        ////*[@id="content_block_0"]/span[2]/p/a[1]
-    }
 }

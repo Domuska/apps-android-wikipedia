@@ -13,8 +13,6 @@ import org.wikipedia.robotium_test.Utilities.Utils;
 
 import java.util.List;
 
-//latuasprogressbari:
-//org.wikipedia.alpha:id/main_progressbar
 
 public class ArticleTests extends BaseTestClass{
 
@@ -24,24 +22,11 @@ public class ArticleTests extends BaseTestClass{
     private String article1_references = TestDataSource.article1_referenceSubHeading;
     private String article1_title = "Final Fantasy XII\n" + "Video game";
 
-    private String fullLinkText = TestDataSource.fullLinkText1;
-    private String partialLinkText = TestDataSource.partialLinkText;
-    private String newArticleTitle = TestDataSource.newArticleTitle;
-
-
-
-    private String referencesJSId = TestDataSource.referencesElementId;
-    private String referencesJSClassName = TestDataSource.referencesJSClassName;
-    private String article1_firstReference = TestDataSource.article1_firstReference;
-
-
     public void setUp() throws Exception {
         super.setUp();
-
     }
 
     public void tearDown() throws Exception {
-        //
         super.tearDown();
     }
 
@@ -85,78 +70,5 @@ public class ArticleTests extends BaseTestClass{
         //make sure we the title bar is no longer visible (so we at least moved somewhere)
         assertFalse("title view should no longer be visible",
                 solo.searchText(article1_title, true));
-
-    }
-
-
-    //this test does not work - the link is not clicked properly by Robotium. It only touches the link.
-    public void testClickLink_fullText_assertPreviewShown(){
-
-        //open article
-        Utils.openSearchFromStartScreen(solo);
-        Utils.searchAndOpenArticleWithName(solo, articleName1);
-
-        //click on link
-        solo.clickLongOnText(fullLinkText);
-//        solo.clickOnWebElement(By.textContent(fullLinkText));
-        solo.sleep(300);
-
-        //assert a popup with article preview is shown
-//        solo.waitForView(R.id.link_preview_title);
-
-        String linkTitleText = ((TextView)solo.getView(R.id.link_preview_title))
-                .getText().toString();
-
-        assertTrue("Link preview title(" + linkTitleText + ") does not match expected text: " + newArticleTitle,
-                linkTitleText.equals(newArticleTitle));
-    }
-
-
-    //not implemented yet, since clicking on an URL does not work
-    public void testClickLink_partialText_assertPreviewShown(){
-        fail("not implemented");
-
-    }
-
-
-
-    public void testOpeningAndClosingReferences(){
-        //navigate to the article
-        Utils.openSearchFromStartScreen(solo);
-        Utils.searchAndOpenArticleWithName(solo, articleName1);
-        Utils.openToC(solo);
-//        Utils.isElementFoundInToC(solo, article1_references);
-        solo.clickOnText(article1_references);
-
-        //expand the references
-        solo.clickOnWebElement(By.className(referencesJSClassName));
-
-        //assert first reference visible
-        assertTrue("Reference " + article1_firstReference + " be visible" ,
-                solo.searchText(article1_firstReference, true));
-
-        //close references
-        solo.clickOnWebElement(By.className(referencesJSClassName));
-
-        //assert first reference no longer visible
-        assertFalse("Reference " + article1_firstReference + " should no longer be visible" ,
-                solo.searchText(article1_firstReference, true));
-    }
-
-
-
-
-    //with help of http://executeautomation.com/blog/hybridapplication-robotium/
-    private void enableWebViewJS() {
-        final WebView webView = (WebView)solo.getView(R.id.page_web_view);
-
-        InstrumentationRegistry.getInstrumentation().runOnMainSync(new Runnable() {
-            @Override
-            public void run() {
-                webView.getSettings().setJavaScriptEnabled(true);
-                webView.getSettings().setDomStorageEnabled(true);
-            }
-        });
-
     }
 }

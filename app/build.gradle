@@ -226,8 +226,7 @@ dependencies {
     androidTestCompile "com.android.support.test.espresso:espresso-idling-resource:$espressoVersion"
     androidTestCompile 'com.squareup.spoon:spoon-client:1.5.3'
     //robotium
-    //androidTestCompile 'com.jayway.android.robotium:robotium-solo:5.6.0'
-    androidTestCompile files('src/testlib/java/com/RobotiumTech/testlib/robotium-solo-5.6.1-SNAPSHOT.jar')
+    androidTestCompile 'com.jayway.android.robotium:robotium-solo:5.6.1'
 }
 
 private setSigningConfigKey(config, Properties props) {
