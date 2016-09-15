@@ -41,29 +41,6 @@ class TabTests (UITestCase):
         tap.text(articleName1)
         
         Utils.assertArticleTitleContains(articleName1)
-
-        
-    @testCaseInfo('<open article in new tab>', deviceCount=1)
-    def testOpenArticleInNewTab(self):
-        
-        log("open article")
-        Utils.openSearchFromStartScreen()
-        Utils.searchAndOpenArticleWithName(articleName1)
-        wait(1000)
-        
-        log("open article preview")
-        tap.description(newArticleName)
-        
-        log("open article in new tab")
-        tap.resourceId("org.wikipedia.alpha:id/link_preview_overflow_button")
-        tap.text(newTabText)
-        
-        log("open the article from tabs")
-        tap.resourceId("org.wikipedia.alpha:id/menu_page_show_tabs")
-        tap.text(newArticleName_full)
-        
-        log("assert the title")
-        Utils.assertArticleTitleContains(newArticleName_full)
         
         
         

@@ -55,27 +55,6 @@ class ArticleSearchTests (UITestCase):
         verify.text(articleName3)
         
         
-    @testCaseInfo('<Change language in search>', deviceCount=1)
-    def testSearchArticle_changeLanguageInSearch(self):
-        
-        Utils.openSearchFromStartScreen()
-        Utils.searchAndOpenArticleWithName(articleName3)
-        
-        log("check title is shown in default language")
-        Utils.assertArticleTitleContains(articleName3)
-        
-        log("change language in search")
-        Utils.openSearchFromArticle()
-        tap.resourceId("org.wikipedia.alpha:id/search_lang_button")
-        input.text(finnishLanguage)
-        tap.resourceId("org.wikipedia.alpha:id/localized_language_name")
-        
-        log("open article again")
-        tap.text(articleName3_finnish, resourceId="org.wikipedia.alpha:id/page_list_item_title")
-        
-        log("check language is changed")
-        Utils.assertArticleTitleContains(articleName3_finnish)
-        
         
         
         
