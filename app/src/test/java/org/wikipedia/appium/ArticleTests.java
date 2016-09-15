@@ -40,7 +40,6 @@ public class ArticleTests extends BaseTestClass{
     private String article1_firstReference = TestDataSource.article1_firstReference;
 
     @Test
-    @Ignore
     public void testTableOfContents_checkSubTitles(){
 
         Utils.openSearchFromStartScreen(driver);
@@ -71,23 +70,6 @@ public class ArticleTests extends BaseTestClass{
     }
 
     @Test
-    public void testScrollingToC_clickSubHeading(){
-        //open article and table of contents
-        Utils.openSearchFromStartScreen(driver);
-        Utils.searchAndOpenArticleWithName(driver, articleName1);
-        Utils.openToC(driver);
-
-        //scroll to subheading
-        Utils.searchInVisibleListWithName(driver, article1_referenceSubHeading).click();
-
-        //make sure we the title bar is no longer visible (so we at least moved somewhere)
-        List<MobileElement> elements =
-                driver.findElementsById("org.wikipedia.alpha:id/view_article_header_text");
-
-        assertTrue("Header should not be visible ", elements.size() == 0);
-    }
-
-    @Test
     public void testClickLink_fullText_assertPreviewShown(){
         //open article
         Utils.openSearchFromStartScreen(driver);
@@ -103,7 +85,6 @@ public class ArticleTests extends BaseTestClass{
     }
 
     @Test
-    @Ignore
     public void testClickLink_partialText_assertPreviewShown(){
         //open article
         Utils.openSearchFromStartScreen(driver);
@@ -119,7 +100,6 @@ public class ArticleTests extends BaseTestClass{
     }
 
     @Test
-    @Ignore
     public void testOpeningAndClosingReferences(){
         //navigate to the article
         Utils.openSearchFromStartScreen(driver);
