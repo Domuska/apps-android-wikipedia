@@ -73,40 +73,5 @@ public class RotationTests extends BaseTestClass{
                 .inAdapterView(withId(R.id.page_toc_list))
                 .check(matches(isDisplayed()));
     }
-
-    @Test
-    public void testOpenTab_rotatePhone(){
-
-        //open a few articles in tabs
-        Utils.openSearchFromStartScreen();
-        Utils.searchAndOpenArticleWithName(articleName1, articleToString1, startActivity);
-
-        //open link in a new tab
-        onWebView()
-                .withElement(findElement(Locator.LINK_TEXT, link1))
-                .perform(webClick());
-
-        onView(withId(R.id.link_preview_overflow_button)).perform(click());
-        onView(withText(openInNewTabText))
-                .inRoot(isPlatformPopup())
-                .perform(click());
-
-        //open tabs
-        onView(withId(R.id.menu_page_show_tabs)).perform(click());
-
-        //assert the list and elements are visible
-        assertListAndTabsVisible();
-
-        //rotate phone
-        onView(isRoot()).perform(orientationLandscape());
-
-        //assert the same views are visible
-        assertListAndTabsVisible();
-    }
-
-    private void assertListAndTabsVisible() {
-        onView(withId(R.id.tabs_list)).check(matches(isDisplayed()));
-        onView(allOf(withText(articleName1), isDisplayed())).check(matches(isDisplayed()));
-        onView(withText(link1ArticleName)).check(matches(isDisplayed()));
-    }
+    
 }
