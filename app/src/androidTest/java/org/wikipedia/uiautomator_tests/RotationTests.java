@@ -61,38 +61,6 @@ public class RotationTests extends BaseTestClass{
                 notNullValue());
     }
 
-    @Test(timeout=50000)
-    public void testOpenTab_rotatePhone() throws Exception{
-
-        //open a few articles in tabs
-        Utils.openSearchFromStartScreen(device);
-        Utils.searchAndOpenArticleWithName(device, articleName1);
-
-        //open link in a new tab
-        device.findObject(By.desc(link1)).click();
-
-        device.wait(Until.findObject(
-                By.res("org.wikipedia.alpha:id/link_preview_overflow_button")), GENERAL_TIMEOUT)
-                .click();
-        device.wait(Until.findObject(
-                By.text(openInNewTabText)), GENERAL_TIMEOUT)
-                .click();
-
-        //open tabs
-        device.wait(Until.findObject(
-                By.res("org.wikipedia.alpha:id/menu_page_show_tabs")), GENERAL_TIMEOUT)
-                .click();
-
-        //assert the list and elements are visible
-        assertListAndTabsVisible();
-
-        //rotate phone
-        device.setOrientationLeft();
-
-        //assert the same views are visible
-        assertListAndTabsVisible();
-    }
-
     private void assertListAndTabsVisible() {
         UiObject2 tabsList = device.wait(Until.findObject(
                 By.res("org.wikipedia.alpha:id/tabs_list")), GENERAL_TIMEOUT);
