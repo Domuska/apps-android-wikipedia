@@ -36,35 +36,3 @@ class RotationTests (UITestCase):
         verify.resourceId("org.wikipedia.alpha:id/page_toc_list")
         verify.text(firstSubHeading)
         
-        
-    @testCaseInfo('<rotate phone when tabs is open>', deviceCount=1)
-    def testOpenTab_rotatePhone(self):
-        
-        #this test works, somehow. Might not work in future.
-        #just happened that the link 1 can be clicked with tap.description
-        log("open article")
-        Utils.openSearchFromStartScreen()
-        Utils.searchAndOpenArticleWithName(articleName1)
-        wait(1500)
-        
-        log("open link in a new tab")
-        tap.description(link1)
-        tap.resourceId('org.wikipedia.alpha:id/link_preview_overflow_button')
-        tap.text('Open in new tab')
-        
-        log("go to tabs and assert list is visible")
-        tap.description('Show tabs')
-        verify.resourceId("org.wikipedia.alpha:id/tabs_list")
-        verify.text(articleName1, regex = True)
-        verify.text(link1ArticleName)
-        
-        log("rotate phone")
-        orientation.left()
-        
-        log("assert list still visible")
-        verify.resourceId("org.wikipedia.alpha:id/tabs_list")
-        verify.text(articleName1, regex = True)
-        verify.text(link1ArticleName)
-        
-        
-        
