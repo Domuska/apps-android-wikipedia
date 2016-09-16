@@ -52,7 +52,6 @@ public class Utils {
 
     public static void assertArticleTitleContains(Solo solo, String name){
         //wait for article
-//        if(solo.waitForText(name)) {
         if(solo.waitForView(R.id.view_article_header_text)){
             String titleText = ((TextView) solo.getView(R.id.view_article_header_text))
                     .getText().toString();
