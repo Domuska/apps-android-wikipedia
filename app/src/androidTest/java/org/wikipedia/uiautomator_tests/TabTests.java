@@ -35,8 +35,10 @@ public class TabTests  extends BaseTestClass{
         Utils.searchAndOpenArticleWithName(device, articleName1);
 
         //open a new tab
-        device.findObject(By.res("org.wikipedia.alpha:id/menu_page_show_tabs"))
-                .click();
+        //device.findObject(By.res("org.wikipedia.alpha:id/menu_page_show_tabs"))
+        //    .click();
+        device.wait(Until.findObject(By.res("org.wikipedia.alpha:id/menu_page_show_tabs")),
+                GENERAL_TIMEOUT).click();
 
         //click new tab button
         device.wait(Until.findObject(
