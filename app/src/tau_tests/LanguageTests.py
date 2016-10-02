@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
+from Utilities import TestDataSource, Utils
 class LanguageTests(UITestCase):
 
     def setUp(self):
+        global articleName, finnishLanguage, articleName_finnish
         articleName = TestDataSource.articleName3
         finnishLanguage = TestDataSource.finnishLanguage
         articleName_finnish = TestDataSource.articleName3_finnish
@@ -33,7 +35,7 @@ class LanguageTests(UITestCase):
         
     
     @testCaseInfo('<change language in article>', deviceCount=1)
-    def testChangeLanguage(self):
+    def testSearchArticle_changeLanguageInArticle(self):
         
         log("open article")
         Utils.openSearchFromStartScreen()

@@ -27,15 +27,3 @@ class ArticleTests (UITestCase):
         
         log("make sure we the title bar is no longer visible")
         verify.no.resourceId("org.wikipedia.alpha:id/view_article_header_text")
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
