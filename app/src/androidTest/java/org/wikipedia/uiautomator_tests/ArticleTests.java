@@ -40,6 +40,7 @@ public class ArticleTests extends BaseTestClass{
         Utils.openToc(device);
 
         //click subtitles subheading
+        device.wait(Until.findObject(By.res("org.wikipedia.alpha:id/page_toc_list")), GENERAL_TIMEOUT);
         UiScrollable tocList = new UiScrollable(new UiSelector()
                 .resourceId("org.wikipedia.alpha:id/page_toc_list"));
 
