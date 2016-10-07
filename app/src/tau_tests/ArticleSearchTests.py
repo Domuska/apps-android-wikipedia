@@ -1,9 +1,32 @@
 # -*- coding: utf-8 -*-
 from Utilities import TestDataSource, Utils
-
+from datetime import datetime, time
 class ArticleSearchTests (UITestCase):
     
     def setUp(self):
+        #FOLLOWING ROWS ONLY FOR TEST LOGGING PURPOSES, NOT PART OF TEST
+        log("write starting time to .csv for measurement purposes")
+        timeNow = datetime.now()
+        hourNow = str(timeNow.hour)
+        minuteNow = str(timeNow.minute)
+        secondNow = str(timeNow.second)
+        
+        if timeNow.hour < 10:
+            hourNow = "0" + hourNow
+        if timeNow.minute < 10:
+            minuteNow = "0" + minuteNow
+        if timeNow.second < 10:
+            secondNow = "0" + secondNow
+        
+        #read time to temp file, used in the last test to calculate test execution time
+        tempFile = open(r"C:\Users\\Tomi\testAutomation\measurements\wikipedia\wifi\native\tau\temp.txt", "w")
+        tempFile.write(hourNow + "\n")
+        tempFile.write(minuteNow + "\n")
+        tempFile.write(secondNow)
+        tempFile.close()
+        #TEST CODE STARTS FROM HERE
+        
+        
         global articleName1, articleName2, articleName3, recentSearchesText,\
         finnishLanguage, articleName3_finnish
         articleName1 = TestDataSource.articleName1
@@ -15,7 +38,7 @@ class ArticleSearchTests (UITestCase):
         finnishLanguage = TestDataSource.finnishLanguage
         articleName3_finnish = TestDataSource.articleName3_finnish
         
-        launch.activity('org.wikipedia.alpha', 'org.wikipedia.MainActivity', verify=False)
+        launch.activity('org.wikipedia.alpha', 'org.wikipedia.MainActivity', verify=True)
         
     def tearDown(self):
         packages.clearData('org.wikipedia.alpha')

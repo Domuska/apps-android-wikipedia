@@ -9,7 +9,7 @@ class ArticleTests (UITestCase):
         articleName1 = TestDataSource.articleName1
         article1_referenceSubHeading = TestDataSource.article1_referenceSubHeading
         
-        launch.activity('org.wikipedia.alpha', 'org.wikipedia.MainActivity', verify=False)
+        launch.activity('org.wikipedia.alpha', 'org.wikipedia.MainActivity', verify=True)
             
     def tearDown(self):
         packages.clearData('org.wikipedia.alpha')

@@ -7,7 +7,7 @@ class LanguageTests(UITestCase):
         articleName = TestDataSource.articleName3
         finnishLanguage = TestDataSource.finnishLanguage
         articleName_finnish = TestDataSource.articleName3_finnish
-        launch.activity('org.wikipedia.alpha', 'org.wikipedia.MainActivity', verify=False)
+        launch.activity('org.wikipedia.alpha', 'org.wikipedia.MainActivity', verify=True)
         
     def tearDown(self):
         packages.clearData('org.wikipedia.alpha')

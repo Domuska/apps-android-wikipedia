@@ -10,7 +10,7 @@ class RotationTests (UITestCase):
         link1 = TestDataSource.fullLinkText1
         link1ArticleName = TestDataSource.link1ArticleName
         
-        launch.activity('org.wikipedia.alpha', 'org.wikipedia.MainActivity', verify=False)
+        launch.activity('org.wikipedia.alpha', 'org.wikipedia.MainActivity', verify=True)
                 
     def tearDown(self):
         orientation.portrait()

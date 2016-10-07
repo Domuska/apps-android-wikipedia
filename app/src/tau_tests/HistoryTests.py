@@ -9,7 +9,7 @@ class HistoryTests (UITestCase):
         articleName2 = TestDataSource.articleName2
         articleName3 = TestDataSource.articleName3
         
-        launch.activity('org.wikipedia.alpha', 'org.wikipedia.MainActivity', verify=False)
+        launch.activity('org.wikipedia.alpha', 'org.wikipedia.MainActivity', verify=True)
 
     def tearDown(self):
         packages.clearData('org.wikipedia.alpha')

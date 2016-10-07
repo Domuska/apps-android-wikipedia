@@ -10,7 +10,7 @@ class ReadingListTests (UITestCase):
         gotItText = "Got it"
         readingListText = "Reading lists"
         
-        launch.activity('org.wikipedia.alpha', 'org.wikipedia.MainActivity', verify=False)
+        launch.activity('org.wikipedia.alpha', 'org.wikipedia.MainActivity', verify=True)
                     
     def tearDown(self):
         packages.clearData('org.wikipedia.alpha')
