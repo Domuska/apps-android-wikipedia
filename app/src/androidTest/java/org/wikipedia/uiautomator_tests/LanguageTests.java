@@ -76,7 +76,8 @@ public class LanguageTests extends BaseTestClass{
         device.wait(Until.findObject(
                 By.res("org.wikipedia.alpha:id/search_lang_button")), GENERAL_TIMEOUT)
                 .click();
-        device.findObject(By.res("org.wikipedia.alpha:id/preference_languages_filter"))
+        device.wait(Until.findObject(
+                By.res("org.wikipedia.alpha:id/preference_languages_filter")), GENERAL_TIMEOUT)
                 .setText(finnishLanguage);
         device.findObject(By.res("org.wikipedia.alpha:id/localized_language_name"))
                 .click();

@@ -54,10 +54,12 @@ public class ReadingListTests extends BaseTestClass{
         device.wait(Until.hasObject(
                 By.res("org.wikipedia.alpha:id/view_article_header_text")), GENERAL_TIMEOUT);
         Utils.openDrawer(device);
-        device.findObject(By.text(readingListText)).click();
+        device.wait(Until.findObject(By.text(readingListText)), GENERAL_TIMEOUT)
+                .click();
         device.wait(Until.findObject(By.text(readingListName)), GENERAL_TIMEOUT)
                 .click();
-        device.findObject(By.text(readingListName)).click();
+        device.wait(Until.findObject(By.text(readingListName)), GENERAL_TIMEOUT)
+                .click();
 
         UiObject2 article = device.wait(Until.findObject(By.text(articleName1)), GENERAL_TIMEOUT);
         assertThat("Article: " + articleName1 + " not visible in reading list: " + readingListName,
