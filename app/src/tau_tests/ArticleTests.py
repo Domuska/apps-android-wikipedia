@@ -38,7 +38,7 @@ class ArticleTests (UITestCase):
         packages.clearData('org.wikipedia.alpha')
         
         
-    @testCaseInfo('<click subheading, see screen moved>', deviceCount=1)
+    @testCaseInfo('<FIRST_TEST click subheading, see screen moved>', deviceCount=1)
     def testScrollingToC_clickSubHeading(self):
         
         log("open article and table of contents")
