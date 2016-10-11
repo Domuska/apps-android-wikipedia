@@ -77,9 +77,9 @@ class TabTests (UITestCase):
         Utils.searchAndOpenArticleWithName(articleName1)
         
         log("open a new tab")
-        tap.resourceId("org.wikipedia.alpha:id/menu_page_show_tabs")
+        tap.resourceId("org.wikipedia.alpha:id/menu_page_show_tabs", wait=30000)
         tap.description('More options')
-        tap.text(newTabDefaultText)
+        tap.text(newTabDefaultText, wait=30000)
         
         log("navigate to another article")
         Utils.openSearchFromArticle()

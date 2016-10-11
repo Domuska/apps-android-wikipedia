@@ -44,9 +44,16 @@ class ArticleTests (UITestCase):
         log("open article and table of contents")
         Utils.openSearchFromStartScreen()
         Utils.searchAndOpenArticleWithName(articleName1)
-        Utils.openToC()
+        #Utils.openToC()
+        log("Open Table of Contents")
+        verify.resourceId('org.wikipedia.alpha:id/floating_toc_button', wait = 30000)
+        swipe.location((0.99, 0.5)).to.location((0.5, 0.5))
         
         tap.text(article1_referenceSubHeading, area = "org.wikipedia.alpha:id/page_toc_list")
         
         log("make sure we the title bar is no longer visible")
+        
         verify.no.resourceId("org.wikipedia.alpha:id/view_article_header_text")
+        
+        
+        

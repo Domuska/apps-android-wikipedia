@@ -929,7 +929,8 @@ public class PageFragment extends Fragment implements BackPressedHandler {
             getTopMostTab().getBackStack().add(new PageBackStackItem(title, entry));
         }
         // and... that should be it.
-        tabsProvider.showAndHideTabs();
+        //removed by Domuska for testing purposes
+        //tabsProvider.showAndHideTabs();
     }
 
     private boolean noPagesOpen() {

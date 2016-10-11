@@ -42,8 +42,8 @@ class LanguageTests(UITestCase):
         Utils.searchAndOpenArticleWithName(articleName)
         
         log("open overflow menu in toolbar")
-        tap.description('More options')
-        tap.text('Change language')
+        tap.description('More options', wait=30000)
+        tap.text('Change language', wait=30000)
         
         log("change language to finnish")
         

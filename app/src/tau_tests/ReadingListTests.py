@@ -23,14 +23,14 @@ class ReadingListTests (UITestCase):
         Utils.searchAndOpenArticleWithName(articleName1)
         
         log("add it to reading list")
-        tap.resourceId('org.wikipedia.alpha:id/view_article_menu_bar_bookmark')
-        tap.text(gotItText)
+        tap.resourceId('org.wikipedia.alpha:id/view_article_menu_bar_bookmark', wait=30000)
+        tap.text(gotItText, wait=300000)
         input.text(readingListName)
-        tap.resourceId('android:id/button1')
+        tap.resourceId('android:id/button1', wait=30000)
         
         log("open reading lists and assert article is visible in the list")
         Utils.openDrawer()
-        tap.text(readingListText)
+        tap.text(readingListText, wait=300000)
         
         tap.text(readingListName)
         verify.text(articleName1)
