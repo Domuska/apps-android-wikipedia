@@ -60,8 +60,8 @@ class TabTests (UITestCase):
         
         #write the test execution time to .csv file
         testName = "2016_10_7-12_14" + ".csv"
-        filename = "tau_tests-"
-        filename += testName
+        filename = "tau_tests-wikipedia.csv"
+        #filename += testName
         log("opening .csv")
         csvFile = open(measurementPath + filename, "a")
         log("writing to csv")
