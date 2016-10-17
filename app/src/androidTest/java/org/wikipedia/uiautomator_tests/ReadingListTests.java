@@ -65,6 +65,7 @@ public class ReadingListTests extends BaseTestClass{
         assertThat("Article: " + articleName1 + " not visible in reading list: " + readingListName,
                 article, is(notNullValue()));
 
+
         //open the article and assert title is correct
         article.click();
         Utils.assertArticleTitleContains(device, articleName1);
