@@ -20,7 +20,7 @@ class ArticleTests (UITestCase):
             secondNow = "0" + secondNow
         
         #read time to temp file, used in the last test to calculate test execution time
-        tempFile = open(r"C:\Users\\Tomi\testAutomation\measurements\wikipedia\4g\native\tau\temp.txt", "w")
+        tempFile = open(r"C:\Users\\Tomi\testAutomation\measurements\wikipedia\wifi\native\tau\temp.txt", "w")
         tempFile.write(hourNow + "\n")
         tempFile.write(minuteNow + "\n")
         tempFile.write(secondNow)
