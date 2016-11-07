@@ -24,7 +24,7 @@ class TabTests (UITestCase):
         #with help from
         #http://stackoverflow.com/questions/3096953/difference-between-two-time-intervals-in-python
         timeNow = datetime.now()
-        measurementPath = r"C:\Users\\Tomi\testAutomation\measurements\wikipedia\5g\native\tau\\"
+        measurementPath = r"C:\Users\\Tomi\testAutomation\measurements\wikipedia\4g\native\tau\\"
         hourNow = str(timeNow.hour)
         minuteNow = str(timeNow.minute)
         secondNow = str(timeNow.second)
