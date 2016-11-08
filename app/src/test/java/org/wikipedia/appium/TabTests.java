@@ -2,13 +2,9 @@ package org.wikipedia.appium;
 
 import org.junit.Test;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.wikipedia.appium.Utilities.TestDataSource;
 import org.wikipedia.appium.Utilities.Utils;
-
-import static junit.framework.Assert.assertTrue;
-import static junit.framework.Assert.fail;
 
 public class TabTests extends BaseTestClass{
 

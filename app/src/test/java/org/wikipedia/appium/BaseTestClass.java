@@ -12,8 +12,6 @@ import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.remote.MobileCapabilityType;
 
-import static junit.framework.Assert.assertTrue;
-
 
 // credit to http://qaautomated.blogspot.fi/2016/01/setting-up-appium-with-android-studio.html
 // for skeleton of this file and instructions on how to setup Appium with Android Studio
