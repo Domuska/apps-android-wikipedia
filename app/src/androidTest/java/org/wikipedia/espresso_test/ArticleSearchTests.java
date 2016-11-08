@@ -1,6 +1,11 @@
 package org.wikipedia.espresso_test;
 
 
+import android.database.Cursor;
+import android.support.test.espresso.matcher.BoundedMatcher;
+import android.support.test.filters.LargeTest;
+import android.support.test.runner.AndroidJUnit4;
+
 import org.hamcrest.Matcher;
 import org.junit.Before;
 import org.junit.Test;
@@ -9,25 +14,13 @@ import org.wikipedia.R;
 import org.wikipedia.espresso_test.Utilities.Utils;
 import org.wikipedia.search.RecentSearch;
 
-import android.database.Cursor;
-import android.support.test.espresso.matcher.BoundedMatcher;
-import android.support.test.filters.LargeTest;
-import android.support.test.runner.AndroidJUnit4;
-
 import static android.support.test.espresso.Espresso.onData;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
-import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
-import static android.support.test.espresso.web.assertion.WebViewAssertions.webMatches;
-import static android.support.test.espresso.web.sugar.Web.onWebView;
-import static org.hamcrest.Matchers.allOf;
-import static org.hamcrest.Matchers.contains;
-import static org.hamcrest.Matchers.hasToString;
-import static org.hamcrest.Matchers.is;
 
 
 @RunWith(AndroidJUnit4.class)

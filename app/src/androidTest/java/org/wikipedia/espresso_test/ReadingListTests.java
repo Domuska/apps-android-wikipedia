@@ -1,8 +1,5 @@
 package org.wikipedia.espresso_test;
 
-import android.support.design.widget.NavigationView;
-import android.support.test.espresso.contrib.RecyclerViewActions;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.wikipedia.R;
@@ -14,15 +11,10 @@ import static android.support.test.espresso.action.ViewActions.clearText;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
-import static android.support.test.espresso.matcher.ViewMatchers.hasDescendant;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
-import static android.support.test.espresso.matcher.ViewMatchers.withClassName;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
-import static android.support.test.espresso.matcher.ViewMatchers.withParent;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
-
 import static org.hamcrest.Matchers.allOf;
-import static org.hamcrest.Matchers.endsWith;
 
 public class ReadingListTests extends BaseTestClass{
 

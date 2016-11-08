@@ -1,7 +1,6 @@
 package org.wikipedia.espresso_test;
 
 import android.support.test.espresso.Espresso;
-import android.support.test.espresso.web.webdriver.Locator;
 
 import org.junit.After;
 import org.junit.Before;
@@ -13,20 +12,10 @@ import org.wikipedia.espresso_test.Utilities.Utils;
 
 import static android.support.test.espresso.Espresso.onData;
 import static android.support.test.espresso.Espresso.onView;
-import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
-import static android.support.test.espresso.matcher.RootMatchers.isPlatformPopup;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.isRoot;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
-import static android.support.test.espresso.matcher.ViewMatchers.withText;
-import static android.support.test.espresso.web.sugar.Web.onWebView;
-import static android.support.test.espresso.web.webdriver.DriverAtoms.findElement;
-import static android.support.test.espresso.web.webdriver.DriverAtoms.webClick;
-import static junit.framework.Assert.fail;
-
-
-import static org.hamcrest.Matchers.allOf;
 import static org.wikipedia.espresso_test.Utilities.OrientationChangeAction.orientationLandscape;
 import static org.wikipedia.espresso_test.Utilities.Utils.withToCLine;
 
