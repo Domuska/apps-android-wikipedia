@@ -1,25 +1,14 @@
 package org.wikipedia.appium;
 
-import org.junit.Ignore;
 import org.junit.Test;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.wikipedia.appium.Utilities.TestDataSource;
 import org.wikipedia.appium.Utilities.Utils;
 
 import java.util.List;
 
 import io.appium.java_client.MobileElement;
-import io.appium.java_client.android.AndroidElement;
 
-import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertTrue;
-import static junit.framework.Assert.fail;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.containsString;
-import static org.hamcrest.core.Is.is;
-import static org.hamcrest.core.IsNot.not;
 
 public class ArticleTests extends BaseTestClass{
 
