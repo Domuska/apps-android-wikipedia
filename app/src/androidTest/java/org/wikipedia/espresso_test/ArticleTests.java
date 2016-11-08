@@ -1,23 +1,18 @@
 package org.wikipedia.espresso_test;
 
-import android.support.test.espresso.matcher.BoundedMatcher;
 import android.support.test.espresso.web.webdriver.Locator;
 import android.support.test.filters.LargeTest;
 import android.support.test.runner.AndroidJUnit4;
 
-import org.hamcrest.Matcher;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wikipedia.R;
 import org.wikipedia.espresso_test.Utilities.TestDataSource;
 import org.wikipedia.espresso_test.Utilities.Utils;
-import org.wikipedia.page.PageTitle;
 
 import static android.support.test.espresso.Espresso.onData;
 import static android.support.test.espresso.Espresso.onView;
-import static android.support.test.espresso.Espresso.openActionBarOverflowOrOptionsMenu;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
