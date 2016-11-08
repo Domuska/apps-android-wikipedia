@@ -1,26 +1,13 @@
 package org.wikipedia.uiautomator_tests;
 
-import android.graphics.Point;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.uiautomator.By;
-import android.support.test.uiautomator.UiDevice;
-import android.support.test.uiautomator.UiObject;
-import android.support.test.uiautomator.UiObject2;
-import android.support.test.uiautomator.UiScrollable;
-import android.support.test.uiautomator.UiSelector;
 import android.support.test.uiautomator.Until;
-import android.widget.LinearLayout;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.wikipedia.R;
-import org.wikipedia.uiautomator_tests.Utils.TestDataSource;
 import org.wikipedia.uiautomator_tests.Utils.Utils;
-
-import static junit.framework.Assert.fail;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.core.Is.is;
-import static org.hamcrest.core.StringStartsWith.startsWith;
 
 public class ArticleSearchTests extends BaseTestClass{
 
